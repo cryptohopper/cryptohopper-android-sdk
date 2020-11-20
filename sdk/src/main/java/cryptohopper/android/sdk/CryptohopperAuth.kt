@@ -1,0 +1,23 @@
+package cryptohopper.android.sdk
+
+import HopperAPIAuthenticationRequest
+import HopperError
+import android.content.Context
+import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIEnvironment
+
+class CryptohopperAuth {
+
+    companion object {
+
+        fun login(username: String,password: String,callback: (String?,HopperError?) -> Unit) {
+            HopperAPIAuthenticationRequest(username,password).request({response ->
+                HopperAPISessionManager.shared.handleAuthResponse(response)
+                callback("Successfully Logged In",null)
+            },{error ->
+                callback(null,error)
+            })
+        }
+
+    }
+
+}
