@@ -8,7 +8,7 @@
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIHttpMethod
 
 
-class HopperAPIGetReservedPositionsRequest: HopperAPIRequest<HopperCommonMessageResponse> {
+class HopperAPIGetReservedPositionsRequest: HopperAPIRequest<HopperAPIGetReservedPositionsResponse> {
     
     constructor(hopperId : String) {
         this.httpMethod = HopperAPIHttpMethod.GET

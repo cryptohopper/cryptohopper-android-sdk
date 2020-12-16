@@ -24,6 +24,9 @@ class HopperAPISessionManager {
             val clientId = HopperAPIConfigurationManager.shared.config.clientId ?: return null
             val sharedPref = HopperAPIConfigurationManager.shared.config.context?.getSharedPreferences("cryptohopper-android-group", Context.MODE_PRIVATE) ?: return null
             val aToken = sharedPref.getString("$clientId#AccessToken","")
+            if(aToken == "" || aToken == null){
+                return null
+            }
             val rToken = sharedPref.getString("$clientId#RefreshToken","")
             val aTokenDate = sharedPref.getLong("$clientId#AccessTokenExpiresAt",0)
             val hSession = HopperAPISession(aToken ?: "",rToken ?: "",Date(aTokenDate))
@@ -37,6 +40,10 @@ class HopperAPISessionManager {
                     this?.putString("$clientId#AccessToken",newValue.accessToken)
                     this?.putString("$clientId#RefreshToken",newValue.refreshToken)
                     newValue.accessTokenExpiresAt?.time?.let { this?.putLong("$clientId#AccessTokenExpiresAt", it) }
+                }else{
+                    this?.remove("$clientId#AccessToken")
+                    this?.remove("$clientId#AccessTokenExpiresAt")
+                    this?.remove("$clientId#AccessTokenExpiresAt")
                 }
                 this?.apply()
             }
@@ -44,7 +51,7 @@ class HopperAPISessionManager {
 
 
 
-    private val hasSession: Boolean
+    val hasSession: Boolean
         get() {
             return session != null
         }

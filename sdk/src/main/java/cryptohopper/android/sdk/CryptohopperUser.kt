@@ -16,6 +16,16 @@ class CryptohopperUser {
             })
         }
 
+        /// Get User Profile
+        ///
+        fun forgetPassword(email:String ,callback: (String?, HopperError?) -> Unit) {
+            HopperAPIForgetPasswordRequest(email).request({ data ->
+                callback(data.data,null)
+            } ,{ error ->
+                callback(null,error)
+            })
+        }
+
         /// Update User Profile
         ///
         ///- Parameter name: (required) name

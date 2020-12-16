@@ -8,7 +8,7 @@
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIHttpMethod
 
 
-class HopperAPIGetShortsRequest: HopperAPIRequest<HopperCommonMessageResponse> {
+class HopperAPIGetShortsRequest: HopperAPIRequest<HopperAPIGetShortsResponse> {
     
     constructor(hopperId : String) {
         this.httpMethod = HopperAPIHttpMethod.GET

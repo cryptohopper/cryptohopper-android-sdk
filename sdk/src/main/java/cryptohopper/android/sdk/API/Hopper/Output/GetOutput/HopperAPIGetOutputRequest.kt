@@ -9,7 +9,7 @@ import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIHttpMethod
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HopperAPIGetOutputRequest: HopperAPIRequest<HopperCommonMessageResponse> {
+class HopperAPIGetOutputRequest: HopperAPIRequest<HopperAPIGetOutputResponse> {
     
     constructor(hopperId: String, dateFrom: Date, dateTo: Date, entryType: HopperSearchOptionsItemEntry, sortField: HopperSearchOptionsItemSortField, sortOrder: HopperSearchOptionsItemSortOrder, page: Int, perPage: Int) {
 

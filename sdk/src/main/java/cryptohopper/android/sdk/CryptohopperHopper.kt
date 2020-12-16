@@ -1,5 +1,7 @@
 
 
+import cryptohopper.android.sdk.SharedModels.Hopper.Models.HopperOutput
+import cryptohopper.android.sdk.SharedModels.Hopper.Models.HopperTradeHistory
 import java.util.*
 
 class CryptohopperHopper {
@@ -679,7 +681,7 @@ class CryptohopperHopper {
         /// Get Short Positions
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getShortPositions(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun getShortPositions(hopperId : String,callback: (List<HopperShortPosition>?, HopperError?) -> Unit) {
             HopperAPIGetShortsRequest(hopperId).request ({ data ->
                     callback(data.data,null)
             },{error ->
@@ -691,7 +693,7 @@ class CryptohopperHopper {
         /// Get Reserved Positions
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getReservedPositions(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun getReservedPositions(hopperId : String,callback: (List<HopperReserved>?, HopperError?) -> Unit) {
             HopperAPIGetReservedPositionsRequest( hopperId).request ({ data ->
                     callback(data.data,null)
             },{error ->
@@ -1007,7 +1009,7 @@ class CryptohopperHopper {
         /// Get Trade History of Hopper
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getTradeHistory(hopperId : String,callback: (List<HopperOrder>?, HopperError?) -> Unit) {
+        fun getTradeHistory(hopperId : String,callback: (List<HopperTradeHistory>?, HopperError?) -> Unit) {
             HopperAPIGetTradeHistoryRequest(hopperId).request ({ data ->
                     callback(data.data?.trades,null)
             },{error ->
@@ -1031,7 +1033,7 @@ class CryptohopperHopper {
         /// Get Trade History of Hopper
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getOutput(hopperId : String, dateFrom : Date, dateTo : Date, entryType: HopperSearchOptionsItemEntry, sortField : HopperSearchOptionsItemSortField, sortOrder : HopperSearchOptionsItemSortOrder, page : Int, perPage : Int, callback: (String?, HopperError?) -> Unit) {
+        fun getOutput(hopperId : String, dateFrom : Date, dateTo : Date, entryType: HopperSearchOptionsItemEntry, sortField : HopperSearchOptionsItemSortField, sortOrder : HopperSearchOptionsItemSortOrder, page : Int, perPage : Int, callback: (List<HopperOutput>?, HopperError?) -> Unit) {
             HopperAPIGetOutputRequest( hopperId,  dateFrom,  dateTo,  entryType,  sortField,  sortOrder,  page,  perPage).request ({ data ->
                     callback(data.data,null)
             },{error ->

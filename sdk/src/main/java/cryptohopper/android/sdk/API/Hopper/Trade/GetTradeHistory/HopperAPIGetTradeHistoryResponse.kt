@@ -6,11 +6,12 @@
 //
 
 import com.google.gson.annotations.SerializedName
+import cryptohopper.android.sdk.SharedModels.Hopper.Models.HopperTradeHistory
 
 data class HopperAPIGetTradeHistoryResponse (
         @SerializedName("data") val data: HopperAPIGetTradeHistoryData?
 )
 
 data class HopperAPIGetTradeHistoryData (
-        @SerializedName("trades") val trades: List<HopperOrder>?
+        @SerializedName("trades") val trades: List<HopperTradeHistory>?
 )

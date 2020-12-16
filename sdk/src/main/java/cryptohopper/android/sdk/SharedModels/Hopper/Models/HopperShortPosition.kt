@@ -1,37 +1,31 @@
-//
-//  HopperPosition.swift
-//  Cryptohopper-iOS-SDK
-//
-//  Created by Kaan Baris Bayrak on 30/10/2020.
-//
-
-import java.util.*
 import com.google.gson.annotations.SerializedName
 import cryptohopper.android.sdk.SharedModels.Hopper.Models.TAValue
 
-data class HopperPosition (
+data class HopperShortPosition (
         @SerializedName("id") val id: String?,
         @SerializedName("pair") val pair: String?,
+        @SerializedName("exchange") val exchange: String?,
         @SerializedName("currency") val currency: String?,
         @SerializedName("amount") val amount: String?,
         @SerializedName("rate") val rate: String?,
-        @SerializedName("buy_id") val buyId: String?,
-        @SerializedName("order_id") val orderId: String?,
-        @SerializedName("sell_id") val sellId: String?,
+        @SerializedName("val") val value: String?,
+        @SerializedName("btc") val btc: String?,
+        @SerializedName("start_profit") val startProfit: String?,
+        @SerializedName("start_rate") val startRate: String?,
         @SerializedName("buy_trigger") val buyTrigger: String?,
         @SerializedName("sell_trigger") val sellTrigger: String?,
-        @SerializedName("ta_values") val taValues: TAValue?,
         @SerializedName("percentage_profit") val percentageProfit: String?,
+        @SerializedName("ta_values") val taValue: TAValue?,
+        @SerializedName("sell_rate") val sellRate: String?,
+        @SerializedName("sell_time") val sellTime: String?,
+        @SerializedName("buy_time") val buyTime: String?,
+        @SerializedName("buy_rate") val buyRate: String?,
         @SerializedName("stop_loss") val stopLoss: String?,
         @SerializedName("stop_loss_percentage") val stopLossPercentage: String?,
-        @SerializedName("sell_rate") val sellRate: String?,
         @SerializedName("trailing_percentage") val trailingPercentage: String?,
         @SerializedName("trailing_arm") val trailingArm: String?,
         @SerializedName("trailing_arm_percentage") val trailingArmPercentage: String?,
-        @SerializedName("buy_time") val buyTime: String?,
-        @SerializedName("sell_time") val sellTime: String?,
         @SerializedName("auto_close_time") val autoCloseTime: String?,
-        @SerializedName("hold") val hold: String?,
-        @SerializedName("sold") val sold: String?,
-        @SerializedName("cost") val cost: String?
+        @SerializedName("auto_remove_time") val autoRemoveTime: String?,
+        @SerializedName("hold") val hold: String?
 )

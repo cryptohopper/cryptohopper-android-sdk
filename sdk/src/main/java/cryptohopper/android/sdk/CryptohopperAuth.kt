@@ -18,6 +18,14 @@ class CryptohopperAuth {
             })
         }
 
+        fun logout() {
+            HopperAPISessionManager.shared.removeSession()
+        }
+
+        fun isAuthenticated(): Boolean {
+            return HopperAPISessionManager.shared.hasSession
+        }
+
     }
 
 }
