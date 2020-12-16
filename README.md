@@ -15,7 +15,7 @@ add a dependency to your app's build.grade as follows
 
 ```
 dependencies {
-            implementation 'com.github.cryptohopper:cryptohopper-android-sdk:1.0.1'
+            implementation 'com.github.cryptohopper:cryptohopper-android-sdk:1.0.2'
     }
 ```
 
