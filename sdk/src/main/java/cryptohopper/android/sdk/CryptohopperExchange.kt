@@ -10,7 +10,7 @@ class CryptohopperExchange {
         /// Get User Profile
         ///
         fun getUserProfile(callback: (UserProfile?, HopperError?) -> Unit) {
-            HopperAPIGetUserProfileRequest("").request({ data ->
+            HopperAPIGetUserProfileRequest("").request<HopperAPIGetUserProfileResponse>({ data ->
                 callback(data.userProfile,null)
             } ,{ error ->
                 callback(null,error)
@@ -22,7 +22,7 @@ class CryptohopperExchange {
         /// Get Exchanges
         ///
         fun getExchanges(callback : (List<Exchange>?, HopperError?) -> Unit) {
-            HopperAPIGetExchangeRequest("").request({ data ->
+            HopperAPIGetExchangeRequest("").request<HopperAPIGetExchangeResponse>({ data ->
                     callback(data.exchanges,null)
             } , { error ->
                     callback(null,error)
@@ -32,7 +32,7 @@ class CryptohopperExchange {
         /// Get Exchanges with Details
         ///
         fun getExchangeDetails(callback : (List<Exchange>?, HopperError?) -> Unit) {
-            HopperAPIGetExchangeDetailsRequest("").request({ data ->
+            HopperAPIGetExchangeDetailsRequest("").request<HopperAPIGetExchangeDetailsResponse>({ data ->
                     callback(data.exchanges,null)
             } , { error ->
                     callback(null,error)
@@ -42,7 +42,7 @@ class CryptohopperExchange {
         /// Get Exchange Forex Rates
         ///
         fun getExchangeForexRates(callback : (List<ExchangeForexRates>?, HopperError?) -> Unit) {
-            HopperAPIGetExchangeForexRatesRequest("").request({ data ->
+            HopperAPIGetExchangeForexRatesRequest("").request<HopperAPIGetExchangeForexRatesResponse>({ data ->
                     callback(data.forexRates,null)
             } , { error ->
                     callback(null,error)
@@ -53,7 +53,7 @@ class CryptohopperExchange {
         ///
         ///- Parameter exchange: (required) exchange
         fun getBaseCurrenciesFromExchange(exchange : String,callback : (Map<String,Map<String,Ticker>>?, HopperError?) -> Unit) {
-            HopperAPIGetBaseCurrenciesFromExchangeRequest(exchange).request({ data ->
+            HopperAPIGetBaseCurrenciesFromExchangeRequest(exchange).request<HopperAPIGetBaseCurrenciesFromExchangeResponse>({ data ->
                     callback(data.baseCurrencies,null)
             } , { error ->
                     callback(null,error)
@@ -65,7 +65,7 @@ class CryptohopperExchange {
         ///- Parameter exchange: (required) exchange
         ///- Parameter currency: (required) currency
         fun getBaseCurrencyFromExchange(exchange : String,currency : String,callback : (Map<String,String>?, HopperError?) -> Unit) {
-            HopperAPIGetBaseCurrencyFromExchangeRequest( exchange,  currency).request({ data ->
+            HopperAPIGetBaseCurrencyFromExchangeRequest( exchange,  currency).request<HopperAPIGetBaseCurrencyFromExchangeResponse>({ data ->
                     callback(data.baseCurrencies,null)
             } , { error ->
                     callback(null,error)
@@ -81,7 +81,7 @@ class CryptohopperExchange {
         ///- Parameter startDate: (required) start date
         ///- Parameter endDate: (required) end date
         fun getCandlesFromExchange(exchange : String, pair : String, timeFrame : CandleTimeFrame, startDate : Date, endDate : Date, callback : (List<Candle>?, HopperError?) -> Unit) {
-            HopperAPIGetCandlesFromExchangeRequest( exchange,  pair,  timeFrame,  startDate,  endDate).request({ data ->
+            HopperAPIGetCandlesFromExchangeRequest( exchange,  pair,  timeFrame,  startDate,  endDate).request<HopperAPIGetCandlesFromExchangeResponse>({ data ->
                     callback(data.candles,null)
             } , { error ->
                     callback(null,error)
@@ -93,7 +93,7 @@ class CryptohopperExchange {
         ///
         ///- Parameter exchange: (required) exchange
         fun getAvailableCurrenciesForExchange(exchange : String,callback : (Map<String,ExchangeCurrencyDetail>?, HopperError?) -> Unit) {
-            HopperAPIGetAvailableCurrenciesOfExchangeRequest( exchange).request({ data ->
+            HopperAPIGetAvailableCurrenciesOfExchangeRequest( exchange).request<HopperAPIGetAvailableCurrenciesOfExchangeResponse>({ data ->
                     callback(data.currencies,null)
             } , { error ->
                     callback(null,error)
@@ -105,7 +105,7 @@ class CryptohopperExchange {
         ///
         ///- Parameter exchange: (required) exchange
         fun getPrecisionForCurrenciesOfExchange(exchange : String,callback : (Map<String,String>?, HopperError?) -> Unit) {
-            HopperAPIGetPrecisionForCurrenciesOfExchangeRequest( exchange).request({ data ->
+            HopperAPIGetPrecisionForCurrenciesOfExchangeRequest( exchange).request<HopperAPIGetPrecisionForCurrenciesOfExchangeResponse>({ data ->
                     callback(data.precisions,null)
             } , { error ->
                     callback(null,error)
@@ -117,7 +117,7 @@ class CryptohopperExchange {
         ///- Parameter exchange: (required) exchange
         ///- Parameter coin: (required) exchange
         fun getSingleCurrencyOfExchange(exchange : String,coin : String,callback : (ExchangeCurrencyDetail?, HopperError?) -> Unit) {
-            HopperAPIGetSingleCurrencyOfExchangeRequest( exchange,  coin).request({ data ->
+            HopperAPIGetSingleCurrencyOfExchangeRequest( exchange,  coin).request<HopperAPIGetSingleCurrencyOfExchangeResponse>({ data ->
                     callback(data.detail,null)
             } , { error ->
                     callback(null,error)
@@ -129,7 +129,7 @@ class CryptohopperExchange {
         ///- Parameter exchange: (required) exchange
         ///- Parameter currency: (required) currency
         fun getPrecisionForCurrencyOfExchange(exchange : String,currency: String,callback : (Map<String,Int>?, HopperError?) -> Unit) {
-            HopperAPIGetPrecisionForCurrencyOfExchangeRequest( exchange,  currency).request({ data ->
+            HopperAPIGetPrecisionForCurrencyOfExchangeRequest( exchange,  currency).request<HopperAPIGetPrecisionForCurrencyOfExchangeResponse>({ data ->
                     callback(data.precision,null)
             } , { error ->
                     callback(null,error)
@@ -143,7 +143,7 @@ class CryptohopperExchange {
         ///- Parameter currency: (required) currency
         ///- Parameter baseCurrency: (required) baseCurrency
         fun getTradingPairOfExchange(exchange : String,currency : String,baseCurrency : String,callback : (String?, HopperError?) -> Unit) {
-            HopperAPIGetTradingPairOfExchangeRequest( exchange,  currency,  baseCurrency).request({ data ->
+            HopperAPIGetTradingPairOfExchangeRequest( exchange,  currency,  baseCurrency).request<HopperAPIGetTradingPairOfExchangeResponse>({ data ->
                     callback(data.pairCode,null)
             } , { error ->
                     callback(null,error)
@@ -155,7 +155,7 @@ class CryptohopperExchange {
         ///
         ///- Parameter exchange: (required) exchange
         fun getMarketsOfExchange(exchange : String,callback : (List<String>?, HopperError?) -> Unit) {
-            HopperAPIGetMarketsOfExchangeRequest( exchange).request({ data ->
+            HopperAPIGetMarketsOfExchangeRequest( exchange).request<HopperAPIGetMarketsOfExchangeResponse>({ data ->
                     callback(data.pairs,null)
             } , { error ->
                     callback(null,error)
@@ -167,7 +167,7 @@ class CryptohopperExchange {
         ///- Parameter exchange: (required) exchange
         ///- Parameter market: (required) market
         fun getPriceAndAmountOfExchange(exchange : String,market : String,callback : (Map<String,String>?, HopperError?) -> Unit) {
-            HopperAPIGetPriceAndAmountOfExchangeRequest( exchange,  market).request({ data ->
+            HopperAPIGetPriceAndAmountOfExchangeRequest( exchange,  market).request<HopperAPIGetPriceAndAmountOfExchangeResponse>({ data ->
                     callback(data.decimals,null)
             } , { error ->
                     callback(null,error)
@@ -178,7 +178,7 @@ class CryptohopperExchange {
         ///
         ///- Parameter exchange: (required) exchange
         fun getAllTickersOfExchange(exchange : String,callback : (Map<String,Ticker>?, HopperError?) -> Unit) {
-            HopperAPIGetAllTickerOfExchangeRequest( exchange).request({ data ->
+            HopperAPIGetAllTickerOfExchangeRequest( exchange).request<HopperAPIGetAllTickerOfExchangeResponse>({ data ->
                     callback(data.pairTickers,null)
             } , { error ->
                     callback(null,error)
@@ -190,7 +190,7 @@ class CryptohopperExchange {
         ///- Parameter exchange: (required) exchange
         ///- Parameter pair: (required) market
         fun getExchangeTickerPair(exchange : String,pair : String,callback : (Ticker?, HopperError?) -> Unit) {
-            HopperAPIGetExchangeTickerPairRequest( exchange, pair).request({ data ->
+            HopperAPIGetExchangeTickerPairRequest( exchange, pair).request<HopperAPIGetExchangeTickerPairResponse>({ data ->
                     callback(data.ticker,null)
             } , { error ->
                     callback(null,error)
@@ -204,7 +204,7 @@ class CryptohopperExchange {
         ///- Parameter pair: (required) market
         ///- Parameter depth: (required) depth
         fun getPairOrderBookOfExchange(exchange : String,pair : String,depth : Int,callback : (HopperAPIGetPairOrderBookOfExchangeData?, HopperError?) -> Unit) {
-            HopperAPIGetPairOrderBookOfExchangeRequest( exchange, pair, depth).request({ data ->
+            HopperAPIGetPairOrderBookOfExchangeRequest( exchange, pair, depth).request<HopperAPIGetPairOrderBookOfExchangeResponse>({ data ->
                     callback(data.data,null)
             } , { error ->
                     callback(null,error)

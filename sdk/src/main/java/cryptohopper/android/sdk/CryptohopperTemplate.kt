@@ -9,7 +9,7 @@ class CryptohopperTemplate {
         /// Get Templates
         ///
         fun getTemplates(callback: (List<Template>?, HopperError?) -> Unit) {
-            HopperAPIGetTemplatesRequest("").request({ data ->
+            HopperAPIGetTemplatesRequest("").request<HopperAPIGetTemplatesResponse>({ data ->
                     callback(data.data?.templates,null)
             } , { error ->
                     callback(null,error)
@@ -19,7 +19,7 @@ class CryptohopperTemplate {
         /// Get Basic Templates
         ///
         fun getBasicTemplates(callback: (List<BasicTemplate>?, HopperError?) -> Unit) {
-            HopperAPIGetBasicTemplatesRequest("").request({ data ->
+            HopperAPIGetBasicTemplatesRequest("").request<HopperAPIGetBasicTemplatesResponse>({ data ->
                     callback(data.basicTemplates,null)
             } , { error ->
                     callback(null,error)
@@ -30,7 +30,7 @@ class CryptohopperTemplate {
         ///
         ///- Parameter exchange: (required) exchange
         fun getBasicTemplateForExchange(exchange : String,callback: (List<BasicTemplate>?, HopperError?) -> Unit) {
-            HopperAPIGetBasicTemplateForExchangeRequest( exchange).request({ data ->
+            HopperAPIGetBasicTemplateForExchangeRequest( exchange).request<HopperAPIGetBasicTemplateForExchangeResponse>({ data ->
                     callback(data.basicTemplates,null)
             } , { error ->
                     callback(null,error)
@@ -42,7 +42,7 @@ class CryptohopperTemplate {
         ///
         ///- Parameter templateId: (required) templateId
         fun getOneTemplate(templateId : Int,callback: (Template?, HopperError?) -> Unit) {
-            HopperAPIGetOneTemplateRequest( templateId).request({ data ->
+            HopperAPIGetOneTemplateRequest( templateId).request<HopperAPIGetOneTemplateResponse>({ data ->
                     callback(data.template,null)
             } , { error ->
                     callback(null,error)
@@ -57,7 +57,7 @@ class CryptohopperTemplate {
         ///- Parameter name: (required) name
         ///- Parameter description: (required) description
         fun saveTemplate(hopperId : Int,saveAs : Int,name : String,description : String,callback: (String?, HopperError?) -> Unit) {
-            HopperAPISaveTemplateRequest( hopperId,  saveAs,  name,  description).request({ data ->
+            HopperAPISaveTemplateRequest( hopperId,  saveAs,  name,  description).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             } , { error ->
                     callback(null,error)
@@ -69,7 +69,7 @@ class CryptohopperTemplate {
         ///
         ///- Parameter templateId: (required) templateId
         fun deleteTemplate(templateId : Int,callback: (String?, HopperError?) -> Unit) {
-            HopperAPIDeleteTemplateRequest( templateId).request({ data ->
+            HopperAPIDeleteTemplateRequest( templateId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             } , { error ->
                     callback(null,error)
@@ -81,7 +81,7 @@ class CryptohopperTemplate {
         ///- Parameter templateId: (required) templateId
         ///- Parameter image: (required) image url
         fun changeImageOfTemplate(templateId : Int,image: String,callback: (String?, HopperError?) -> Unit) {
-            HopperAPIChangeImageOfTemplateRequest( templateId, image).request({ data ->
+            HopperAPIChangeImageOfTemplateRequest( templateId, image).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             } , { error ->
                     callback(null,error)
@@ -93,7 +93,7 @@ class CryptohopperTemplate {
         ///- Parameter templateId: (required) template id
         ///- Parameter hopperId: (required) hopper id
         fun loadTemplateIntoHopper(templateId : Int,hopperId: Int,callback: (String?, HopperError?) -> Unit) {
-            HopperAPILoadTemplateRequest( templateId, hopperId).request({ data ->
+            HopperAPILoadTemplateRequest( templateId, hopperId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             } , { error ->
                     callback(null,error)
@@ -106,7 +106,7 @@ class CryptohopperTemplate {
         /// Get Market Templates
         ///
         fun getMarketTemplates(callback: (List<MarketTemplate>?, HopperError?) -> Unit) {
-            HopperAPIGetMarketTemplatesRequest("").request({ data ->
+            HopperAPIGetMarketTemplatesRequest("").request<HopperAPIGetMarketTemplatesResponse>({ data ->
                     callback(data.data!!.templates,null)
             } , { error ->
                     callback(null,error)
@@ -117,7 +117,7 @@ class CryptohopperTemplate {
         ///
         ///- Parameter templateId: (required) templateId
         fun getOneMarketTemplate(templateId : Int,callback: (MarketTemplate?, HopperError?) -> Unit) {
-            HopperAPIGetOneMarketTemplateRequest( templateId).request({ data ->
+            HopperAPIGetOneMarketTemplateRequest( templateId).request<HopperAPIGetOneMarketTemplateResponse>({ data ->
                     callback(data.template,null)
             } , { error ->
                     callback(null,error)
@@ -128,7 +128,7 @@ class CryptohopperTemplate {
         ///
         ///- Parameter templateId: (required) templateId
         fun deleteMarketTemplate(templateId : Int,callback: (String?, HopperError?) -> Unit) {
-            HopperAPIDeleteMarketTemplateRequest( templateId).request({ data ->
+            HopperAPIDeleteMarketTemplateRequest( templateId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             } , { error ->
                     callback(null,error)
@@ -140,7 +140,7 @@ class CryptohopperTemplate {
         ///- Parameter templateId: (required) template id
         ///- Parameter hopperId: (required) hopper id
         fun loadMarketTemplateIntoHopper(templateId : Int,hopperId: Int,callback: (String?, HopperError?) -> Unit) {
-            HopperAPILoadMarketTemplateRequest( templateId, hopperId).request({ data ->
+            HopperAPILoadMarketTemplateRequest( templateId, hopperId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             } , { error ->
                     callback(null,error)

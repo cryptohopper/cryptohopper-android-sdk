@@ -1,0 +1,4 @@
+<resources>
+    <style name="Theme.CryptohopperAndroidSDK.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.CryptohopperAndroidSDK.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>

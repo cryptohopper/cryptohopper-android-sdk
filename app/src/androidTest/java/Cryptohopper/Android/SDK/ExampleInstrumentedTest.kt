@@ -2,6 +2,8 @@ package Cryptohopper.Android.SDK
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import cryptohopper.android.sdk.CryptohopperAuth
+import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIEnvironment
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -19,6 +21,10 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("Cryptohopper.Android.SDK", appContext.packageName)
+        //assertEquals("Cryptohopper.Android.SDK", appContext.packageName)
+
+        CryptoHopperConfig.configure(appContext,"lMRj9sd1gwWy4NxWUSG1MkBFc0yaf6mATeU2G73XE0vIN3EHVkJHFlnSmW3mobile9000",
+                HopperAPIEnvironment.Production)
+
     }
 }

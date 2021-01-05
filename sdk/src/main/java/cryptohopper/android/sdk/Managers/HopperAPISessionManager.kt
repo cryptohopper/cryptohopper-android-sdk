@@ -38,7 +38,7 @@ class HopperAPISessionManager {
             with (sharedPref?.edit()) {
                 if (newValue != null) {
                     this?.putString("$clientId#AccessToken",newValue.accessToken)
-                    this?.putString("$clientId#RefreshToken",newValue.refreshToken)
+                    this?.putString("$clientId#RefreshToken",newValue.accessToken)
                     newValue.accessTokenExpiresAt?.time?.let { this?.putLong("$clientId#AccessTokenExpiresAt", it) }
                 }else{
                     this?.remove("$clientId#AccessToken")
@@ -77,7 +77,7 @@ class HopperAPISessionManager {
                 onFail?.invoke(HopperError.MISSING_REFRESH_TOKEN)
                 return
             }
-            HopperAPIRefreshTokenRequest(refreshToken).request({ response ->
+            HopperAPIRefreshTokenRequest(refreshToken).request<HopperAPIAuthenticationResponse>({ response ->
                 this.handleAuthResponse(response)
                 onSuccess()
             },onFail!!)

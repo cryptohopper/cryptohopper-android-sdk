@@ -6,6 +6,8 @@
 //  Created by Kaan Baris Bayrak on 21/10/2020.
 //
 
+
+
 import android.net.Uri
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -16,7 +18,8 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 
-open class HopperAPIRequest<T> {
+
+open class HopperAPIRequest<Object> {
 
     var path: String = "/"
 
@@ -26,18 +29,19 @@ open class HopperAPIRequest<T> {
 
     var isAuthenticationRequest: Boolean = false
 
-    private var client = OkHttpClient.Builder()
+    var client = OkHttpClient.Builder()
         .connectionSpecs(
-            listOf(
-                ConnectionSpec.MODERN_TLS,
-                ConnectionSpec.COMPATIBLE_TLS
-            )
+                listOf(
+                        ConnectionSpec.MODERN_TLS,
+                        ConnectionSpec.COMPATIBLE_TLS
+                )
         )
         .build()
 
-    private var httpHeaders: MutableMap<String, String>? =  null
-    private var queryItems: MutableMap<String, String>? = null
-    private var bodyItems: MutableMap<String, Any>? = null
+    var httpHeaders: MutableMap<String, String>? =  null
+    var queryItems: MutableMap<String, String>? = null
+    var bodyItems: MutableMap<String, Any>? = null
+
 
     val url: String? = ""
 
@@ -65,24 +69,24 @@ open class HopperAPIRequest<T> {
         queryItems?.set(name, value)
     }
 
-    fun addBodyItem( name : String, value: Any) {
+    fun addBodyItem(name: String, value: Any) {
         if (bodyItems == null) {
             bodyItems = mutableMapOf<String, Any>()
         }
         bodyItems?.set(name, value)
     }
 
-    private fun handleError(failClosure: (HopperError) -> Unit?, error: HopperError) {
+    fun handleError(failClosure: (HopperError) -> Unit?, error: HopperError) {
         if (HopperAPIConfigurationManager.shared.config.debugModeEnabled) {
             print(error)
         }
         failClosure.invoke(error)
     }
 
-    private fun createUrl() : String {
+    fun createUrl() : String {
         var reqUrl = ""
 
-        if(HopperAPIConfigurationManager.shared.config.isAuthenticationRequest){
+        if(this.isAuthenticationRequest){
             val builder: Uri.Builder = Uri.Builder()
             val scheme = builder.scheme(HopperAPIConfigurationManager.shared.config.urlScheme)
                 .authority(HopperAPIConfigurationManager.shared.config.authenticationHost)
@@ -105,8 +109,10 @@ open class HopperAPIRequest<T> {
         return reqUrl
     }
 
-    private fun generateRequest(url: String) : Request{
-        val reqBuilder = Request.Builder().url(url)
+    fun generateRequest(url: String) : Request{
+        val urlTwoF = url.replace("%2F", "/")
+        val newUrl = urlTwoF.replace("//", "/")
+        val reqBuilder = Request.Builder().url(newUrl)
         httpHeaders?.forEach { map ->
             reqBuilder.addHeader(map.key, map.value)
         }
@@ -135,13 +141,13 @@ open class HopperAPIRequest<T> {
 
     }
 
-    private fun <T> Gson.fromJsonType(json: String): T {
+    inline fun <reified T> Gson.fromJsonType(json: String): T {
         val tt = object : TypeToken<T>() {}.type;
         println(tt);
         return fromJson(json, tt);
     }
 
-    private fun startRequest(onSuccess: (T) -> Unit?, onFail: (HopperError) -> Unit?) {
+    inline fun <reified T : Any> startRequest(onSuccess: (T) -> Unit?, noinline onFail: (HopperError) -> Unit?) {
         val url = createUrl()
         if (url == "") {
             this.handleError(failClosure = onFail, error = HopperError.MISSING_URL)
@@ -162,10 +168,11 @@ open class HopperAPIRequest<T> {
 
                 if(response != null) {
                     if (response.code in 200..299) {
-                        val jsonResponse = Gson().fromJsonType<T>(response.body.toString())
+                        val responseString = response.body!!.string()
+                        val jsonResponse = Gson().fromJsonType<T>(responseString)
                         onSuccess(jsonResponse)
                     } else {
-                        val jsonResponse = Gson().fromJson(response.body.toString(), HopperAPIError::class.java)
+                        val jsonResponse = Gson().fromJson(response.body!!.string(), HopperAPIError::class.java)
                         onFail(jsonResponse.error!!)
                     }
                 }else{
@@ -179,22 +186,22 @@ open class HopperAPIRequest<T> {
         }
     }
 
-    fun request(
-        onSuccess: (T) -> Unit?,
-        onFail: (HopperError) -> Unit?
+    inline fun <reified T : Any> request(
+            noinline onSuccess: (T) -> Unit?,
+            noinline onFail: (HopperError) -> Unit?
     ) {
         if (needsAuthentication) {
             this.authenticateAndRequestAgain(onSuccess, onFail)
         } else {
-            startRequest({ response ->
+            startRequest<T>({ response ->
                 onSuccess.invoke(response)
             }) { error  ->
                 val err = error as? HopperError
                 if (err != null) {
                     when (err) {
                         HopperError.ACCESS_TOKEN_EXPIRED, HopperError.INVALID_ACCESS_TOKEN, HopperError.INVALID_SESSION -> this.authenticateAndRequestAgain(
-                            onSuccess,
-                            onFail
+                                onSuccess,
+                                onFail
                         )
                         else -> onFail.invoke(err)
                     }
@@ -205,9 +212,9 @@ open class HopperAPIRequest<T> {
         }
     }
 
-    private fun authenticateAndRequestAgain(
-        onSuccess: (T) -> Unit?,
-        onFail: (HopperError) -> Unit?
+    inline fun < reified T : Any> authenticateAndRequestAgain(
+            crossinline onSuccess: (T) -> Unit?,
+            noinline onFail: (HopperError) -> Unit?
     ) {
         HopperAPISessionManager.shared.checkAuthentication(onSuccess = {
             val accessToken = HopperAPISessionManager.shared.session?.accessToken
@@ -221,3 +228,4 @@ open class HopperAPIRequest<T> {
     }
 
 }
+

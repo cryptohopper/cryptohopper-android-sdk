@@ -11,9 +11,9 @@ class HopperAPIAuthenticationRequest: HopperAPIRequest<HopperAPIAuthenticationRe
 
     constructor(username : String , password : String) {
         this.httpMethod = HopperAPIHttpMethod.POST
-        this.needsAuthentication = true
-        this.changeUrlPath("/oauth2/token")
+        this.needsAuthentication = false
         this.setIsAuthenticationRequest(true)
+        this.changeUrlPath("/oauth2/token")
         addBodyItem( "grant_type", "password")
         addBodyItem( "client_id", HopperAPIConfigurationManager.shared.config.clientId!!)
         addBodyItem( "username", username)
