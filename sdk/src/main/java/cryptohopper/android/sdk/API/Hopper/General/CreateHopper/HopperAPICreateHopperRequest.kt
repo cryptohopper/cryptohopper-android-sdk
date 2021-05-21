@@ -5,10 +5,11 @@
 //  Created by Kaan Baris Bayrak on 26/10/2020.
 //
 
+import cryptohopper.android.sdk.API.Hopper.General.CreateHopper.HopperAPICreateHopperResponse
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIHttpMethod
 
 
-class HopperAPICreateHopperRequest: HopperAPIRequest<HopperCommonMessageResponse> {
+class HopperAPICreateHopperRequest: HopperAPIRequest<HopperAPICreateHopperResponse> {
     
     constructor(name : String, enabled : Int?, templateId : Int?, apiConfig : HopperConfigAPIConfig?, config : HopperConfig? ) {
         this.httpMethod = HopperAPIHttpMethod.POST

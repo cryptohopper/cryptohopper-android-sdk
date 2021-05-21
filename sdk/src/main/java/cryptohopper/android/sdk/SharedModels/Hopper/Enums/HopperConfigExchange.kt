@@ -17,5 +17,11 @@ enum class HopperConfigExchange(val rawValue: String) {
     @SerializedName("bitfinex") BITFINEX("bitfinex"),
     @SerializedName("kucoin") KUCOIN("kucoin"),
     @SerializedName("cexio") CEXIO("cexio"),
-    @SerializedName("hitbtc") HITBTC("hitbtc")
+    @SerializedName("hitbtc") HITBTC("hitbtc"),
+    @SerializedName("huobi") HOUBI("huobi"),
+    @SerializedName("bitpanda") BITPANDA("bitpanda"),
+    @SerializedName("kraken2") KRAKEN2("kraken2"),
+    @SerializedName("binanceus") BINANCEUS("binanceus"),
+    @SerializedName("bitvavo") BITVAVO("bitvavo"),
+    @SerializedName("okex") OKEX("okex")
 }

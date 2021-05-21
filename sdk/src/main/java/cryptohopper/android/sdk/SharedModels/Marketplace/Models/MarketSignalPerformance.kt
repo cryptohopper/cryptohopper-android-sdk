@@ -17,7 +17,7 @@ data class MarketSignalPerformance (
     @SerializedName("date") val date: String?,
     @SerializedName("signal_rate") val signalRate: String?,
     @SerializedName("signal_type") val signalType: String?,
-    @SerializedName("signal_config") val signalConfig: String?,
+    @SerializedName("signal_config") val signalConfig: Map<String,String>?,
     @SerializedName("result_5min") val result5min: String?,
     @SerializedName("result_15min") val result15min: String?,
     @SerializedName("result_1hour") val result_1hour: String?,

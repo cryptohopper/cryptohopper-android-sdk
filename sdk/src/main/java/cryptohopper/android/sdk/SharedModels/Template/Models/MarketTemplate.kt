@@ -25,5 +25,7 @@ data class MarketTemplate (
     @SerializedName("rating") val rating: String?,
     @SerializedName("total_votes") val totalVotes: String?,
     @SerializedName("created_date") val createdDate: String?,
-    @SerializedName("link") val link: String?
+    @SerializedName("link") val link: String?,
+    @SerializedName("price") val price: String?,
+    @SerializedName("price_currency") val priceCurrency: String?
 )

@@ -52,7 +52,7 @@ data class HopperConfig (
         @SerializedName("autosync_allowed_coins") val autosync_allowed_coins: List<String>?,
         @SerializedName("auto_merge_positions") val auto_merge_positions: String?,
         @SerializedName("output_live_feed") val output_live_feed: Int?,
-        @SerializedName("output_errors_only") val output_errors_only: Int?,
+        @SerializedName("output_errors_only") val output_errors_only: String?,
         @SerializedName("hold_assets") val hold_assets: String?,
         @SerializedName("set_percentage_ask") val set_percentage_ask: String?,
         @SerializedName("set_percentage_bid") val set_percentage_bid: String?,

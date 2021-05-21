@@ -1,3 +1,6 @@
+import cryptohopper.android.sdk.API.Marketplace.Seller.HopperAPIGetMarketSellerRequest
+import cryptohopper.android.sdk.API.Marketplace.Seller.HopperAPIGetMarketSellerResponse
+import cryptohopper.android.sdk.SharedModels.Marketplace.Models.MarketplaceSeller
 
 class CryptohopperMarketplace {
 
@@ -162,6 +165,18 @@ class CryptohopperMarketplace {
             })
         }
 
+
+        /// Get  Marketplace Seller
+        ///
+        ///
+        ///- Parameter sellerId: (required) Seller Id
+        fun getMarketplaceSeller(sellerId : String ,callback: (MarketplaceSeller?, HopperError?) -> Unit) {
+            HopperAPIGetMarketSellerRequest(sellerId).request<HopperAPIGetMarketSellerResponse>({ data ->
+                callback(data.data,null)
+            } ,{ error ->
+                callback(null,error)
+            })
+        }
 
         /// Post Signal Review
         ///

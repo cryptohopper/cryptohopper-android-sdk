@@ -31,7 +31,11 @@ data class MarketplaceTemplate (
     @SerializedName("allowed_coins") val allowedCoins: List<String>?,
     @SerializedName("reviews") val reviews: MarketplaceTemplateReviewData?,
     @SerializedName("price") val price: String?,
-    @SerializedName("price_currency") val priceCurrency: String?
+    @SerializedName("price_currency") val priceCurrency: String?,
+    @SerializedName("dependent_strategies") val dependentStrategies: List<MarketStrategy>?,
+    @SerializedName("seller_id") val sellerId: String?,
+    @SerializedName("seller_name") val sellerName: String?,
+    @SerializedName("seller_logo") val sellerLogo: String?
 )
 
 

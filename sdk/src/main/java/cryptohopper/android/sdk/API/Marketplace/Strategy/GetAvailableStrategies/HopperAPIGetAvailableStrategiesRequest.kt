@@ -13,6 +13,9 @@ class HopperAPIGetAvailableStrategiesRequest: HopperAPIRequest<HopperAPIGetAvail
         this.httpMethod = HopperAPIHttpMethod.GET
         this.needsAuthentication = true
         this.changeUrlPath("/market/strategies")
+        addQueryItem( "available_in_app", "1")
+        addQueryItem( "start",  "0")
+        addQueryItem( "limit",  "500")
     }
     
 }

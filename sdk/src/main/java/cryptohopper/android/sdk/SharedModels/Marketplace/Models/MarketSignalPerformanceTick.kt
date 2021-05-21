@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName
 import java.util.*
 
 data class MarketSignalPerformanceTick (
-    @SerializedName("signal_time") val signalTime: Date?,
-    @SerializedName("result_sum") val resultSum: Double?,
-    @SerializedName("result_sum_perct") val resultSumPerct: Double?
+    @SerializedName("signal_time") val signalTime: String?,
+    @SerializedName("result_sum") val resultSum: String?,
+    @SerializedName("result_sum_perct") val resultSumPerct: String?
 )

@@ -23,5 +23,7 @@ data class Template (
     @SerializedName("hasConfigPool") val hasConfigPool: Int?,
     @SerializedName("hasSignals") val hasSignals: Int?,
     @SerializedName("allowed_coins") val rating: List<String>?,
-    @SerializedName("created_date") val createdDate: String?
+    @SerializedName("created_date") val createdDate: String?,
+    @SerializedName("price") val price: String?,
+    @SerializedName("price_currency") val priceCurrency: String?
 )

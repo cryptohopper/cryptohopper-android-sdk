@@ -13,7 +13,7 @@ class HopperAPICreateOrderRequest: HopperAPIRequest<HopperCommonMessageResponse>
     constructor(hopperId : String,orderType : String,marketOrder : Int,coin : String,price : Double,amount : Double,orderTrigger : String,percentageProfit : Double,trailingBuy : Double , trailingBuyPercentage : Double) {
         this.httpMethod = HopperAPIHttpMethod.POST
         this.needsAuthentication = true
-        this.changeUrlPath("/hopper/$hopperId/config/pool")
+        this.changeUrlPath("/hopper/$hopperId/order")
         
         addBodyItem( "order_type", orderType)
         addBodyItem( "market_order", marketOrder)
@@ -21,9 +21,9 @@ class HopperAPICreateOrderRequest: HopperAPIRequest<HopperCommonMessageResponse>
         addBodyItem( "price",  price)
         addBodyItem( "amount",  amount)
         addBodyItem( "order_trigger",  orderTrigger)
-        addBodyItem( "percentage_profit",  percentageProfit)
+        addBodyItem( "pct_profit",  percentageProfit)
         addBodyItem( "trailing_buy",  trailingBuy)
-        addBodyItem( "trailing_buy_percentage",  trailingBuyPercentage)
+        addBodyItem( "trailing_buy_pct",  trailingBuyPercentage)
     }
     
 }

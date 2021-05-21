@@ -36,7 +36,8 @@ data class Hopper (
     @SerializedName("total_cur") val totalCurrency : String?,
     @SerializedName("bot_type") val botType : String?,
     @SerializedName("user_id") val userId : String?,
-    @SerializedName("allowedCoins") val allowedCoins : List<String>?
+    @SerializedName("allowedCoins") val allowedCoins : List<String>?,
+    @SerializedName("paper_trading") val paperTrading : Int?
 )
 
 

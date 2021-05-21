@@ -14,7 +14,7 @@ data class BasicTemplate (
     @SerializedName("image") val image: String?,
     @SerializedName("coins") val coins: String?,
     @SerializedName("bot_type") val botType: String?,
-    //@SerializedName("config") val config: HopperConfig?,
+    @SerializedName("config") val config: HopperConfig?,
     @SerializedName("config_pools") val configPools: List<HopperConfigPool>?,
     @SerializedName("signals") val signals: List<MarketSignal>?,
     @SerializedName("triggers") val triggers: List<String>?

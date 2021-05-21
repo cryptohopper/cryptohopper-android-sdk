@@ -5,7 +5,7 @@ class HopperAPIForgetPasswordRequest: HopperAPIRequest<HopperCommonMessageRespon
 
     constructor(email : String) {
         this.httpMethod = HopperAPIHttpMethod.POST
-        this.needsAuthentication = true
+        this.needsAuthentication = false
         this.changeUrlPath("/user/resetpassword")
         addBodyItem( "email", email)
     }

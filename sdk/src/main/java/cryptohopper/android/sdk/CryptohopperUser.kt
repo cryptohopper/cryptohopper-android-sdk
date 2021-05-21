@@ -1,3 +1,4 @@
+import cryptohopper.android.sdk.API.User.General.RegisterUser.HopperAPIRegisterUserResponse
 
 class CryptohopperUser {
 
@@ -142,9 +143,9 @@ class CryptohopperUser {
         ///- Parameter username: (required) username
         ///- Parameter subscribeNewsletter: (required) subscribe newsletter
         ///- Parameter password: (required) password
-        fun registerUser(name : String, email : String, username : String, subscribeNewsLetter : Boolean , password : String,callback: (String?, HopperError?) -> Unit) {
-            HopperAPIRegisterUserRequest( name,  email,  username,  subscribeNewsLetter,  password).request<HopperCommonMessageResponse>({ data ->
-                   callback(data.data,null)
+        fun registerUser(name : String, email : String, username : String, subscribeNewsLetter : Boolean , password : String,callback: (HopperAPIRegisterUserResponse?, HopperError?) -> Unit) {
+            HopperAPIRegisterUserRequest( name,  email,  username,  subscribeNewsLetter,  password).request<HopperAPIRegisterUserResponse>({ data ->
+                   callback(data,null)
             } ,{ error ->
                     callback(null,error)
             })

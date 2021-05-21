@@ -21,5 +21,7 @@ data class Strategy (
     @SerializedName("item_id") val itemId: String?,
     @SerializedName("total_votes") val totalVotes: String?,
     @SerializedName("rating") val rating: String?,
-    @SerializedName("sales") val sales: String?
+    @SerializedName("sales") val sales: String?,
+    @SerializedName("price") val price: String?,
+    @SerializedName("price_currency") val priceCurrency: String?
 )

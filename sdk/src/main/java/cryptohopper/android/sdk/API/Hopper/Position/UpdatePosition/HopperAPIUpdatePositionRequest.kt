@@ -13,13 +13,19 @@ class HopperAPIUpdatePositionRequest: HopperAPIRequest<HopperCommonMessageRespon
     constructor(hopperId : String , positionId:Int,takeProfit : Int,stopLoss : Int,stopLossPercentage : Int,trailingStopLoss : Int, trailingStopLossPercentage : Int,trailingStopLossArm : Int,autoClose : Int,autoCloseTime : Int) {
         this.httpMethod = HopperAPIHttpMethod.POST
         this.needsAuthentication = true
-        this.changeUrlPath("/hopper/$hopperId/position/$positionId/update")
+        this.changeUrlPath("/hopper/$hopperId/position/setpositionsetting")
         addBodyItem( "take_profit", takeProfit)
-        addBodyItem( "stop_loss", stopLoss)
-        addBodyItem( "stop_loss_percentage",  stopLossPercentage)
-        addBodyItem( "trailing_stop_loss",  trailingStopLoss)
-        addBodyItem( "trailing_stop_loss_percentage",  trailingStopLossPercentage)
-        addBodyItem( "trailing_stop_loss_arm",  trailingStopLossArm)
+        addBodyItem( "stop_loss_enabled", stopLoss)
+        if(stopLoss == 1){
+            addBodyItem( "stop_loss_percentage",  stopLossPercentage)
+        }
+
+        addBodyItem( "trailing_enabled",  trailingStopLoss)
+        if(trailingStopLoss == 1){
+            addBodyItem( "trailing_percentage",  trailingStopLossPercentage)
+            addBodyItem( "trailing_arm_percentage",  trailingStopLossArm)
+        }
+
         addBodyItem( "auto_close",  autoClose)
         addBodyItem( "auto_close_time",  autoCloseTime)
     }
