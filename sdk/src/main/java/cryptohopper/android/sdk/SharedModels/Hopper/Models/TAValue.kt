@@ -3,7 +3,7 @@ package cryptohopper.android.sdk.SharedModels.Hopper.Models
 import com.google.gson.annotations.SerializedName
 
 data class TAValue (
-        @SerializedName("settings") val settings : TASettings?,
+        @SerializedName("settings") val settings : Map<String,String>?,
         @SerializedName("strategy") val strategy : String?,
         @SerializedName("coin") val coin : String?,
         @SerializedName("strategy_type") val strategyType : String?,

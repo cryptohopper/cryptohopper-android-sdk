@@ -19,7 +19,7 @@ data class Hopper (
     @SerializedName("config_error") val configError: String?,
     @SerializedName("created") val created: String?,
     @SerializedName("start_balance") val startBalance: String?,
-    @SerializedName("subscription_id") val subscriptionId : Int?,
+    @SerializedName("subscription_id") val subscriptionId : String?,
     @SerializedName("start_time") val statTime : String?,
     @SerializedName("end_time") val endTime : String?,
     @SerializedName("subscription_status") val subscriptionStatus : String?,

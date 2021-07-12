@@ -10,8 +10,8 @@ class CryptohopperAuth {
 
     companion object {
 
-        fun login(username: String,password: String,callback: (String?,HopperError?) -> Unit) {
-            HopperAPIAuthenticationRequest(username,password).request<HopperAPIAuthenticationResponse>({response ->
+        fun login(username: String,password: String,verificationCode: String?,callback: (String?,HopperError?) -> Unit) {
+            HopperAPIAuthenticationRequest(username,password,verificationCode).request<HopperAPIAuthenticationResponse>({response ->
                 HopperAPISessionManager.shared.handleAuthResponse(response)
                 callback("Successfully Logged In",null)
             },{error ->

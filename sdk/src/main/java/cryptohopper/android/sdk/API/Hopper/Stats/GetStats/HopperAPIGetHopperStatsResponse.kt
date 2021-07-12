@@ -35,7 +35,7 @@ data class HopperStats (
 
 data class HopperStatsOpenPosition (
         @SerializedName("per_cur_totals") val perCurrencyTotal: Map<String,Map<String,String>>?,
-        @SerializedName("other_coins") val otherCoins: Map<String,Map<String,String>>?,
+        @SerializedName("other_coins") val otherCoins: List<String>?,
         @SerializedName("data") val data: List<HopperStatsOpenPositionData>?,
         @SerializedName("total_costs") val totalCost: String?,
         @SerializedName("average_perc") val averagePercentage: Object?,

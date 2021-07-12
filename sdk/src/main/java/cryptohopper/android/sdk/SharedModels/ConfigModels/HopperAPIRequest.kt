@@ -9,7 +9,9 @@
 
 
 import android.net.Uri
+import android.util.Log
 import com.google.gson.Gson
+import com.google.gson.JsonParseException
 import com.google.gson.reflect.TypeToken
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIError
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIHttpMethod
@@ -169,8 +171,24 @@ open class HopperAPIRequest<Object> {
                 if(response != null) {
                     if (response.code in 200..299) {
                         val responseString = response.body!!.string()
-                        val jsonResponse = Gson().fromJsonType<T>(responseString)
-                        onSuccess(jsonResponse)
+                        var commonResponse : HopperCommonMessageResponse? = null
+                        try {
+                            commonResponse = Gson().fromJsonType<HopperCommonMessageResponse>(responseString)
+                        } catch (e: JsonParseException) { }
+
+                        if(commonResponse != null){
+                            if(commonResponse.error != null && commonResponse.status != null){
+                                var err = HopperError.UNKOWN_ERROR
+                                Log.d("HOPPER ERROR : ",commonResponse.message ?: "No error message")
+                                onFail(err)
+                            }else{
+                                val jsonResponse = Gson().fromJsonType<T>(responseString)
+                                onSuccess(jsonResponse)
+                            }
+                        }else{
+                            val jsonResponse = Gson().fromJsonType<T>(responseString)
+                            onSuccess(jsonResponse)
+                        }
                     } else {
                         val jsonResponse = Gson().fromJson(response.body!!.string(), HopperAPIError::class.java)
                         onFail(jsonResponse.error!!)

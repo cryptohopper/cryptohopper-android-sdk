@@ -3,9 +3,12 @@
 import cryptohopper.android.sdk.API.Hopper.Balance.EditStartBalance.HopperAPIEditStartBalanceRequest
 import cryptohopper.android.sdk.API.Hopper.General.CreateHopper.HopperAPICreateHopperModel
 import cryptohopper.android.sdk.API.Hopper.General.CreateHopper.HopperAPICreateHopperResponse
+import cryptohopper.android.sdk.API.Hopper.General.GetAssets.HopperAPIGetAssetsRequest
+import cryptohopper.android.sdk.API.Hopper.General.GetAssets.HopperAPIGetAssetsResponse
 import cryptohopper.android.sdk.API.Hopper.Position.GetUnsyncedPositions.HopperAPIGetUnsyncedPositionRequest
 import cryptohopper.android.sdk.API.Hopper.Position.GetUnsyncedPositions.HopperAPIGetUnsyncedPositionResponse
 import cryptohopper.android.sdk.API.Hopper.Position.GetUnsyncedPositions.HopperAPIGetUnsyncedPositionResponseData
+import cryptohopper.android.sdk.API.Hopper.Position.MoveReservedPositionToOpen.HopperAPIMoveReservedPositionToOpenRequest
 import cryptohopper.android.sdk.API.Hopper.Position.SyncPosition.HopperAPISyncPositionRequest
 import cryptohopper.android.sdk.API.Hopper.Stats.GetStats.HopperAPIGetHopperStatsResponse
 import cryptohopper.android.sdk.API.Hopper.Stats.GetStats.HopperStats
@@ -739,6 +742,18 @@ class CryptohopperHopper {
         }
 
 
+        /// Get Assets
+        ///
+        /// - Parameter hopperId:  (required) Hopper Id
+        fun getAssets(hopperId : String,callback: (Map<String,String>?, HopperError?) -> Unit) {
+            HopperAPIGetAssetsRequest(hopperId).request<HopperAPIGetAssetsResponse>({ data ->
+                callback(data.data,null)
+            },{error ->
+                callback(null,error)
+            })
+        }
+
+
         /// Get Reserved Positions
         ///
         /// - Parameter hopperId:  (required) Hopper Id
@@ -830,6 +845,18 @@ class CryptohopperHopper {
                     callback(data.data,null)
             },{error ->
                     callback(null,error)
+            })
+        }
+
+        /// Short One Position
+        ///
+        /// - Parameter hopperId:  (required) Hopper Id
+        /// - Parameter positionId:  (required) Position Ids
+        fun moveReservedPositionToOpen(hopperId : String,positionId : Int,callback: (String?, HopperError?) -> Unit) {
+            HopperAPIMoveReservedPositionToOpenRequest( hopperId,  positionId).request<HopperCommonMessageResponse>({ data ->
+                callback(data.data,null)
+            },{error ->
+                callback(null,error)
             })
         }
 
@@ -960,8 +987,8 @@ class CryptohopperHopper {
         /// ReAssign Of Hopper
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun reAssignSubscription(hopperId : String,callback: (String?, HopperError?) -> Unit) {
-            HopperAPIReassignSubsriptionRequest( hopperId).request<HopperCommonMessageResponse>({ data ->
+        fun reAssignSubscription(hopperId : String,subscriptionId:String,callback: (String?, HopperError?) -> Unit) {
+            HopperAPIReassignSubsriptionRequest(hopperId,subscriptionId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
                     callback(null,error)

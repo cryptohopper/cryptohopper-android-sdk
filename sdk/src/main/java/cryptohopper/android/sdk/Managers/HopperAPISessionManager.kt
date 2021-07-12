@@ -89,8 +89,10 @@ class HopperAPISessionManager {
     fun handleAuthResponse(response: HopperAPIAuthenticationResponse) {
         val today = Date();
         var nextYear = Date(today.time + (1000 * 60 * 60 * 24 * 365));
-        this.session = HopperAPISession(accessToken = response.accessToken
+        if(response.accessToken != null){
+            this.session = HopperAPISession(accessToken = response.accessToken
                 ?: "", refreshToken = response.accessToken ?: "", accessTokenExpiresAt = nextYear)
+        }
     }
 
 }

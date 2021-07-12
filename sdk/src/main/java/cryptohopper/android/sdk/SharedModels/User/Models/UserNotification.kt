@@ -14,7 +14,7 @@ data class UserNotification (
     @SerializedName("title") val title: String?,
     @SerializedName("message") val message: String?,
     @SerializedName("link") val link: String?,
-    @SerializedName("extra_data") val extraData: String?,
+    //@SerializedName("extra_data") val extraData: String?,
     @SerializedName("date") val date: String?
 )
 

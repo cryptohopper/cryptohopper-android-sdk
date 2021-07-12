@@ -16,5 +16,7 @@ data class HopperSubscription (
     @SerializedName("subscription_status") val subscriptionStatus: String?,
     @SerializedName("auto_renewal") val autoRenewal: String?,
     @SerializedName("plan_name") val planName: String?,
-    @SerializedName("plan_description") val planDescription: String?
+    @SerializedName("plan_description") val planDescription: String?,
+    @SerializedName("payment_term") val paymentTerm: String?,
+    @SerializedName("payment_method_id") val paymentMethodId: String?
 )

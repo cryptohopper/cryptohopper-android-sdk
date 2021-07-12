@@ -25,12 +25,12 @@ data class MarketSignal (
     @SerializedName("total_votes") val totalVotes: String?,
     @SerializedName("link") val link: String?,
     @SerializedName("last_10_signals") val lastTenSignals: List<Signal>?,
-    @SerializedName("link") val signalDetails: Map<String,String>?,
-    @SerializedName("link") val reviews: MarketSignalReviewData?,
-    @SerializedName("link") val sellerId: String?,
-    @SerializedName("link") val sellerName: String?,
-    @SerializedName("link") val sellerLogo: String?,
-    @SerializedName("link") val isRefundable: Int?
+    @SerializedName("signal_details") val signalDetails: Map<String,String>?,
+    @SerializedName("reviews") val reviews: MarketSignalReviewData?,
+    @SerializedName("seller_id") val sellerId: String?,
+    @SerializedName("seller_name") val sellerName: String?,
+    @SerializedName("seller_logo") val sellerLogo: String?,
+    @SerializedName("is_refundable") val isRefundable: Int?
 )
 
 data class MarketSignalReviewData (

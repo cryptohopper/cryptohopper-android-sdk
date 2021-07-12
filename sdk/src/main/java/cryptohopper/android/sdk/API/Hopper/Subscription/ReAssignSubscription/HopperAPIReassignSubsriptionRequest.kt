@@ -9,10 +9,12 @@ import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIHttpMethod
 
 class HopperAPIReassignSubsriptionRequest: HopperAPIRequest<HopperCommonMessageResponse> {
     
-    constructor(hopperId : String ) {
+    constructor(hopperId : String,subscriptionId: String) {
         this.httpMethod = HopperAPIHttpMethod.POST
         this.needsAuthentication = true
-        this.changeUrlPath("/subscription/remap")
+        this.changeUrlPath("/subscription/assign")
+        addBodyItem("hopper_id", hopperId)
+        addBodyItem("subscription_id", subscriptionId)
     }
     
 }
