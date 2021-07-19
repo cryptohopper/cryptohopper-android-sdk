@@ -21,7 +21,7 @@ data class MarketSignalPerformance (
     @SerializedName("result_5min") val result5min: String?,
     @SerializedName("result_15min") val result15min: String?,
     @SerializedName("result_1hour") val result_1hour: String?,
-    @SerializedName("result_3day") val result3hour: String?,
+    @SerializedName("result_3hour") val result3hour: String?,
     @SerializedName("result_6hour") val result6hour: String?,
     @SerializedName("result_12hour") val result12hour: String?,
     @SerializedName("result_1day") val result1day: String?,

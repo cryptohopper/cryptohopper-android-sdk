@@ -22,7 +22,7 @@ data class Template (
     @SerializedName("hasTriggers") val hasTriggers: Int?,
     @SerializedName("hasConfigPool") val hasConfigPool: Int?,
     @SerializedName("hasSignals") val hasSignals: Int?,
-    @SerializedName("allowed_coins") val rating: List<String>?,
+    @SerializedName("allowed_coins") val allowed_coins: List<String>?,
     @SerializedName("created_date") val createdDate: String?,
     @SerializedName("price") val price: String?,
     @SerializedName("price_currency") val priceCurrency: String?
