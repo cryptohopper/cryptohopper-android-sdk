@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName
 
 data class HopperSubscription (
     @SerializedName("hopper_id") val hopperId: Int?,
-    @SerializedName("subscription_id") val subscriptionId: Int?,
+    @SerializedName("subscription_id") val subscriptionId: String?,
     @SerializedName("start_time") val startTime: String?,
     @SerializedName("end_time") val endTime: String?,
     @SerializedName("subscription_status") val subscriptionStatus: String?,
