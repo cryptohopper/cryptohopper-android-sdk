@@ -11,7 +11,7 @@ data class MarketSignalPerformance (
     @SerializedName("id") val id: String?,
     @SerializedName("signal_id") val signalId: String?,
     @SerializedName("exchange") val exchange: String?,
-    @SerializedName("base_currency") val baseCurrency: Int?,
+    @SerializedName("base_currency") val baseCurrency: String?,
     @SerializedName("currency") val currency: String?,
     @SerializedName("market") val market: String?,
     @SerializedName("date") val date: String?,

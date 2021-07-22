@@ -8,7 +8,7 @@ class HopperAPIPurchaseRequest: HopperAPIRequest<HopperAPIPurchaseResponse> {
     constructor(planId: String?,marketplaceId : String?,hopperId : String?,receipt:String) {
         this.httpMethod = HopperAPIHttpMethod.POST
         this.needsAuthentication = true
-        this.changeUrlPath("/mobile/receipt")
+        this.changeUrlPath("/app/mobile/receipt")
 
         addBodyItem("platform", "android")
 
