@@ -52,7 +52,7 @@ class CryptohopperHopper {
         /// - Parameter templateId: (optional) Hopper templateId if you are creating hopper from a template
         /// - Parameter apiConfig: (optional) Hopper api config defined with HopperConfigAPIConfig
         /// - Parameter config: (optional) Hopper config defined with HopperConfig object
-        fun createHopper(name : String, enabled: Int?, templateId: Int?, apiConfig: HopperConfigAPIConfig?, config: HopperConfig?,callback: (HopperAPICreateHopperModel?, HopperError?) -> Unit) {
+        fun createHopper(name : String, enabled: Int?, templateId: Int?, apiConfig: Map<String,Any>?, config: Map<String,Any>?,callback: (HopperAPICreateHopperModel?, HopperError?) -> Unit) {
             HopperAPICreateHopperRequest( name,  enabled, templateId, apiConfig,  config).request<HopperAPICreateHopperResponse>({ message ->
                     callback(message.data,null)
             },{error ->
@@ -745,8 +745,8 @@ class CryptohopperHopper {
         /// Get Assets
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getAssets(hopperId : String,callback: (Map<String,String>?, HopperError?) -> Unit) {
-            HopperAPIGetAssetsRequest(hopperId).request<HopperAPIGetAssetsResponse>({ data ->
+        fun getAssets(hopperId : String,reserved : Boolean,callback: (Map<String,Double>?, HopperError?) -> Unit) {
+            HopperAPIGetAssetsRequest(hopperId,reserved).request<HopperAPIGetAssetsResponse>({ data ->
                 callback(data.data,null)
             },{error ->
                 callback(null,error)

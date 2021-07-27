@@ -12,7 +12,7 @@ class HopperAPIChangeEmailRequest: HopperAPIRequest<HopperCommonMessageResponse>
     constructor(email : String) {
         this.httpMethod = HopperAPIHttpMethod.POST
         this.needsAuthentication = true
-        this.changeUrlPath("/user")
+        this.changeUrlPath("/user/email")
         addBodyItem( "email", email)
     }
     
