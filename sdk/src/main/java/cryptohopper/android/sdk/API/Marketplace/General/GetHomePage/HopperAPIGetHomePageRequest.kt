@@ -13,6 +13,7 @@ class HopperAPIGetHomePageRequest: HopperAPIRequest<HopperAPIGetHomePageResponse
         this.httpMethod = HopperAPIHttpMethod.GET
         this.needsAuthentication = true
         this.changeUrlPath("/market/homepage")
+        this.addQueryItem( "in_app",  "1")
     }
     
 }

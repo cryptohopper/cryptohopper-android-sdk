@@ -8,6 +8,6 @@ data class HopperAPIGetUnsyncedPositionResponse (
 )
 
 data class HopperAPIGetUnsyncedPositionResponseData (
-        @SerializedName("unsyned") val unsyned: List<HopperUnsynedPosition>?,
+        @SerializedName("unsynced") val unsyned: List<HopperUnsynedPosition>?,
         @SerializedName("dust") val dust: List<HopperUnsynedPosition>?
 )

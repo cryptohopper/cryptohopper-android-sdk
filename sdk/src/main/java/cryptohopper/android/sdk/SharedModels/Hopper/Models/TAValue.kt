@@ -34,7 +34,7 @@ data class TASettings (
 
 data class TAIndicator (
 
-        @SerializedName("config") val config : TAIndicatorConfig?,
+        //@SerializedName("config") val config : TAIndicatorConfig?,
         @SerializedName("chartperiod") val chartPeriod : String?,
         @SerializedName("type") val type : String?,
         @SerializedName("name") val name : String?

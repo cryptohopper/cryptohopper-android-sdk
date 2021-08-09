@@ -10,7 +10,7 @@ import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIHttpMethod
 
 class HopperAPICreateOrderRequest: HopperAPIRequest<HopperCommonMessageResponse> {
     
-    constructor(hopperId : String,orderType : String,marketOrder : Int,coin : String,price : Double,amount : Double,orderTrigger : String,percentageProfit : Double,trailingBuy : Double , trailingBuyPercentage : Double) {
+    constructor(hopperId : String,orderType : String,marketOrder : Int,coin : String,price : Double,amount : Double,orderTrigger : String,percentageProfit : Double,trailingBuy : Double , trailingBuyPercentage : Double,stopLossPercentage : Double,trailingStopLossPercentage : Double , trailingArmPercentage : Double) {
         this.httpMethod = HopperAPIHttpMethod.POST
         this.needsAuthentication = true
         this.changeUrlPath("/hopper/$hopperId/order")
@@ -22,8 +22,11 @@ class HopperAPICreateOrderRequest: HopperAPIRequest<HopperCommonMessageResponse>
         addBodyItem( "amount",  amount)
         addBodyItem( "order_trigger",  orderTrigger)
         addBodyItem( "pct_profit",  percentageProfit)
-        addBodyItem( "trailing_buy",  trailingBuy)
+        //addBodyItem( "trailing_buy",  trailingBuy)
         addBodyItem( "trailing_buy_pct",  trailingBuyPercentage)
+        addBodyItem( "stop_loss_percentage",  stopLossPercentage)
+        addBodyItem( "trailing_stop_loss_percentage",  trailingStopLossPercentage)
+        addBodyItem( "trailing_arm_percentage",  trailingArmPercentage)
     }
     
 }

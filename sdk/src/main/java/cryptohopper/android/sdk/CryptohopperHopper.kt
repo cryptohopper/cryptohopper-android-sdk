@@ -5,6 +5,7 @@ import cryptohopper.android.sdk.API.Hopper.General.CreateHopper.HopperAPICreateH
 import cryptohopper.android.sdk.API.Hopper.General.CreateHopper.HopperAPICreateHopperResponse
 import cryptohopper.android.sdk.API.Hopper.General.GetAssets.HopperAPIGetAssetsRequest
 import cryptohopper.android.sdk.API.Hopper.General.GetAssets.HopperAPIGetAssetsResponse
+import cryptohopper.android.sdk.API.Hopper.Position.DCAOnePosition.HopperAPIDCAOnePositionRequest
 import cryptohopper.android.sdk.API.Hopper.Position.GetUnsyncedPositions.HopperAPIGetUnsyncedPositionRequest
 import cryptohopper.android.sdk.API.Hopper.Position.GetUnsyncedPositions.HopperAPIGetUnsyncedPositionResponse
 import cryptohopper.android.sdk.API.Hopper.Position.GetUnsyncedPositions.HopperAPIGetUnsyncedPositionResponseData
@@ -52,7 +53,7 @@ class CryptohopperHopper {
         /// - Parameter templateId: (optional) Hopper templateId if you are creating hopper from a template
         /// - Parameter apiConfig: (optional) Hopper api config defined with HopperConfigAPIConfig
         /// - Parameter config: (optional) Hopper config defined with HopperConfig object
-        fun createHopper(name : String, enabled: Int?, templateId: Int?, apiConfig: Map<String,Any>?, config: Map<String,Any>?,callback: (HopperAPICreateHopperModel?, HopperError?) -> Unit) {
+        fun createHopper(name : String, enabled: Int?, templateId: String?, apiConfig: Map<String,Any>?, config: Map<String,Any>?,callback: (HopperAPICreateHopperModel?, HopperError?) -> Unit) {
             HopperAPICreateHopperRequest( name,  enabled, templateId, apiConfig,  config).request<HopperAPICreateHopperResponse>({ message ->
                     callback(message.data,null)
             },{error ->
@@ -280,8 +281,8 @@ class CryptohopperHopper {
         /// - Parameter percentageProfit:  (required) Percentage Profit
         /// - Parameter trailingBuy:  (required) Trailing Buy
         /// - Parameter trailingBuyPercentage:  (required) Trailing Buy Percentage
-        fun createOrder(hopperId : String,orderType : String,marketOrder : Int,coin : String,price : Double,amount : Double,orderTrigger : String,percentageProfit : Double,trailingBuy : Double,trailingBuyPercentage : Double,callback: (String?, HopperError?) -> Unit) {
-            HopperAPICreateOrderRequest(hopperId,orderType,marketOrder,coin,price, amount,  orderTrigger,  percentageProfit,  trailingBuy,  trailingBuyPercentage).request<HopperCommonMessageResponse>({ data ->
+        fun createOrder(hopperId : String,orderType : String,marketOrder : Int,coin : String,price : Double,amount : Double,orderTrigger : String,percentageProfit : Double,trailingBuy : Double,trailingBuyPercentage : Double,stopLossPercentage:Double,trailingStopLossPercentage: Double,trailingArmPercentage:Double,callback: (String?, HopperError?) -> Unit) {
+            HopperAPICreateOrderRequest(hopperId,orderType,marketOrder,coin,price, amount,  orderTrigger,  percentageProfit,  trailingBuy,  trailingBuyPercentage,stopLossPercentage,trailingStopLossPercentage,trailingArmPercentage).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
                     callback(null,error)
@@ -515,8 +516,8 @@ class CryptohopperHopper {
         /// - Parameter trailingStopLossArm:  (required) Trailing Stop Loss Arm
         /// - Parameter autoClose:  (required) Auto Close
         /// - Parameter autoCloseTime:  (required) Auto Close Time
-        fun updatePosition(hopperId : String,positionId : Int,takeProfit : Int,stopLoss:Int,stopLossPercentage : Int,trailingStopLoss : Int,trailingStopLossPercentage : Int,trailingStopLossArm : Int,autoClose :Int,autoCloseTime : Int,callback: (String?, HopperError?) -> Unit) {
-            HopperAPIUpdatePositionRequest(hopperId,  positionId,  takeProfit,  stopLoss,  stopLossPercentage,  trailingStopLoss,  trailingStopLossPercentage,  trailingStopLossArm,  autoClose,  autoCloseTime).request<HopperCommonMessageResponse>({ data ->
+        fun updatePosition(hopperId : String,positionId : Int,takeProfit : Double,trailingStopLoss : Int,trailingStopLossPercentage : Double,trailingStopLossArm : Double,autoClose :Int,autoCloseTime : String,callback: (String?, HopperError?) -> Unit) {
+            HopperAPIUpdatePositionRequest(hopperId,  positionId,  takeProfit,  trailingStopLoss,  trailingStopLossPercentage,  trailingStopLossArm,  autoClose,  autoCloseTime).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
                     callback(null,error)
@@ -535,8 +536,8 @@ class CryptohopperHopper {
         /// - Parameter trailingStopLossArm:  (required) Trailing Stop Loss Arm
         /// - Parameter autoClose:  (required) Auto Close
         /// - Parameter autoCloseTime:  (required) Auto Close Time
-        fun updateShortPosition(hopperId : String,shortId : Int,takeProfit : Int,stopLoss:Int,stopLossPercentage : Int,trailingStopLoss : Int,trailingStopLossPercentage : Int,trailingStopLossArm : Int,autoCloseTime : Int,autoRemoveTime: Int,callback: (String?, HopperError?) -> Unit) {
-            HopperAPIUpdateShortPositionRequest(hopperId,  shortId,  takeProfit,  stopLoss,  stopLossPercentage,  trailingStopLoss,  trailingStopLossPercentage,  trailingStopLossArm,  autoCloseTime,autoRemoveTime).request<HopperCommonMessageResponse>({ data ->
+        fun updateShortPosition(hopperId : String,shortId : Int,takeProfit : Double,trailingStopLoss : Int,trailingStopLossPercentage : Double,trailingStopLossArm : Double,autoCloseTime : String,autoRemoveTime: String,callback: (String?, HopperError?) -> Unit) {
+            HopperAPIUpdateShortPositionRequest(hopperId,  shortId,  takeProfit,  trailingStopLoss,  trailingStopLossPercentage,  trailingStopLossArm,  autoCloseTime,autoRemoveTime).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
                     callback(null,error)
@@ -790,6 +791,23 @@ class CryptohopperHopper {
                     callback(null,error)
             })
         }
+
+        /*!
+        * DCA One Position
+        *
+        * - Paramete hopperId:  (required) Hopper Id
+        * - Paramete positionId:  (required) Position Id
+        */
+        fun dcaOnePosition(hopperId : String,positionId : Int,callback: (String?, HopperError?) -> Unit) {
+            HopperAPIDCAOnePositionRequest( hopperId, positionId).request<HopperCommonMessageResponse>({ data ->
+                callback(data.data,null)
+            },{error ->
+                callback(null,error)
+            })
+        }
+
+
+
 
         /// ActivateDCA Multiple Positions
         ///
@@ -1085,8 +1103,8 @@ class CryptohopperHopper {
         /// Get Trade History of Hopper
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getTradeHistory(hopperId : String,callback: (List<HopperTradeHistory>?, HopperError?) -> Unit) {
-            HopperAPIGetTradeHistoryRequest(hopperId).request<HopperAPIGetTradeHistoryResponse>({ data ->
+        fun getTradeHistory(hopperId : String,dateFrom : String?,count : Int?,callback: (List<HopperTradeHistory>?, HopperError?) -> Unit) {
+            HopperAPIGetTradeHistoryRequest(hopperId,dateFrom,count).request<HopperAPIGetTradeHistoryResponse>({ data ->
                     callback(data.data?.trades,null)
             },{error ->
                     callback(null,error)

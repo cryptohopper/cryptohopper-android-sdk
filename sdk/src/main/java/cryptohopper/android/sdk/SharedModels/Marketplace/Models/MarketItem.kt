@@ -16,5 +16,6 @@ data class MarketItem (
     @SerializedName("total_votes") val totalVotes: String?,
     @SerializedName("rating") val rating: String?,
     @SerializedName("sales") val sales: Int?,
-    @SerializedName("price") val price: Double?
+    @SerializedName("price") val price: String?,
+    @SerializedName("avg_profit_trade") val averageProfitPerTrade: String?
 )

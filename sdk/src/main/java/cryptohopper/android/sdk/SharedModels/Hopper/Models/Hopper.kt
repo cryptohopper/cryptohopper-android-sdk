@@ -6,6 +6,7 @@
 //
 
 import com.google.gson.annotations.SerializedName
+import cryptohopper.android.sdk.SharedModels.Hopper.Enums.HopperBotType
 
 data class Hopper (
     @SerializedName("id") val id: String?,
@@ -34,7 +35,7 @@ data class Hopper (
     @SerializedName("last_signal") val lastSignal : String?,
     @SerializedName("last_signal_encoding") val lastSignalEncoding : String?,
     @SerializedName("total_cur") val totalCurrency : String?,
-    @SerializedName("bot_type") val botType : String?,
+    @SerializedName("bot_type") val botType : HopperBotType?,
     @SerializedName("user_id") val userId : String?,
     @SerializedName("allowedCoins") val allowedCoins : List<String>?,
     @SerializedName("paper_trading") val paperTrading : Int?

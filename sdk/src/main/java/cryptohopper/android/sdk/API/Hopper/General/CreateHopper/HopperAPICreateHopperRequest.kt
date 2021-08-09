@@ -11,7 +11,7 @@ import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIHttpMethod
 
 class HopperAPICreateHopperRequest: HopperAPIRequest<HopperAPICreateHopperResponse> {
     
-    constructor(name : String, enabled : Int?, templateId : Int?, apiConfig : Map<String,Any>?, config : Map<String,Any>? ) {
+    constructor(name : String, enabled : Int?, templateId : String?, apiConfig : Map<String,Any>?, config : Map<String,Any>? ) {
         this.httpMethod = HopperAPIHttpMethod.POST
         this.needsAuthentication = true
         this.changeUrlPath("/hopper")

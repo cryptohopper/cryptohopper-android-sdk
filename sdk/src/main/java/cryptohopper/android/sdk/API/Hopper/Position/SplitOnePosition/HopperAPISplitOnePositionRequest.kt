@@ -13,7 +13,7 @@ class HopperAPISplitOnePositionRequest: HopperAPIRequest<HopperCommonMessageResp
     constructor(hopperId : String,positionId : Int) {
         this.httpMethod = HopperAPIHttpMethod.POST
         this.needsAuthentication = true
-        this.changeUrlPath("/hopper/$hopperId/split/$positionId")
+        this.changeUrlPath("/hopper/$hopperId/position/split/$positionId")
     }
     
 }
