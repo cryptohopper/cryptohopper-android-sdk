@@ -9,6 +9,7 @@ import cryptohopper.android.sdk.API.Hopper.Position.DCAOnePosition.HopperAPIDCAO
 import cryptohopper.android.sdk.API.Hopper.Position.GetUnsyncedPositions.HopperAPIGetUnsyncedPositionRequest
 import cryptohopper.android.sdk.API.Hopper.Position.GetUnsyncedPositions.HopperAPIGetUnsyncedPositionResponse
 import cryptohopper.android.sdk.API.Hopper.Position.GetUnsyncedPositions.HopperAPIGetUnsyncedPositionResponseData
+import cryptohopper.android.sdk.API.Hopper.Position.HoldShortPosition.HopperAPIHoldShortPositionRequest
 import cryptohopper.android.sdk.API.Hopper.Position.MoveReservedPositionToOpen.HopperAPIMoveReservedPositionToOpenRequest
 import cryptohopper.android.sdk.API.Hopper.Position.SyncPosition.HopperAPISyncPositionRequest
 import cryptohopper.android.sdk.API.Hopper.Stats.GetStats.HopperAPIGetHopperStatsResponse
@@ -516,8 +517,8 @@ class CryptohopperHopper {
         /// - Parameter trailingStopLossArm:  (required) Trailing Stop Loss Arm
         /// - Parameter autoClose:  (required) Auto Close
         /// - Parameter autoCloseTime:  (required) Auto Close Time
-        fun updatePosition(hopperId : String,positionId : Int,takeProfit : Double,trailingStopLoss : Int,trailingStopLossPercentage : Double,trailingStopLossArm : Double,autoClose :Int,autoCloseTime : String,callback: (String?, HopperError?) -> Unit) {
-            HopperAPIUpdatePositionRequest(hopperId,  positionId,  takeProfit,  trailingStopLoss,  trailingStopLossPercentage,  trailingStopLossArm,  autoClose,  autoCloseTime).request<HopperCommonMessageResponse>({ data ->
+        fun updatePosition(hopperId : String,positionId : Int,takeProfit : Double,stopLoss:Int,stopLossPercentage : Double,trailingStopLoss : Int,trailingStopLossPercentage : Double,trailingStopLossArm : Double,autoClose :Int,autoCloseTime : String,callback: (String?, HopperError?) -> Unit) {
+            HopperAPIUpdatePositionRequest(hopperId,  positionId,  takeProfit, stopLoss, stopLossPercentage, trailingStopLoss,  trailingStopLossPercentage,  trailingStopLossArm,  autoClose,  autoCloseTime).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
                     callback(null,error)
@@ -536,13 +537,14 @@ class CryptohopperHopper {
         /// - Parameter trailingStopLossArm:  (required) Trailing Stop Loss Arm
         /// - Parameter autoClose:  (required) Auto Close
         /// - Parameter autoCloseTime:  (required) Auto Close Time
-        fun updateShortPosition(hopperId : String,shortId : Int,takeProfit : Double,trailingStopLoss : Int,trailingStopLossPercentage : Double,trailingStopLossArm : Double,autoCloseTime : String,autoRemoveTime: String,callback: (String?, HopperError?) -> Unit) {
-            HopperAPIUpdateShortPositionRequest(hopperId,  shortId,  takeProfit,  trailingStopLoss,  trailingStopLossPercentage,  trailingStopLossArm,  autoCloseTime,autoRemoveTime).request<HopperCommonMessageResponse>({ data ->
+        fun updateShortPosition(hopperId : String,shortId : Int,takeProfit : Double,stopLoss:Int,stopLossPercentage : Double,trailingStopLoss : Int,trailingStopLossPercentage : Double,trailingStopLossArm : Double,autoCloseTime : String,autoRemoveTime: String,callback: (String?, HopperError?) -> Unit) {
+            HopperAPIUpdateShortPositionRequest(hopperId,  shortId,  takeProfit, stopLoss, stopLossPercentage, trailingStopLoss,  trailingStopLossPercentage,  trailingStopLossArm,  autoCloseTime,autoRemoveTime).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
                     callback(null,error)
             })
         }
+
 
         /// Get Hold Positions
         ///
@@ -552,6 +554,18 @@ class CryptohopperHopper {
                     callback(data.data,null)
             },{error ->
                     callback(null,error)
+            })
+        }
+
+
+        /// Get Hold Positions
+        ///
+        /// - Parameter hopperId:  (required) Hopper Id
+        fun holdShortPosition(hopperId : String,positionId : Int,callback: (String?, HopperError?) -> Unit) {
+            HopperAPIHoldShortPositionRequest(hopperId,positionId).request<HopperCommonMessageResponse>({ data ->
+                callback(data.data,null)
+            },{error ->
+                callback(null,error)
             })
         }
 
@@ -746,7 +760,7 @@ class CryptohopperHopper {
         /// Get Assets
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getAssets(hopperId : String,reserved : Boolean,callback: (Map<String,Double>?, HopperError?) -> Unit) {
+        fun getAssets(hopperId : String,reserved : Boolean,callback: (Map<String,String>?, HopperError?) -> Unit) {
             HopperAPIGetAssetsRequest(hopperId,reserved).request<HopperAPIGetAssetsResponse>({ data ->
                 callback(data.data,null)
             },{error ->

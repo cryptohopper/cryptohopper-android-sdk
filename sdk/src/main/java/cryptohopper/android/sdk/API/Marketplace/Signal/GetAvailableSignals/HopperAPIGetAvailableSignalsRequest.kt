@@ -13,6 +13,7 @@ class HopperAPIGetAvailableSignalsRequest: HopperAPIRequest<HopperAPIGetAvailabl
         this.httpMethod = HopperAPIHttpMethod.GET
         this.needsAuthentication = true
         this.changeUrlPath("/market/signals")
+        addQueryItem("available_in_app","1")
     }
     
 }
