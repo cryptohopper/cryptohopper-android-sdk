@@ -1,3 +1,6 @@
+import cryptohopper.android.sdk.API.Hopper.Signal.GetChartData.HopperAPIGetSignalChartDataRequest
+import cryptohopper.android.sdk.API.Hopper.Signal.GetChartData.HopperAPIGetSignalChartDataResponse
+import cryptohopper.android.sdk.API.Hopper.Signal.GetChartData.SignalChartData
 import cryptohopper.android.sdk.API.Marketplace.Seller.HopperAPIGetMarketSellerRequest
 import cryptohopper.android.sdk.API.Marketplace.Seller.HopperAPIGetMarketSellerResponse
 import cryptohopper.android.sdk.SharedModels.Marketplace.Models.MarketplaceSeller
@@ -131,13 +134,27 @@ class CryptohopperMarketplace {
         ///
         ///
         ///- Parameter signalId: (required) Signal Id
-        fun getSignalDistribution(signalId : Int ,callback: (List<Int>?, HopperError?) -> Unit) {
+        fun getSignalDistribution(signalId : Int ,callback: (Map<String,Int>?, HopperError?) -> Unit) {
             HopperAPIGetSignalDistributionRequest( signalId).request<HopperAPIGetSignalDistributionResponse>({ data ->
                     callback(data.data,null)
             } ,{ error ->
                     callback(null,error)
             })
         }
+
+        /// Get Signal Chart Data
+        ///
+        ///
+        ///- Parameter signalId: (required) Signal Id
+        fun getSignalChartData(signalId : Int ,callback: (Map<String,List<SignalChartData?>>?, HopperError?) -> Unit) {
+            HopperAPIGetSignalChartDataRequest(signalId).request<HopperAPIGetSignalChartDataResponse>({ data ->
+                callback(data.data,null)
+            } ,{ error ->
+                callback(null,error)
+            })
+        }
+
+
 
         /// Get  Signal Performance
         ///

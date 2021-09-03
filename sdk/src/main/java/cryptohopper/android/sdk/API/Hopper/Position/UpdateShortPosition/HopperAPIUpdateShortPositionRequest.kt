@@ -13,7 +13,7 @@ class HopperAPIUpdateShortPositionRequest: HopperAPIRequest<HopperCommonMessageR
     constructor(hopperId : String , shortId:Int , takeProfit : Double,stopLoss : Int,stopLossPercentage : Double,trailingStopLoss : Int, trailingStopLossPercentage : Double,trailingStopLossArm : Double,autoCloseTime : String,autoRemoveTime : String) {
         this.httpMethod = HopperAPIHttpMethod.POST
         this.needsAuthentication = true
-        this.changeUrlPath("/hopper/$hopperId/setshortsetting")
+        this.changeUrlPath("/hopper/$hopperId/position/setshortsetting")
 
         addBodyItem( "position_ids", listOf<Int>(shortId))
 
@@ -37,8 +37,8 @@ class HopperAPIUpdateShortPositionRequest: HopperAPIRequest<HopperCommonMessageR
             settings["trailing_arm_percentage"] = 0.0
         }
 
-        settings["auto_close_time"] = autoCloseTime
-        settings["auto_remove_time"] = autoRemoveTime
+        //settings["auto_close_time"] = autoCloseTime
+        //settings["auto_remove_time"] = autoRemoveTime
 
         addBodyItem("setting", settings)
     }

@@ -8,5 +8,5 @@
 import com.google.gson.annotations.SerializedName
 
 data class HopperAPIGetSignalDistributionResponse (
-        @SerializedName("data") val data: List<Int>?
+        @SerializedName("data") val data: Map<String,Int>?
 )
