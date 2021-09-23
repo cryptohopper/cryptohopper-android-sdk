@@ -14,4 +14,8 @@ data class HopperConfigAPIConfig (
     @SerializedName("kraken_private_extra_key") val krakenPrivateExtraKey: String?,
     @SerializedName("gdax_api_passphrase") val gdaxApiPassphrase: String?,
     @SerializedName("gdax_post_only") val gdaxPostOnly: String?
-)
+) {
+    constructor(): this(null,null,null,null,null,null) {
+
+    }
+}

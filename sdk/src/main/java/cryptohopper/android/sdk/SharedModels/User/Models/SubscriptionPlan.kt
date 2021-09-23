@@ -8,7 +8,7 @@
 import com.google.gson.annotations.SerializedName
 
 data class SubscriptionPlan (
-    @SerializedName("planId") val planId: String?,
+    @SerializedName("plan_id") val planId: String?,
     @SerializedName("name") val name: String?,
     @SerializedName("description") val description: String?,
     @SerializedName("price_month") val priceMonth: String?,

@@ -10,7 +10,6 @@ import com.google.gson.annotations.SerializedName
 data class HopperConfig (
         @SerializedName("name") var name: String?,
         @SerializedName("live") var live: String?,
-
         @SerializedName("submit") var submit: String?,
         @SerializedName("status") var status: String?,
         @SerializedName("exchange") var exchange: String?,
@@ -172,4 +171,8 @@ data class HopperConfig (
         @SerializedName("auto_dca_strategy") var auto_dca_strategy: String?,
         @SerializedName("auto_dca_size") var auto_dca_size: String?,
         @SerializedName("auto_dca_size_custom") var auto_dca_size_custom: String?
-)
+){
+        constructor(): this(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null) {
+
+        }
+}

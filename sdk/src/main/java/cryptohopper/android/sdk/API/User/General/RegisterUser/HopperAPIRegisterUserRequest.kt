@@ -10,7 +10,7 @@ import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIHttpMethod
 
 class HopperAPIRegisterUserRequest: HopperAPIRequest<HopperAPIRegisterUserResponse> {
     
-    constructor(name : String,email : String,username : String,subscribe_newsletter : Boolean,password : String) {
+    constructor(name : String,email : String,username : String,subscribe_newsletter : Boolean,password : String,userAgent: String) {
         this.httpMethod = HopperAPIHttpMethod.POST
         this.needsAuthentication = false
         this.changeUrlPath("/user/register")
@@ -19,6 +19,7 @@ class HopperAPIRegisterUserRequest: HopperAPIRequest<HopperAPIRegisterUserRespon
         addHeader("username",  username)
         addHeader("subscribe_newsletter",  subscribe_newsletter.toString())
         addHeader("password",  password)
+        addHeader( "User-Agent",  userAgent)
     }
     
 }

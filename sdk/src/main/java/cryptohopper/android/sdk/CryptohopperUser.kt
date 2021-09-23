@@ -19,8 +19,8 @@ class CryptohopperUser {
 
         /// Get User Profile
         ///
-        fun forgetPassword(email:String ,callback: (String?, HopperError?) -> Unit) {
-            HopperAPIForgetPasswordRequest(email).request<HopperCommonMessageResponse>({ data ->
+        fun forgetPassword(email:String,userAgent: String ,callback: (String?, HopperError?) -> Unit) {
+            HopperAPIForgetPasswordRequest(email,userAgent).request<HopperCommonMessageResponse>({ data ->
                 callback(data.data,null)
             } ,{ error ->
                 callback(null,error)
@@ -143,8 +143,8 @@ class CryptohopperUser {
         ///- Parameter username: (required) username
         ///- Parameter subscribeNewsletter: (required) subscribe newsletter
         ///- Parameter password: (required) password
-        fun registerUser(name : String, email : String, username : String, subscribeNewsLetter : Boolean , password : String,callback: (HopperAPIRegisterUserResponse?, HopperError?) -> Unit) {
-            HopperAPIRegisterUserRequest( name,  email,  username,  subscribeNewsLetter,  password).request<HopperAPIRegisterUserResponse>({ data ->
+        fun registerUser(name : String, email : String, username : String, subscribeNewsLetter : Boolean , password : String,userAgent : String,callback: (HopperAPIRegisterUserResponse?, HopperError?) -> Unit) {
+            HopperAPIRegisterUserRequest( name,  email,  username,  subscribeNewsLetter,  password, userAgent).request<HopperAPIRegisterUserResponse>({ data ->
                    callback(data,null)
             } ,{ error ->
                     callback(null,error)

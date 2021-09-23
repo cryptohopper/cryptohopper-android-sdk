@@ -13,6 +13,7 @@ class HopperAPIGetAvailableTemplatesRequest: HopperAPIRequest<HopperAPIGetAvaila
         this.httpMethod = HopperAPIHttpMethod.GET
         this.needsAuthentication = true
         this.changeUrlPath("/market/templates")
+        addQueryItem( "available_in_app",  "1")
     }
     
 }
