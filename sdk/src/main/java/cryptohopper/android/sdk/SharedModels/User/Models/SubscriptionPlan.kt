@@ -13,5 +13,5 @@ data class SubscriptionPlan (
     @SerializedName("description") val description: String?,
     @SerializedName("price_month") val priceMonth: String?,
     @SerializedName("price_year") val priceYear: String?,
-    @SerializedName("subscribed") val subscribed: String?
+    @SerializedName("subscribed") val subscribed: Int?
 )
