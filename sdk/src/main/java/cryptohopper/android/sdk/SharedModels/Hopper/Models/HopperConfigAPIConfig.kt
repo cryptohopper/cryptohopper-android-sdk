@@ -8,12 +8,12 @@
 import com.google.gson.annotations.SerializedName
 
 data class HopperConfigAPIConfig (
-    @SerializedName("api_key") val apiKey: String?,
-    @SerializedName("api_secret") val apiSecret: String?,
-    @SerializedName("kraken_extra_key") val krakenExtraKey: String?,
-    @SerializedName("kraken_private_extra_key") val krakenPrivateExtraKey: String?,
-    @SerializedName("gdax_api_passphrase") val gdaxApiPassphrase: String?,
-    @SerializedName("gdax_post_only") val gdaxPostOnly: String?
+    @SerializedName("api_key") var apiKey: String?,
+    @SerializedName("api_secret") var apiSecret: String?,
+    @SerializedName("kraken_extra_key") var krakenExtraKey: String?,
+    @SerializedName("kraken_private_extra_key") var krakenPrivateExtraKey: String?,
+    @SerializedName("gdax_api_passphrase") var gdaxApiPassphrase: String?,
+    @SerializedName("gdax_post_only") var gdaxPostOnly: String?
 ) {
     constructor(): this(null,null,null,null,null,null) {
 

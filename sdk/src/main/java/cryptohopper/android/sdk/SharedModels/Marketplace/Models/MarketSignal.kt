@@ -31,7 +31,9 @@ data class MarketSignal (
     @SerializedName("seller_name") val sellerName: String?,
     @SerializedName("seller_logo") val sellerLogo: String?,
     @SerializedName("is_refundable") val isRefundable: Int?,
-    @SerializedName("price_id") val priceId: String?
+    @SerializedName("price_id") val priceId: String?,
+    @SerializedName("total_subs") val totalSubs: String?,
+    @SerializedName("total_reviews") val totalReviews: String?
 )
 
 data class MarketSignalReviewData (
