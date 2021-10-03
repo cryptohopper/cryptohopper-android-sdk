@@ -219,9 +219,9 @@ open class HopperAPIRequest<Object> {
             startRequest<T>({ response ->
                 onSuccess.invoke(response)
             }) { error  ->
-                val err = error as? HopperError
+                val err = error as? HopperAPIError
                 if (err != null) {
-                    when (err) {
+                    when (err.error) {
                         HopperError.ACCESS_TOKEN_EXPIRED, HopperError.INVALID_ACCESS_TOKEN, HopperError.INVALID_SESSION -> {
                             this.authenticateAndRequestAgain(
                                 onSuccess,
@@ -229,9 +229,7 @@ open class HopperAPIRequest<Object> {
                             )
                         }
                         else -> {
-                            val error = HopperAPIError(0,"Unkown response error occured",0)
-                            error.error = err
-                            onFail.invoke(error)
+                            onFail.invoke(err)
                         }
                     }
                 } else {
