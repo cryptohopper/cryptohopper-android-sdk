@@ -78,11 +78,13 @@ open class HopperAPIRequest<Object> {
         bodyItems?.set(name, value)
     }
 
-    fun handleError(failClosure: (HopperError) -> Unit?, error: HopperError) {
+    fun handleError(failClosure: (HopperAPIError) -> Unit?, error: HopperError) {
         if (HopperAPIConfigurationManager.shared.config.debugModeEnabled) {
             print(error)
         }
-        failClosure.invoke(error)
+        val err = HopperAPIError(0,"Unkown response error occured",0)
+        err.error = error
+        failClosure.invoke(err)
     }
 
     fun createUrl() : String {
@@ -149,7 +151,7 @@ open class HopperAPIRequest<Object> {
         return fromJson(json, tt);
     }
 
-    inline fun <reified T : Any> startRequest(onSuccess: (T) -> Unit?, noinline onFail: (HopperError) -> Unit?) {
+    inline fun <reified T : Any> startRequest(onSuccess: (T) -> Unit?, noinline onFail: (HopperAPIError) -> Unit?) {
         val url = createUrl()
         if (url == "") {
             this.handleError(failClosure = onFail, error = HopperError.MISSING_URL)
@@ -162,7 +164,7 @@ open class HopperAPIRequest<Object> {
                 if (HopperAPIConfigurationManager.shared.config.debugModeEnabled) {
                     print("API ERROR RESPONSE :" + response.body.toString())
                 }
-                onFail.invoke(HopperAPIError(response.code, response.body.toString(), 0).error!!)
+                onFail.invoke(HopperAPIError(response.code, response.body.toString(), 0))
             }else{
                 if (HopperAPIConfigurationManager.shared.config.debugModeEnabled) {
                     print("API RESPONSE :" + response.body.toString())
@@ -178,8 +180,9 @@ open class HopperAPIRequest<Object> {
 
                         if(commonResponse != null){
                             if(commonResponse.error != null && commonResponse.status != null){
-                                var err = HopperError.UNKOWN_ERROR
                                 Log.d("HOPPER ERROR : ",commonResponse.message ?: "No error message")
+                                val err = HopperAPIError((commonResponse.error?.toInt() ?: 0),commonResponse.message,(commonResponse.status?.toInt() ?: 0))
+                                err.error = HopperError.UNKOWN_ERROR
                                 onFail(err)
                             }else{
                                 val jsonResponse = Gson().fromJsonType<T>(responseString)
@@ -191,13 +194,15 @@ open class HopperAPIRequest<Object> {
                         }
                     } else {
                         val jsonResponse = Gson().fromJson(response.body!!.string(), HopperAPIError::class.java)
-                        onFail(jsonResponse.error!!)
+                        onFail(jsonResponse)
                     }
                 }else{
                     if (HopperAPIConfigurationManager.shared.config.debugModeEnabled) {
                         print("RESPONSE NULL")
                     }
-                    onFail(HopperError.UNKOWN_ERROR)
+                    val err = HopperAPIError(0,"Unkown response error occured",0)
+                    err.error = HopperError.UNKOWN_ERROR
+                    onFail(err)
                 }
             }
 
@@ -206,7 +211,7 @@ open class HopperAPIRequest<Object> {
 
     inline fun <reified T : Any> request(
             noinline onSuccess: (T) -> Unit?,
-            noinline onFail: (HopperError) -> Unit?
+            noinline onFail: (HopperAPIError) -> Unit?
     ) {
         if (needsAuthentication) {
             this.authenticateAndRequestAgain(onSuccess, onFail)
@@ -217,14 +222,22 @@ open class HopperAPIRequest<Object> {
                 val err = error as? HopperError
                 if (err != null) {
                     when (err) {
-                        HopperError.ACCESS_TOKEN_EXPIRED, HopperError.INVALID_ACCESS_TOKEN, HopperError.INVALID_SESSION -> this.authenticateAndRequestAgain(
+                        HopperError.ACCESS_TOKEN_EXPIRED, HopperError.INVALID_ACCESS_TOKEN, HopperError.INVALID_SESSION -> {
+                            this.authenticateAndRequestAgain(
                                 onSuccess,
                                 onFail
-                        )
-                        else -> onFail.invoke(err)
+                            )
+                        }
+                        else -> {
+                            val error = HopperAPIError(0,"Unkown response error occured",0)
+                            error.error = err
+                            onFail.invoke(error)
+                        }
                     }
                 } else {
-                    onFail.invoke(HopperError.UNKOWN_ERROR)
+                    val err = HopperAPIError(0,"Unkown response error occured",0)
+                    err.error = HopperError.UNKOWN_ERROR
+                    onFail.invoke(err)
                 }
             }
         }
@@ -232,7 +245,7 @@ open class HopperAPIRequest<Object> {
 
     inline fun < reified T : Any> authenticateAndRequestAgain(
             crossinline onSuccess: (T) -> Unit?,
-            noinline onFail: (HopperError) -> Unit?
+            noinline onFail: (HopperAPIError) -> Unit?
     ) {
         HopperAPISessionManager.shared.checkAuthentication(onSuccess = {
             val accessToken = HopperAPISessionManager.shared.session?.accessToken

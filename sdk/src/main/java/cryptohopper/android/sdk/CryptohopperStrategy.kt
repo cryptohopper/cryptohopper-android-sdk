@@ -1,3 +1,4 @@
+import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIError
 
 class CryptohopperStrategy {
 
@@ -7,7 +8,7 @@ class CryptohopperStrategy {
 
         /// Get Strategies
         ///
-        fun getStrategies(callback : (List<Strategy>?, HopperError?) -> Unit) {
+        fun getStrategies(callback : (List<Strategy>?, HopperAPIError?) -> Unit) {
             HopperAPIGetStrategiesRequest("").request<HopperAPIGetStrategiesResponse>({ data ->
                     callback(data.data?.strategies,null)
             } , { error ->
@@ -18,7 +19,7 @@ class CryptohopperStrategy {
         /// Get Strategy
         ///
         ///- Parameter strategyId: (required) strategy id
-        fun getStrategy(strategyId : Int,callback : (MarketStrategy?, HopperError?) -> Unit) {
+        fun getStrategy(strategyId : Int,callback : (MarketStrategy?, HopperAPIError?) -> Unit) {
             HopperAPIGetStrategyRequest( strategyId).request<HopperAPIGetStrategyResponse>({ data ->
                     callback(data.data,null)
             } , { error ->
@@ -29,7 +30,7 @@ class CryptohopperStrategy {
         /// Update Strategy
         ///
         ///- Parameter strategyId: (required) strategy id
-        fun createStrategy(strategyId : Int,name : String,description : String, image : String, minBuys : Int , minSells : Int,callback : (String?, HopperError?) -> Unit) {
+        fun createStrategy(strategyId : Int,name : String,description : String, image : String, minBuys : Int , minSells : Int,callback : (String?, HopperAPIError?) -> Unit) {
             HopperAPICrateStrategyRequest( strategyId,  name,  description,  image,  minBuys,  minSells).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             } , { error ->
@@ -40,7 +41,7 @@ class CryptohopperStrategy {
         /// Update Strategy
         ///
         ///- Parameter strategyId: (required) strategy id
-        fun updateStrategy(strategyId : Int,name : String,description : String, image : String, minBuys : Int , minSells : Int,callback : (String?, HopperError?) -> Unit) {
+        fun updateStrategy(strategyId : Int,name : String,description : String, image : String, minBuys : Int , minSells : Int,callback : (String?, HopperAPIError?) -> Unit) {
             HopperAPIUpdateStrategyRequest( strategyId,  name,  description,  image,  minBuys,  minSells).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             } , { error ->
@@ -52,7 +53,7 @@ class CryptohopperStrategy {
         /// Delete Strategy
         ///
         ///- Parameter strategyId: (required) strategy id
-        fun deleteStrategy(strategyId : Int,callback : (String?, HopperError?) -> Unit) {
+        fun deleteStrategy(strategyId : Int,callback : (String?, HopperAPIError?) -> Unit) {
             HopperAPIDeleteStrategyRequest( strategyId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             } , { error ->
@@ -63,7 +64,7 @@ class CryptohopperStrategy {
         /// Change Image Of Strategy
         ///
         ///- Parameter strategyId: (required) strategy id
-        fun changeImageOfStrategy(strategyId : Int,image : String,callback : (String?, HopperError?) -> Unit) {
+        fun changeImageOfStrategy(strategyId : Int,image : String,callback : (String?, HopperAPIError?) -> Unit) {
             HopperAPIChangeImageOfStrategyRequest( strategyId, image).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             } , { error ->
@@ -76,7 +77,7 @@ class CryptohopperStrategy {
 
         /// Get Market Strategies
         ///
-        fun getMarketStrategies(callback : (List<Strategy>?, HopperError?) -> Unit) {
+        fun getMarketStrategies(callback : (List<Strategy>?, HopperAPIError?) -> Unit) {
             HopperAPIGetMarketStrategiesRequest("").request<HopperAPIGetMarketStrategiesResponse>({ data ->
                     callback(data.data?.strategies,null)
             } , { error ->
@@ -86,7 +87,7 @@ class CryptohopperStrategy {
 
         /// Get Market Strategy
         ///
-        fun getMarketStrategy(strategyId: Int, callback : (Strategy?, HopperError?) -> Unit) {
+        fun getMarketStrategy(strategyId: Int, callback : (Strategy?, HopperAPIError?) -> Unit) {
             HopperAPIGetMarketStrategyRequest( strategyId).request<HopperAPIGetMarketStrategyResponse>({ data ->
                     callback(data.data,null)
             } , { error ->
@@ -96,7 +97,7 @@ class CryptohopperStrategy {
 
         /// Get Market Strategies
         ///
-        fun deleteMarketStrategy(strategyId : Int,callback : (String?, HopperError?) -> Unit) {
+        fun deleteMarketStrategy(strategyId : Int,callback : (String?, HopperAPIError?) -> Unit) {
             HopperAPIDeleteMarketStrategyRequest( strategyId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             } , { error ->

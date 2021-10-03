@@ -9,6 +9,7 @@
 
 
 import android.content.Context
+import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIError
 import java.util.*
 
 class HopperAPISessionManager {
@@ -56,11 +57,13 @@ class HopperAPISessionManager {
             return session != null
         }
 
-    fun checkAuthentication(onSuccess: () -> Unit, onFail: ((HopperError) -> Unit?)? = null) {
+    fun checkAuthentication(onSuccess: () -> Unit, onFail: ((HopperAPIError) -> Unit?)? = null) {
         if (hasSession) {
             updateRefreshTokenIfNeeded(onSuccess = onSuccess, onFail = onFail)
         } else {
-            onFail?.invoke(HopperError.MISSING_REFRESH_TOKEN)
+            val err = HopperAPIError(0,"Unkown response error occured",0)
+            err.error = HopperError.MISSING_REFRESH_TOKEN
+            onFail?.invoke(err)
         }
     }
 
@@ -68,13 +71,15 @@ class HopperAPISessionManager {
         session = null
     }
 
-    fun updateRefreshTokenIfNeeded(onSuccess: () -> Unit, onFail: ((HopperError) -> Unit?)? = null) {
+    fun updateRefreshTokenIfNeeded(onSuccess: () -> Unit, onFail: ((HopperAPIError) -> Unit?)? = null) {
         val refreshDate = session?.accessTokenExpiresAt ?: Date()
         val currentDate = Date()
         if (currentDate > refreshDate) {
             val refreshToken = session?.refreshToken
             if (refreshToken == null) {
-                onFail?.invoke(HopperError.MISSING_REFRESH_TOKEN)
+                val err = HopperAPIError(0,"Unkown response error occured",0)
+                err.error = HopperError.MISSING_REFRESH_TOKEN
+                onFail?.invoke(err)
                 return
             }
             HopperAPIRefreshTokenRequest(refreshToken).request<HopperAPIAuthenticationResponse>({ response ->

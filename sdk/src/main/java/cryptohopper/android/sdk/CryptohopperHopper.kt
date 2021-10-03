@@ -14,6 +14,7 @@ import cryptohopper.android.sdk.API.Hopper.Position.MoveReservedPositionToOpen.H
 import cryptohopper.android.sdk.API.Hopper.Position.SyncPosition.HopperAPISyncPositionRequest
 import cryptohopper.android.sdk.API.Hopper.Stats.GetStats.HopperAPIGetHopperStatsResponse
 import cryptohopper.android.sdk.API.Hopper.Stats.GetStats.HopperStats
+import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIError
 import cryptohopper.android.sdk.SharedModels.Hopper.Models.HopperOutput
 import cryptohopper.android.sdk.SharedModels.Hopper.Models.HopperTradeHistory
 import java.util.*
@@ -28,7 +29,7 @@ class CryptohopperHopper {
         /// - Parameter name: (optional)  Hopper's name as a filter
         /// - Parameter exchange: (optional) Exchange as a  filter with type HopperConfigExchange
         /// - Parameter enabled: (optional) Filter as if hooper is enabled or disabled, 0 if disabled , 1 if enabled
-        fun getAllHoppers(name : String?,exchange : HopperConfigExchange? , enabled : Int?,callback: (List<Hopper>?, HopperError?) -> Unit) {
+        fun getAllHoppers(name : String?,exchange : HopperConfigExchange? , enabled : Int?,callback: (List<Hopper>?, HopperAPIError?) -> Unit) {
             HopperAPIGetAllHoppersRequest( name,  exchange,  enabled).request<HopperAPIGetAllHoppersResponse>({ hoppers ->
                     callback(hoppers.data?.hoppers,null)
             },{error ->
@@ -39,7 +40,7 @@ class CryptohopperHopper {
         /// Gets one hopper by id
         ///
         /// - Parameter (required) Hopper's id
-        fun getHopper(hopperId : String,callback: (Hopper?, HopperError?) -> Unit) {
+        fun getHopper(hopperId : String,callback: (Hopper?, HopperAPIError?) -> Unit) {
             HopperAPIGetSingleHopperRequest(hopperId).request<HopperAPIGetSingleHopperResponse>({ hopper ->
                     callback(hopper.data?.hopper,null)
             },{error ->
@@ -54,7 +55,7 @@ class CryptohopperHopper {
         /// - Parameter templateId: (optional) Hopper templateId if you are creating hopper from a template
         /// - Parameter apiConfig: (optional) Hopper api config defined with HopperConfigAPIConfig
         /// - Parameter config: (optional) Hopper config defined with HopperConfig object
-        fun createHopper(name : String, enabled: Int?, templateId: String?, apiConfig: Map<String,Any>?, config: Map<String,Any>?,callback: (HopperAPICreateHopperModel?, HopperError?) -> Unit) {
+        fun createHopper(name : String, enabled: Int?, templateId: String?, apiConfig: Map<String,Any>?, config: Map<String,Any>?,callback: (HopperAPICreateHopperModel?, HopperAPIError?) -> Unit) {
             HopperAPICreateHopperRequest( name,  enabled, templateId, apiConfig,  config).request<HopperAPICreateHopperResponse>({ message ->
                     callback(message.data,null)
             },{error ->
@@ -70,7 +71,7 @@ class CryptohopperHopper {
         /// - Parameter templateId: (optional) Hopper templateId if you are creating hopper from a template
         /// - Parameter apiConfig: (optional) Hopper api config defined with HopperConfigAPIConfig
         /// - Parameter config: (optional) Hopper config defined with HopperConfig object
-        fun updateHopper(hopperId : String,name: String?, enabled: Int?, apiConfig: HopperConfigAPIConfig?, config: HopperConfig?,callback: (String?, HopperError?) -> Unit) {
+        fun updateHopper(hopperId : String,name: String?, enabled: Int?, apiConfig: HopperConfigAPIConfig?, config: HopperConfig?,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIUpdateHopperRequest(hopperId,  name,  enabled, apiConfig).request<HopperCommonMessageResponse>({ message ->
                     callback(message.data,null)
             },{error ->
@@ -81,7 +82,7 @@ class CryptohopperHopper {
         /// Delete Hopper
         ///
         /// - Parameter hopperId:  (required) Hopper id
-        fun deleteHopper(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun deleteHopper(hopperId : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIDeleteHopperRequest(hopperId).request<HopperCommonMessageResponse>({ message ->
                     callback(message.data,null)
             },{error ->
@@ -93,7 +94,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper id
         /// - Parameter image:  (required) Image Url
-        fun changeHopperImage(hopperId : String,image : String,callback: (String?, HopperError?) -> Unit) {
+        fun changeHopperImage(hopperId : String,image : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIChangeHopperImageRequest(hopperId, image).request<HopperCommonMessageResponse>({ message ->
                     callback(message.data,null)
             },{error ->
@@ -104,7 +105,7 @@ class CryptohopperHopper {
         /// Disable Hopper
         ///
         /// - Parameter hopperId:  (required) Hopper id
-        fun disableHopper(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun disableHopper(hopperId : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIDisableHopperRequest(hopperId).request<HopperCommonMessageResponse>({ message ->
                     callback(message.data,null)
             },{error ->
@@ -115,7 +116,7 @@ class CryptohopperHopper {
         /// Reset Hopper
         ///
         /// - Parameter hopperId:  (required) Hopper id
-        fun resetHopper(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun resetHopper(hopperId : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIResetHopperRequest(hopperId).request<HopperCommonMessageResponse>({ message ->
                     callback(message.data,null)
             },{error ->
@@ -126,7 +127,7 @@ class CryptohopperHopper {
         /// Set Hopper Disabled
         ///
         /// - Parameter hopperId:  (required) Hopper id
-        fun setHopperAsDefault(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun setHopperAsDefault(hopperId : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPISetHopperAsDefaultRequest(hopperId).request<HopperCommonMessageResponse>({ message ->
                     callback(message.data,null)
             },{error ->
@@ -137,7 +138,7 @@ class CryptohopperHopper {
         /// Disable Hopper Buying
         ///
         /// - Parameter hopperId:  (required) Hopper id
-        fun disableHopperBuying(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun disableHopperBuying(hopperId : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIDisableHopperBuyingRequest(hopperId).request<HopperCommonMessageResponse>({ message ->
                     callback(message.data,null)
             },{error ->
@@ -148,7 +149,7 @@ class CryptohopperHopper {
         /// Disable Hopper Papertrading
         ///
         /// - Parameter hopperId:  (required) Hopper id
-        fun disableHopperPapertrading(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun disableHopperPapertrading(hopperId : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIDisableHopperPapertradingRequest(hopperId).request<HopperCommonMessageResponse>({ message ->
                     callback(message.data,null)
             },{error ->
@@ -159,7 +160,7 @@ class CryptohopperHopper {
         /// Disable Hopper Selling
         ///
         /// - Parameter hopperId:  (required) Hopper id
-        fun disableHopperSelling(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun disableHopperSelling(hopperId : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIDisableHopperSellingRequest(hopperId).request<HopperCommonMessageResponse>({ message ->
                     callback(message.data,null)
             },{error ->
@@ -171,7 +172,7 @@ class CryptohopperHopper {
         /// Enable Hopper
         ///
         /// - Parameter hopperId:  (required) Hopper id
-        fun enableHopper(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun enableHopper(hopperId : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIEnableHopperRequest(hopperId).request<HopperCommonMessageResponse>({ message ->
                     callback(message.data,null)
             },{error ->
@@ -182,7 +183,7 @@ class CryptohopperHopper {
         /// Enable Hopper Buying
         ///
         /// - Parameter hopperId:  (required) Hopper id
-        fun enableHopperBuying(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun enableHopperBuying(hopperId : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIEnableHopperBuyingRequest(hopperId).request<HopperCommonMessageResponse>({ message ->
                     callback(message.data,null)
             },{error ->
@@ -193,7 +194,7 @@ class CryptohopperHopper {
         /// Enable Hopper Papertrading
         ///
         /// - Parameter hopperId:  (required) Hopper id
-        fun enableHopperPapertrading(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun enableHopperPapertrading(hopperId : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIEnableHopperPapertradingRequest(hopperId).request<HopperCommonMessageResponse>({ message ->
                     callback(message.data,null)
             },{error ->
@@ -204,7 +205,7 @@ class CryptohopperHopper {
         /// Enable Hopper Selling
         ///
         /// - Parameter  (required) Hopper id
-        fun enableHopperSelling(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun enableHopperSelling(hopperId : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIEnableHopperSellingRequest(hopperId).request<HopperCommonMessageResponse>({ message ->
                     callback(message.data,null)
             },{error ->
@@ -215,7 +216,7 @@ class CryptohopperHopper {
         /// Get Hopper Most Traded Currency
         ///
         /// - Parameter hopperId:  (required) Hopper id
-        fun getHopperMostTradedCurrency(hopperId : String,callback: (List<HopperMostTradedModel>?, HopperError?) -> Unit) {
+        fun getHopperMostTradedCurrency(hopperId : String,callback: (List<HopperMostTradedModel>?, HopperAPIError?) -> Unit) {
             HopperAPIHopperMostTradedCurrencyRequest(hopperId).request<HopperAPIHopperMostTradedCurrencyResponse>({ message ->
                     callback(message.data,null)
             },{error ->
@@ -226,7 +227,7 @@ class CryptohopperHopper {
         /// Enable Hopper Panic
         ///
         /// - Parameter hopperId:  (required) Hopper id
-        fun enableHopperPanic(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun enableHopperPanic(hopperId : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIEnableHopperPanicRequest(hopperId).request<HopperCommonMessageResponse>({ message ->
                     callback(message.data,null)
             },{error ->
@@ -237,7 +238,7 @@ class CryptohopperHopper {
         /// Disable Hopper Panic
         ///
         /// - Parameter hopperId:  (required) Hopper id
-        fun disableHopperPanic(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun disableHopperPanic(hopperId : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIDisableHopperPanicRequest(hopperId).request<HopperCommonMessageResponse>({ message ->
                     callback(message.data,null)
             },{error ->
@@ -250,7 +251,7 @@ class CryptohopperHopper {
         /// Get All Open Orders
         ///
         /// - Parameter hopperId:  (required) Hopper id
-        fun getAllOpenOrders(hopperId : String,callback: (List<HopperOrder>?, HopperError?) -> Unit) {
+        fun getAllOpenOrders(hopperId : String,callback: (List<HopperOrder>?, HopperAPIError?) -> Unit) {
             HopperAPIGetAllOpenOrdersRequest(hopperId).request<HopperAPIGetAllOpenOrdersResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -262,7 +263,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper id
         /// - Parameter orderId:  (required) Order id
-        fun getOneOpenOrder(hopperId : String,orderId : String,callback: (HopperOrder?, HopperError?) -> Unit) {
+        fun getOneOpenOrder(hopperId : String,orderId : String,callback: (HopperOrder?, HopperAPIError?) -> Unit) {
             HopperAPIGetOneOpenOrderRequest(hopperId, orderId).request<HopperAPIGetOneOpenOrderResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -282,7 +283,7 @@ class CryptohopperHopper {
         /// - Parameter percentageProfit:  (required) Percentage Profit
         /// - Parameter trailingBuy:  (required) Trailing Buy
         /// - Parameter trailingBuyPercentage:  (required) Trailing Buy Percentage
-        fun createOrder(hopperId : String,orderType : String,marketOrder : Int,coin : String,price : Double,amount : Double,orderTrigger : String,percentageProfit : Double,trailingBuy : Double,trailingBuyPercentage : Double,stopLossPercentage:Double,trailingStopLossPercentage: Double,trailingArmPercentage:Double,callback: (String?, HopperError?) -> Unit) {
+        fun createOrder(hopperId : String,orderType : String,marketOrder : Int,coin : String,price : Double,amount : Double,orderTrigger : String,percentageProfit : Double,trailingBuy : Double,trailingBuyPercentage : Double,stopLossPercentage:Double,trailingStopLossPercentage: Double,trailingArmPercentage:Double,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPICreateOrderRequest(hopperId,orderType,marketOrder,coin,price, amount,  orderTrigger,  percentageProfit,  trailingBuy,  trailingBuyPercentage,stopLossPercentage,trailingStopLossPercentage,trailingArmPercentage).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -294,7 +295,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter orderIds:  (required) Order Ids as int array
-        fun deleteMultipleOrders(hopperId : String,orderIds : List<Int>,callback: (String?, HopperError?) -> Unit) {
+        fun deleteMultipleOrders(hopperId : String,orderIds : List<Int>,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIDeleteMultipleOrdersRequest(hopperId, orderIds).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -306,7 +307,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter orderId:  (required) Order Id
-        fun deleteMultipleOrders(hopperId : String,orderId : Int,callback: (String?, HopperError?) -> Unit) {
+        fun deleteMultipleOrders(hopperId : String,orderId : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIDeleteOneOrderRequest(hopperId, orderId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -317,7 +318,7 @@ class CryptohopperHopper {
         /// Delete All Open Orders
         ///
         /// - Parameter  (required) Hopper Id
-        fun deleteAllOpenOrders(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun deleteAllOpenOrders(hopperId : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIDeleteAllOpenOrdersRequest(hopperId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -329,7 +330,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter orderId:  (required) Order Id
-        fun cancelTsbOrder(hopperId : String,orderId : Int,callback: (String?, HopperError?) -> Unit) {
+        fun cancelTsbOrder(hopperId : String,orderId : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPICancelTSBOrderRequest(hopperId, orderId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -341,7 +342,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter orderId:  (required) Order Id
-        fun cancelOrder(hopperId : String,orderId : Int,callback: (String?, HopperError?) -> Unit) {
+        fun cancelOrder(hopperId : String,orderId : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPICancelOrderRequest(hopperId, orderId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -358,7 +359,7 @@ class CryptohopperHopper {
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter coin:  (required) Coin example: BTC
         /// - Parameter amount:  (required) Deposit Amount
-        fun depositPapertradingAccount(hopperId : String,coin : String,amount : Double,callback: (String?, HopperError?) -> Unit) {
+        fun depositPapertradingAccount(hopperId : String,coin : String,amount : Double,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIPapertradingDepositRequest( hopperId,  coin,  amount).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -371,7 +372,7 @@ class CryptohopperHopper {
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter coin:  (required) Coin example: BTC
         /// - Parameter amount:  (required) Deposit Amount
-        fun withdrawPapertradingAccount(hopperId : String,coin : String,amount : Double,callback: (String?, HopperError?) -> Unit) {
+        fun withdrawPapertradingAccount(hopperId : String,coin : String,amount : Double,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIPapertradingWithdrawRequest( hopperId,  coin,  amount).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -382,7 +383,7 @@ class CryptohopperHopper {
         /// Reset Papertrading Account
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun resetPapertradingAccount(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun resetPapertradingAccount(hopperId : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIPapertradingResetRequest( hopperId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -398,7 +399,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionIds:  (required) Position Ids as int array
-        fun deleteMultipleShortPositions(hopperId : String,positionIds : List<Int>,callback: (String?, HopperError?) -> Unit) {
+        fun deleteMultipleShortPositions(hopperId : String,positionIds : List<Int>,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIDeleteMultipleShortPositionsRequest(hopperId,  positionIds).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -410,7 +411,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionId:  (required) Position Id
-        fun deleteOneShortPosition(hopperId : String,positionId : Int,callback: (String?, HopperError?) -> Unit) {
+        fun deleteOneShortPosition(hopperId : String,positionId : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIDeleteOneShortPositionRequest(hopperId,positionId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -422,7 +423,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionIds:  (required) Position Ids as int array
-        fun closeMultipleShortPositions(hopperId : String,positionIds : List<Int>,callback: (String?, HopperError?) -> Unit) {
+        fun closeMultipleShortPositions(hopperId : String,positionIds : List<Int>,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPICloseMultipleShortPositionsRequest(hopperId, positionIds).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -434,7 +435,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionId:  (required) Position Id
-        fun closeOneShortPositions(hopperId : String,positionId : Int,callback: (String?, HopperError?) -> Unit) {
+        fun closeOneShortPositions(hopperId : String,positionId : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPICloseOneShortPositionRequest(hopperId, positionId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -445,7 +446,7 @@ class CryptohopperHopper {
         /// Get All Positions
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getAllPositions(hopperId : String,callback: (List<HopperPosition>?, HopperError?) -> Unit) {
+        fun getAllPositions(hopperId : String,callback: (List<HopperPosition>?, HopperAPIError?) -> Unit) {
             HopperAPIGetAllPositionsRequest(hopperId).request<HopperAPIGetAllPositionsResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -457,7 +458,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionId:  (required) Hopper Id
-        fun getOnePosition(hopperId : String,positionId : Int,callback: (HopperPosition?, HopperError?) -> Unit) {
+        fun getOnePosition(hopperId : String,positionId : Int,callback: (HopperPosition?, HopperAPIError?) -> Unit) {
             HopperAPIGetOnePositionRequest(hopperId, positionId).request<HopperAPIGetOnePositionResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -469,7 +470,7 @@ class CryptohopperHopper {
         /// Get Unsynced Positions
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getUnsyncedPositions(hopperId : String,callback: (HopperAPIGetUnsyncedPositionResponseData?, HopperError?) -> Unit) {
+        fun getUnsyncedPositions(hopperId : String,callback: (HopperAPIGetUnsyncedPositionResponseData?, HopperAPIError?) -> Unit) {
             HopperAPIGetUnsyncedPositionRequest(hopperId).request<HopperAPIGetUnsyncedPositionResponse>({ data ->
                 callback(data.data,null)
             },{error ->
@@ -483,7 +484,7 @@ class CryptohopperHopper {
         /// - Parameter currency:  (required) currency
         /// - Parameter amount:  (required) amount
         /// - Parameter rate:  (required) rate
-        fun syncPosition(hopperId : String,currency: String,amount: Double, rate : Double,callback: (String?, HopperError?) -> Unit) {
+        fun syncPosition(hopperId : String,currency: String,amount: Double, rate : Double,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPISyncPositionRequest(hopperId,currency,amount,rate).request<HopperCommonMessageResponse>({ data ->
                 callback(data.data,null)
             },{error ->
@@ -496,7 +497,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter balance:  (required) balance
-        fun editStartBalance(hopperId : String,balance : Double,callback: (String?, HopperError?) -> Unit) {
+        fun editStartBalance(hopperId : String,balance : Double,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIEditStartBalanceRequest(hopperId,balance).request<HopperCommonMessageResponse>({ data ->
                 callback(data.data,null)
             },{error ->
@@ -517,7 +518,7 @@ class CryptohopperHopper {
         /// - Parameter trailingStopLossArm:  (required) Trailing Stop Loss Arm
         /// - Parameter autoClose:  (required) Auto Close
         /// - Parameter autoCloseTime:  (required) Auto Close Time
-        fun updatePosition(hopperId : String,positionId : Int,takeProfit : Double,stopLoss:Int,stopLossPercentage : Double,trailingStopLoss : Int,trailingStopLossPercentage : Double,trailingStopLossArm : Double,autoClose :Int,autoCloseTime : String,callback: (String?, HopperError?) -> Unit) {
+        fun updatePosition(hopperId : String,positionId : Int,takeProfit : Double,stopLoss:Int,stopLossPercentage : Double,trailingStopLoss : Int,trailingStopLossPercentage : Double,trailingStopLossArm : Double,autoClose :Int,autoCloseTime : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIUpdatePositionRequest(hopperId,  positionId,  takeProfit, stopLoss, stopLossPercentage, trailingStopLoss,  trailingStopLossPercentage,  trailingStopLossArm,  autoClose,  autoCloseTime).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -537,7 +538,7 @@ class CryptohopperHopper {
         /// - Parameter trailingStopLossArm:  (required) Trailing Stop Loss Arm
         /// - Parameter autoClose:  (required) Auto Close
         /// - Parameter autoCloseTime:  (required) Auto Close Time
-        fun updateShortPosition(hopperId : String,shortId : Int,takeProfit : Double,stopLoss:Int,stopLossPercentage : Double,trailingStopLoss : Int,trailingStopLossPercentage : Double,trailingStopLossArm : Double,autoCloseTime : String,autoRemoveTime: String,callback: (String?, HopperError?) -> Unit) {
+        fun updateShortPosition(hopperId : String,shortId : Int,takeProfit : Double,stopLoss:Int,stopLossPercentage : Double,trailingStopLoss : Int,trailingStopLossPercentage : Double,trailingStopLossArm : Double,autoCloseTime : String,autoRemoveTime: String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIUpdateShortPositionRequest(hopperId,  shortId,  takeProfit, stopLoss, stopLossPercentage, trailingStopLoss,  trailingStopLossPercentage,  trailingStopLossArm,  autoCloseTime,autoRemoveTime).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -549,7 +550,7 @@ class CryptohopperHopper {
         /// Get Hold Positions
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getHoldPositions(hopperId : String,callback: (List<HopperPosition>?, HopperError?) -> Unit) {
+        fun getHoldPositions(hopperId : String,callback: (List<HopperPosition>?, HopperAPIError?) -> Unit) {
             HopperAPIGetHoldPositionsRequest(hopperId).request<HopperAPIGetHoldPositionsResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -561,7 +562,7 @@ class CryptohopperHopper {
         /// Get Hold Positions
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun holdShortPosition(hopperId : String,positionId : Int,callback: (String?, HopperError?) -> Unit) {
+        fun holdShortPosition(hopperId : String,positionId : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIHoldShortPositionRequest(hopperId,positionId).request<HopperCommonMessageResponse>({ data ->
                 callback(data.data,null)
             },{error ->
@@ -573,7 +574,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionIds:  (required) Position Ids
-        fun holdOnePosition(hopperId : String,positionId : List<Int>,callback: (String?, HopperError?) -> Unit) {
+        fun holdOnePosition(hopperId : String,positionId : List<Int>,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIHoldMultiplePositionsRequest(hopperId, positionId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -585,7 +586,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionId:  (required) Position Id
-        fun holdOnePosition(hopperId : String,positionId : Int,callback: (String?, HopperError?) -> Unit) {
+        fun holdOnePosition(hopperId : String,positionId : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIHoldOnePositionRequest(hopperId, positionId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -598,7 +599,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionIds:  (required) Position Ids
-        fun mergePositions(hopperId : String,positionIds : List<Int>,callback: (String?, HopperError?) -> Unit) {
+        fun mergePositions(hopperId : String,positionIds : List<Int>,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIMergePositionsRequest(hopperId, positionIds).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -610,7 +611,7 @@ class CryptohopperHopper {
         /// Get Release Positions
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getReleasePositions(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun getReleasePositions(hopperId : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIGetReleasePositionsRequest(hopperId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -622,7 +623,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionIds:  (required) Position Ids
-        fun releaseMultiplePositions(hopperId : String,positionIds : List<Int>,callback: (String?, HopperError?) -> Unit) {
+        fun releaseMultiplePositions(hopperId : String,positionIds : List<Int>,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIReleaseMultiplePositionsRequest(hopperId, positionIds).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -634,7 +635,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionId:  (required) Position Id
-        fun releaseOnePosition(hopperId : String,positionId : Int,callback: (String?, HopperError?) -> Unit) {
+        fun releaseOnePosition(hopperId : String,positionId : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIReleaseOnePositionRequest(hopperId,  positionId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -647,7 +648,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionIds:  (required) Position Ids
-        fun removeMultiplePositions(hopperId : String,positionIds : List<Int>,callback: (String?, HopperError?) -> Unit) {
+        fun removeMultiplePositions(hopperId : String,positionIds : List<Int>,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIRemoveMultiplePositionsRequest(hopperId, positionIds).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -659,7 +660,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionId:  (required) Position Ids
-        fun removeOnePosition(hopperId : String,positionId : Int,callback: (String?, HopperError?) -> Unit) {
+        fun removeOnePosition(hopperId : String,positionId : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIRemoveOnePositionRequest(hopperId,  positionId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -671,7 +672,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionId:  (required) Position Ids
-        fun deletePosition(hopperId : String,positionId : Int,callback: (String?, HopperError?) -> Unit) {
+        fun deletePosition(hopperId : String,positionId : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIDeletePositionRequest(hopperId,  positionId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -684,7 +685,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionIds:  (required) Position Ids
-        fun sellMultiplePositions(hopperId : String,positionIds : List<Int>,callback: (String?, HopperError?) -> Unit) {
+        fun sellMultiplePositions(hopperId : String,positionIds : List<Int>,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPISellMultiplePositionsRequest(hopperId, positionIds).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -697,7 +698,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionId:  (required) Position Ids
-        fun sellOnePosition(hopperId : String,positionId : Int,callback: (String?, HopperError?) -> Unit) {
+        fun sellOnePosition(hopperId : String,positionId : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPISellOnePositionRequest(hopperId, positionId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -710,7 +711,7 @@ class CryptohopperHopper {
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionIds:  (required) Position Ids
         /// - Parameter percentage:  (required) Percentage
-        fun takeProfit(hopperId : String,positionIds : List<Int>,percentage : Int,callback: (String?, HopperError?) -> Unit) {
+        fun takeProfit(hopperId : String,positionIds : List<Int>,percentage : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIPositionsTakeProfitRequest(hopperId,  positionIds,  percentage).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -723,7 +724,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionIds:  (required) Position Ids
-        fun splitMultiplePositions(hopperId : String,positionIds : List<Int>,callback: (String?, HopperError?) -> Unit) {
+        fun splitMultiplePositions(hopperId : String,positionIds : List<Int>,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPISplitMultiplePositionsRequest(hopperId, positionIds).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -736,7 +737,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionId:  (required) Position Ids
-        fun splitOnePosition(hopperId : String,positionId : Int,callback: (String?, HopperError?) -> Unit) {
+        fun splitOnePosition(hopperId : String,positionId : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPISplitOnePositionRequest( hopperId,  positionId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -748,7 +749,7 @@ class CryptohopperHopper {
         /// Get Short Positions
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getShortPositions(hopperId : String,callback: (List<HopperShortPosition>?, HopperError?) -> Unit) {
+        fun getShortPositions(hopperId : String,callback: (List<HopperShortPosition>?, HopperAPIError?) -> Unit) {
             HopperAPIGetShortsRequest(hopperId).request<HopperAPIGetShortsResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -760,7 +761,7 @@ class CryptohopperHopper {
         /// Get Assets
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getAssets(hopperId : String,reserved : Boolean,callback: (Map<String,String>?, HopperError?) -> Unit) {
+        fun getAssets(hopperId : String,reserved : Boolean,callback: (Map<String,String>?, HopperAPIError?) -> Unit) {
             HopperAPIGetAssetsRequest(hopperId,reserved).request<HopperAPIGetAssetsResponse>({ data ->
                 callback(data.data,null)
             },{error ->
@@ -772,7 +773,7 @@ class CryptohopperHopper {
         /// Get Reserved Positions
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getReservedPositions(hopperId : String,callback: (List<HopperReserved>?, HopperError?) -> Unit) {
+        fun getReservedPositions(hopperId : String,callback: (List<HopperReserved>?, HopperAPIError?) -> Unit) {
             HopperAPIGetReservedPositionsRequest( hopperId).request<HopperAPIGetReservedPositionsResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -785,7 +786,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionIds:  (required) Position Ids
-        fun shortMultiplePositions(hopperId : String,positionIds : List<Int>,callback: (String?, HopperError?) -> Unit) {
+        fun shortMultiplePositions(hopperId : String,positionIds : List<Int>,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIShortMultiplePositionsRequest( hopperId,  positionIds).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -798,7 +799,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionId:  (required) Position Ids
-        fun shortOnePosition(hopperId : String,positionId : Int,callback: (String?, HopperError?) -> Unit) {
+        fun shortOnePosition(hopperId : String,positionId : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIShortOnePositionRequest( hopperId,  positionId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -812,7 +813,7 @@ class CryptohopperHopper {
         * - Paramete hopperId:  (required) Hopper Id
         * - Paramete positionId:  (required) Position Id
         */
-        fun dcaOnePosition(hopperId : String,positionId : Int,callback: (String?, HopperError?) -> Unit) {
+        fun dcaOnePosition(hopperId : String,positionId : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIDCAOnePositionRequest( hopperId, positionId).request<HopperCommonMessageResponse>({ data ->
                 callback(data.data,null)
             },{error ->
@@ -830,7 +831,7 @@ class CryptohopperHopper {
         /// - Parameter marketOrder:  (required) Market Order
         /// - Parameter trailingBuy:  (required) Trailing Buy
         /// - Parameter trailingBuyPercentage:  (required) Trailing Buy Percentage
-        fun activateDcaForMultiplePositions(hopperId : String,positionIds : List<Int>,marketOrder : Int,trailingBuy : Int,trailingBuyPercentage : Int,callback: (String?, HopperError?) -> Unit) {
+        fun activateDcaForMultiplePositions(hopperId : String,positionIds : List<Int>,marketOrder : Int,trailingBuy : Int,trailingBuyPercentage : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIActivateDCAForMultiplePositionsRequest( hopperId,  positionIds, marketOrder,  trailingBuy,  trailingBuyPercentage).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -846,7 +847,7 @@ class CryptohopperHopper {
         /// - Parameter marketOrder:  (required) Market Order
         /// - Parameter trailingBuy:  (required) Trailing Buy
         /// - Parameter trailingBuyPercentage:  (required) Trailing Buy Percentage
-        fun activateDcaForOnePosition(hopperId : String,positionId : Int,marketOrder : Int,trailingBuy : Int,trailingBuyPercentage : Int,callback: (String?, HopperError?) -> Unit) {
+        fun activateDcaForOnePosition(hopperId : String,positionId : Int,marketOrder : Int,trailingBuy : Int,trailingBuyPercentage : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIActivateDCAForOnePositionRequest( hopperId,  positionId, marketOrder,  trailingBuy,  trailingBuyPercentage).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -859,7 +860,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionIds:  (required) Position Ids
-        fun moveMultiplePositions(hopperId : String,positionIds : List<Int>,callback: (String?, HopperError?) -> Unit) {
+        fun moveMultiplePositions(hopperId : String,positionIds : List<Int>,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIRemoveMultiplePositionsRequest( hopperId,  positionIds).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -872,7 +873,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionId:  (required) Position Ids
-        fun moveOnePosition(hopperId : String,positionId : Int,callback: (String?, HopperError?) -> Unit) {
+        fun moveOnePosition(hopperId : String,positionId : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIMoveOnePositionsToReservedRequest( hopperId,  positionId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -884,7 +885,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionId:  (required) Position Ids
-        fun moveReservedPositionToOpen(hopperId : String,positionId : Int,callback: (String?, HopperError?) -> Unit) {
+        fun moveReservedPositionToOpen(hopperId : String,positionId : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIMoveReservedPositionToOpenRequest( hopperId,  positionId).request<HopperCommonMessageResponse>({ data ->
                 callback(data.data,null)
             },{error ->
@@ -899,7 +900,7 @@ class CryptohopperHopper {
         /// Get Signals In Hopper
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getSignalsInHopper(hopperId : String,callback: (List<MarketSignal>?, HopperError?) -> Unit) {
+        fun getSignalsInHopper(hopperId : String,callback: (List<MarketSignal>?, HopperAPIError?) -> Unit) {
             HopperAPIGetSignalsInHopperRequest( hopperId).request<HopperAPIGetSignalsInHopperResponse>({ data ->
                     callback(data.data?.signals,null)
             },{error ->
@@ -911,7 +912,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter signalId:  (required) Signal Id
-        fun getSignalById(hopperId : String,signalId : Int,callback: (MarketSignal?, HopperError?) -> Unit) {
+        fun getSignalById(hopperId : String,signalId : Int,callback: (MarketSignal?, HopperAPIError?) -> Unit) {
             HopperAPIGetSignalByIdRequest( hopperId,  signalId).request<HopperAPIGetSignalByIdResponse>({ data ->
                     callback(data.signal,null)
             },{error ->
@@ -923,7 +924,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter signalId:  (required) Signal Id
-        fun subscribeToSignal(hopperId : String,signalId : Int,callback: (String?, HopperError?) -> Unit) {
+        fun subscribeToSignal(hopperId : String,signalId : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPISubscribeToSignalRequest( hopperId,  signalId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -935,7 +936,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter signalId:  (required) Signal Id
-        fun unsubscribeFromSignal(hopperId : String,signalId : Int,callback: (String?, HopperError?) -> Unit) {
+        fun unsubscribeFromSignal(hopperId : String,signalId : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIUnsubscribeToSignalRequest( hopperId,  signalId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -946,7 +947,7 @@ class CryptohopperHopper {
         /// Get Last Signal
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getLastSignal(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun getLastSignal(hopperId : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIGetLastSignalRequest( hopperId).request<HopperAPIGetLastSignalResponse>({ data ->
                     callback(data.signalLast,null)
             },{error ->
@@ -957,7 +958,7 @@ class CryptohopperHopper {
         /// Update Signal Config
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun updateSignalConfig(hopperId : String,signalId : Int,callback: (String?, HopperError?) -> Unit) {
+        fun updateSignalConfig(hopperId : String,signalId : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIUpdateSignalConfigRequest( hopperId, signalId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -971,7 +972,7 @@ class CryptohopperHopper {
         /// Get Hopper Stats
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getHopperStats(hopperId : String,callback: (HopperStats?, HopperError?) -> Unit) {
+        fun getHopperStats(hopperId : String,callback: (HopperStats?, HopperAPIError?) -> Unit) {
             HopperAPIGetHopperStatsRequest( hopperId).request<HopperAPIGetHopperStatsResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -982,7 +983,7 @@ class CryptohopperHopper {
         /// Get Dashboard Stats
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getDashboardStats(hopperId : String,callback: (HopperDashboardStats?, HopperError?) -> Unit) {
+        fun getDashboardStats(hopperId : String,callback: (HopperDashboardStats?, HopperAPIError?) -> Unit) {
             HopperAPIGetHopperDashboardStatsRequest( hopperId).request<HopperAPIGetHopperDashboardStatsResponse>({ data ->
                     callback(data.stats,null)
             },{error ->
@@ -993,7 +994,7 @@ class CryptohopperHopper {
         /// Reset Hopper Stats
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun resetHopperStats(hopperId : String,callback: (String?, HopperError?) -> Unit) {
+        fun resetHopperStats(hopperId : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIResetHopperStatsRequest( hopperId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -1008,7 +1009,7 @@ class CryptohopperHopper {
         /// Get Subscription Of Hopper
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getSubscription(hopperId : String,callback: (HopperSubscription?, HopperError?) -> Unit) {
+        fun getSubscription(hopperId : String,callback: (HopperSubscription?, HopperAPIError?) -> Unit) {
             HopperAPIGetSubscriptionRequest( hopperId).request<HopperAPIGetSubscriptionResponse>({ data ->
                     callback(data.data?.subscription,null)
             },{error ->
@@ -1019,7 +1020,7 @@ class CryptohopperHopper {
         /// ReAssign Of Hopper
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun reAssignSubscription(hopperId : String,subscriptionId:String,callback: (String?, HopperError?) -> Unit) {
+        fun reAssignSubscription(hopperId : String,subscriptionId:String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIReassignSubsriptionRequest(hopperId,subscriptionId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -1032,7 +1033,7 @@ class CryptohopperHopper {
         /// Get Config of Hopper
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getConfig(hopperId : String,callback: (HopperConfig?, HopperError?) -> Unit) {
+        fun getConfig(hopperId : String,callback: (HopperConfig?, HopperAPIError?) -> Unit) {
             HopperAPIGetConfigRequest( hopperId).request<HopperAPIGetConfigResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -1043,7 +1044,7 @@ class CryptohopperHopper {
         /// Update Config of Hopper
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun updateConfig(hopperId : String,config: Map<String,Any>,callback: (HopperConfig?, HopperError?) -> Unit) {
+        fun updateConfig(hopperId : String,config: Map<String,Any>,callback: (HopperConfig?, HopperAPIError?) -> Unit) {
             HopperAPIUpdateConfigRequest(hopperId,config).request<HopperAPIUpdateConfigResponse>({ data ->
                     callback(data.data?.hoppers,null)
             },{error ->
@@ -1054,7 +1055,7 @@ class CryptohopperHopper {
         /// Get All Config Pools
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getAllConfigPools(hopperId : String,callback: (List<HopperConfigPool>?, HopperError?) -> Unit) {
+        fun getAllConfigPools(hopperId : String,callback: (List<HopperConfigPool>?, HopperAPIError?) -> Unit) {
             HopperAPIGetAllConfigPoolsRequest( hopperId).request<HopperAPIGetAllConfigPoolsResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -1065,7 +1066,7 @@ class CryptohopperHopper {
         /// Get One Config Pool
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getOneConfigPools(hopperId : String,poolId : String,callback: (HopperConfigPool?, HopperError?) -> Unit) {
+        fun getOneConfigPools(hopperId : String,poolId : String,callback: (HopperConfigPool?, HopperAPIError?) -> Unit) {
             HopperAPIGetOneConfigPoolRequest( hopperId,  poolId).request<HopperAPIGetOneConfigPoolResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -1078,7 +1079,7 @@ class CryptohopperHopper {
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter enabled:  (required) Enabled with object HopperEnabled
         /// - Parameter configPool:  (required) Config Pool
-        fun createConfigPool(hopperId : String,enabled : HopperEnabled,configPool : HopperConfigPool,callback: (String?, HopperError?) -> Unit) {
+        fun createConfigPool(hopperId : String,enabled : HopperEnabled,configPool : HopperConfigPool,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPICreatePoolConfigRequest( hopperId,  enabled,  configPool).request<HopperAPICreatePoolConfigResponse>({ data ->
                     callback(data.id,null)
             },{error ->
@@ -1091,7 +1092,7 @@ class CryptohopperHopper {
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter enabled:  (required) Enabled with object HopperEnabled
         /// - Parameter configPool:  (required) Config Pool
-        fun updateConfigPool(hopperId : String,enabled : HopperEnabled,configPool : HopperConfigPool,callback: (String?, HopperError?) -> Unit) {
+        fun updateConfigPool(hopperId : String,enabled : HopperEnabled,configPool : HopperConfigPool,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIUpdateConfigPoolRequest( hopperId,  enabled,  configPool).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -1103,7 +1104,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter poolId:  (required) ConfigPool Id
-        fun deleteConfigPool(hopperId : String,poolId : String,callback: (String?, HopperError?) -> Unit) {
+        fun deleteConfigPool(hopperId : String,poolId : String,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIDeleteConfigPoolRequest( hopperId,  poolId).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -1117,7 +1118,7 @@ class CryptohopperHopper {
         /// Get Trade History of Hopper
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getTradeHistory(hopperId : String,dateFrom : String?,count : Int?,callback: (List<HopperTradeHistory>?, HopperError?) -> Unit) {
+        fun getTradeHistory(hopperId : String,dateFrom : String?,count : Int?,callback: (List<HopperTradeHistory>?, HopperAPIError?) -> Unit) {
             HopperAPIGetTradeHistoryRequest(hopperId,dateFrom,count).request<HopperAPIGetTradeHistoryResponse>({ data ->
                     callback(data.data?.trades,null)
             },{error ->
@@ -1128,7 +1129,7 @@ class CryptohopperHopper {
         /// Get Trade History By Id
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getTradeHistory(hopperId : String,tradeId : Int,callback: (HopperOrder?, HopperError?) -> Unit) {
+        fun getTradeHistory(hopperId : String,tradeId : Int,callback: (HopperOrder?, HopperAPIError?) -> Unit) {
             HopperAPIGetTradeHistoryByIdRequest( hopperId, tradeId).request<HopperAPIGetTradeHistoryByIdResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -1141,7 +1142,7 @@ class CryptohopperHopper {
         /// Get Trade History of Hopper
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun getOutput(hopperId : String, dateFrom : Date, dateTo : Date, entryType: HopperSearchOptionsItemEntry, sortField : HopperSearchOptionsItemSortField, sortOrder : HopperSearchOptionsItemSortOrder, page : Int, perPage : Int, callback: (List<HopperOutput>?, HopperError?) -> Unit) {
+        fun getOutput(hopperId : String, dateFrom : Date, dateTo : Date, entryType: HopperSearchOptionsItemEntry, sortField : HopperSearchOptionsItemSortField, sortOrder : HopperSearchOptionsItemSortOrder, page : Int, perPage : Int, callback: (List<HopperOutput>?, HopperAPIError?) -> Unit) {
             HopperAPIGetOutputRequest( hopperId,  dateFrom,  dateTo,  entryType,  sortField,  sortOrder,  page,  perPage).request<HopperAPIGetOutputResponse>({ data ->
                     callback(data.data,null)
             },{error ->

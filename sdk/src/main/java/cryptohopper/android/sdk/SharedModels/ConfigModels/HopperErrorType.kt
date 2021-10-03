@@ -1,5 +1,11 @@
+//
+//  HopperError.swift
+//  iOS SDK
+//
+//  Created by Kaan Baris Bayrak on 21/10/2020.
+//
 
-enum class HopperError {
+enum class HopperErrorType {
     MISSING_URL,
     MISSING_ACCESS_TOKEN,
     MISSING_CREDENTIALS,
@@ -17,3 +23,4 @@ enum class HopperError {
     SERVICE_UNAVAILABLE,
     UNKOWN_ERROR
 }
+
