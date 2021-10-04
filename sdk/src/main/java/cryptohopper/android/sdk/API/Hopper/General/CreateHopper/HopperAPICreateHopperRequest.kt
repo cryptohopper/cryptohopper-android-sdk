@@ -17,7 +17,7 @@ class HopperAPICreateHopperRequest: HopperAPIRequest<HopperAPICreateHopperRespon
         this.changeUrlPath("/hopper")
         addBodyItem( "name", name)
         if(enabled != null){
-            addBodyItem( "enabled", enabled)
+            addBodyItem( "enabled", enabled.toString())
         }
         if(templateId != null){
             addBodyItem( "template_id", templateId)
