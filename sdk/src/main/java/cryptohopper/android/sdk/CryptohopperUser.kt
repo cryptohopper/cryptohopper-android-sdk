@@ -1,4 +1,7 @@
+import cryptohopper.android.sdk.API.User.General.GetMobileNotifications.HopperAPIUpdateGetMobileNotificationRequest
+import cryptohopper.android.sdk.API.User.General.GetMobileNotifications.HopperAPIUpdateGetMobileNotificationResponse
 import cryptohopper.android.sdk.API.User.General.RegisterUser.HopperAPIRegisterUserResponse
+import cryptohopper.android.sdk.API.User.General.UpdateMobilePushNotification.HopperAPIUpdatePushNotificationRequest
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIError
 
 class CryptohopperUser {
@@ -54,6 +57,28 @@ class CryptohopperUser {
                    callback(data.credit,null)
             } ,{ error ->
                     callback(null,error)
+            })
+        }
+
+
+        /// Get Mobile Notification
+        ///
+        fun getMobilePushNotificationPrefs(callback: (Map<String,String>?, HopperAPIError?) -> Unit) {
+            HopperAPIUpdateGetMobileNotificationRequest("").request<HopperAPIUpdateGetMobileNotificationResponse>({ data ->
+                callback(data.notifications,null)
+            } ,{ error ->
+                callback(null,error)
+            })
+        }
+
+
+        /// Update Mobile Notification
+        ///
+        fun updateMobilePushNotificationPrefs(permissions : Map<String,String>, callback: (String?, HopperAPIError?) -> Unit) {
+            HopperAPIUpdatePushNotificationRequest(permissions).request<HopperCommonMessageResponse>({ data ->
+                callback(data.data,null)
+            } ,{ error ->
+                callback(null,error)
             })
         }
 
