@@ -518,7 +518,7 @@ class CryptohopperHopper {
         /// - Parameter trailingStopLossArm:  (required) Trailing Stop Loss Arm
         /// - Parameter autoClose:  (required) Auto Close
         /// - Parameter autoCloseTime:  (required) Auto Close Time
-        fun updatePosition(hopperId : String,positionId : Int,takeProfit : Double,stopLoss:Int,stopLossPercentage : Double,trailingStopLoss : Int,trailingStopLossPercentage : Double,trailingStopLossArm : Double,autoClose :Int,autoCloseTime : String,callback: (String?, HopperAPIError?) -> Unit) {
+        fun updatePosition(hopperId : String,positionId : Int,takeProfit : Double,stopLoss:Int,stopLossPercentage : Double,trailingStopLoss : Int,trailingStopLossPercentage : Double,trailingStopLossArm : Double,autoClose :Int,autoCloseTime : Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIUpdatePositionRequest(hopperId,  positionId,  takeProfit, stopLoss, stopLossPercentage, trailingStopLoss,  trailingStopLossPercentage,  trailingStopLossArm,  autoClose,  autoCloseTime).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
@@ -538,7 +538,7 @@ class CryptohopperHopper {
         /// - Parameter trailingStopLossArm:  (required) Trailing Stop Loss Arm
         /// - Parameter autoClose:  (required) Auto Close
         /// - Parameter autoCloseTime:  (required) Auto Close Time
-        fun updateShortPosition(hopperId : String,shortId : Int,takeProfit : Double,stopLoss:Int,stopLossPercentage : Double,trailingStopLoss : Int,trailingStopLossPercentage : Double,trailingStopLossArm : Double,autoCloseTime : String,autoRemoveTime: String,callback: (String?, HopperAPIError?) -> Unit) {
+        fun updateShortPosition(hopperId : String,shortId : Int,takeProfit : Double,stopLoss:Int,stopLossPercentage : Double,trailingStopLoss : Int,trailingStopLossPercentage : Double,trailingStopLossArm : Double,autoCloseTime : Int,autoRemoveTime: Int,callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIUpdateShortPositionRequest(hopperId,  shortId,  takeProfit, stopLoss, stopLossPercentage, trailingStopLoss,  trailingStopLossPercentage,  trailingStopLossArm,  autoCloseTime,autoRemoveTime).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
