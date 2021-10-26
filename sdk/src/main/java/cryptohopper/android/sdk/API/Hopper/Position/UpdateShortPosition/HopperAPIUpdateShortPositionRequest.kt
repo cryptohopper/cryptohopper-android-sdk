@@ -10,7 +10,7 @@ import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIHttpMethod
 
 class HopperAPIUpdateShortPositionRequest: HopperAPIRequest<HopperCommonMessageResponse> {
     
-    constructor(hopperId : String , shortId:Int , takeProfit : Double,stopLoss : Int,stopLossPercentage : Double,trailingStopLoss : Int, trailingStopLossPercentage : Double,trailingStopLossArm : Double,autoCloseTime : Int,autoRemoveTime : Int) {
+    constructor(hopperId : String , shortId:Int , takeProfit : Double,stopLoss : Int,stopLossPercentage : Double,trailingStopLoss : Int, trailingStopLossPercentage : Double,trailingStopLossArm : Double,autoCloseTime : Long,autoRemoveTime : Long) {
         this.httpMethod = HopperAPIHttpMethod.POST
         this.needsAuthentication = true
         this.changeUrlPath("/hopper/$hopperId/position/setshortsetting")
