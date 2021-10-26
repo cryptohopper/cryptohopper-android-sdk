@@ -8,7 +8,7 @@
 import com.google.gson.annotations.SerializedName
 
 data class HopperAPIGetBaseCurrenciesFromExchangeResponse (
-        @SerializedName("data") val baseCurrencies: Map<String,Map<String,Ticker>>?
+        @SerializedName("data") val baseCurrencies: Map<String,Map<String,String>>?
 )
 
 
