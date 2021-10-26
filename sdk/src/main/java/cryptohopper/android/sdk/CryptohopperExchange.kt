@@ -53,7 +53,7 @@ class CryptohopperExchange {
         /// Get Base Currencies From Exchange
         ///
         ///- Parameter exchange: (required) exchange
-        fun getBaseCurrenciesFromExchange(exchange : String,callback : (Map<String,Map<String,Ticker>>?, HopperAPIError?) -> Unit) {
+        fun getBaseCurrenciesFromExchange(exchange : String,callback : (Map<String,Map<String,String>>?, HopperAPIError?) -> Unit) {
             HopperAPIGetBaseCurrenciesFromExchangeRequest(exchange).request<HopperAPIGetBaseCurrenciesFromExchangeResponse>({ data ->
                     callback(data.baseCurrencies,null)
             } , { error ->
