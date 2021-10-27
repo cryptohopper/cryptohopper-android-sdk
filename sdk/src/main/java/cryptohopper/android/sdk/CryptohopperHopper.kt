@@ -11,6 +11,7 @@ import cryptohopper.android.sdk.API.Hopper.Position.GetUnsyncedPositions.HopperA
 import cryptohopper.android.sdk.API.Hopper.Position.GetUnsyncedPositions.HopperAPIGetUnsyncedPositionResponseData
 import cryptohopper.android.sdk.API.Hopper.Position.HoldShortPosition.HopperAPIHoldShortPositionRequest
 import cryptohopper.android.sdk.API.Hopper.Position.MoveReservedPositionToOpen.HopperAPIMoveReservedPositionToOpenRequest
+import cryptohopper.android.sdk.API.Hopper.Position.ReleaseShortPosition.HopperAPIReleaseShortPositionRequest
 import cryptohopper.android.sdk.API.Hopper.Position.SyncPosition.HopperAPISyncPositionRequest
 import cryptohopper.android.sdk.API.Hopper.Stats.GetStats.HopperAPIGetHopperStatsResponse
 import cryptohopper.android.sdk.API.Hopper.Stats.GetStats.HopperStats
@@ -640,6 +641,18 @@ class CryptohopperHopper {
                     callback(data.data,null)
             },{error ->
                     callback(null,error)
+            })
+        }
+
+        /// Release Short Positions
+        ///
+        /// - Parameter hopperId:  (required) Hopper Id
+        /// - Parameter positionId:  (required) Position Id
+        fun releaseShortPosition(hopperId : String,positionId : Int,callback: (String?, HopperAPIError?) -> Unit) {
+            HopperAPIReleaseShortPositionRequest(hopperId,  positionId).request<HopperCommonMessageResponse>({ data ->
+                callback(data.data,null)
+            },{error ->
+                callback(null,error)
             })
         }
 
