@@ -9,8 +9,8 @@ data class TAValue (
         @SerializedName("strategy_type") val strategyType : String?,
         @SerializedName("strategy_id") val strategyId : String?,
         @SerializedName("values") val values : Object?,
-        @SerializedName("signals") val signals : Object?
-        //@SerializedName("indicators") val indicators : List<TAIndicator>?
+        @SerializedName("signals") val signals : Object?,
+        @SerializedName("indicators") val indicators : List<TAIndicator>?
 )
 
 data class TASettings (
