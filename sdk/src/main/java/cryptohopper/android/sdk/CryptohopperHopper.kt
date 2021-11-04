@@ -984,8 +984,8 @@ class CryptohopperHopper {
         /// Update Signal Config
         ///
         /// - Parameter hopperId:  (required) Hopper Id
-        fun updateSignalConfig(hopperId : String,signalId : Int,callback: (String?, HopperAPIError?) -> Unit) {
-            HopperAPIUpdateSignalConfigRequest( hopperId, signalId).request<HopperCommonMessageResponse>({ data ->
+        fun updateSignalConfig(hopperId : String,signalId : Int,config : Map<String,Any>,callback: (String?, HopperAPIError?) -> Unit) {
+            HopperAPIUpdateSignalConfigRequest( hopperId, signalId,config).request<HopperCommonMessageResponse>({ data ->
                     callback(data.data,null)
             },{error ->
                     callback(null,error)
