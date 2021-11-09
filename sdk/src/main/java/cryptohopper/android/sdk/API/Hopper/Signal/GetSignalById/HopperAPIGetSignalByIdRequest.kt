@@ -12,7 +12,7 @@ class HopperAPIGetSignalByIdRequest: HopperAPIRequest<HopperAPIGetSignalByIdResp
     constructor(hopperId : String,signalId: Int) {
         this.httpMethod = HopperAPIHttpMethod.GET
         this.needsAuthentication = true
-        this.changeUrlPath("/hopper/$hopperId/signal")
+        this.changeUrlPath("/hopper/$hopperId/signal/$signalId")
     }
     
 }
