@@ -9,7 +9,7 @@ import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIHttpMethod
 
 class HopperAPIAuthenticationRequest: HopperAPIRequest<HopperAPIAuthenticationResponse> {
 
-    constructor(username : String , password : String, verificationCode : String?, userAgent : String) {
+    constructor(username : String , password : String, verificationCode : String?= "", userAgent : String) {
         this.httpMethod = HopperAPIHttpMethod.POST
         this.needsAuthentication = false
         this.setIsAuthenticationRequest(true)
@@ -23,7 +23,7 @@ class HopperAPIAuthenticationRequest: HopperAPIRequest<HopperAPIAuthenticationRe
         addBodyItem( "platform", "iOS")
         addHeader("User-Agent",userAgent)
         if(verificationCode != null){
-            addBodyItem( "verification_code", (verificationCode ?: ""))
+            addBodyItem( "verification_code", (verificationCode))
         }
     }
     

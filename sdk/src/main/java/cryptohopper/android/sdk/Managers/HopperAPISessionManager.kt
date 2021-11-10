@@ -30,7 +30,7 @@ class HopperAPISessionManager {
             }
             val rToken = sharedPref.getString("$clientId#RefreshToken","")
             val aTokenDate = sharedPref.getLong("$clientId#AccessTokenExpiresAt",0)
-            val hSession = HopperAPISession(aToken ?: "",rToken ?: "",Date(aTokenDate))
+            val hSession = HopperAPISession(aToken,rToken ?: "", Date(aTokenDate))
             return hSession
         }
         set(newValue) {
@@ -93,7 +93,7 @@ class HopperAPISessionManager {
 
     fun handleAuthResponse(response: HopperAPIAuthenticationResponse) {
         val today = Date();
-        var nextYear = Date(today.time + (1000 * 60 * 60 * 24 * 365));
+        val nextYear = Date(today.time + (1000 * 60 * 60 * 24 * 365))
         if(response.accessToken != null){
             this.session = HopperAPISession(accessToken = response.accessToken
                 ?: "", refreshToken = response.accessToken ?: "", accessTokenExpiresAt = nextYear)
