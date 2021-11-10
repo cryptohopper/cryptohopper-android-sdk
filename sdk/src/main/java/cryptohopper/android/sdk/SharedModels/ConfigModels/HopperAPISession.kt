@@ -15,10 +15,9 @@ class HopperAPISession{
     var accessToken:String? = null
     var accessTokenExpiresAt: Date? = null
 
-    constructor(accessToken : String,refreshToken : String, accessTokenExpiresAt : Date)  {
+    constructor(accessToken : String, refreshToken : String, accessTokenExpiresAt : Date)  {
         this.accessToken = accessToken
         this.refreshToken = refreshToken
         this.accessTokenExpiresAt = accessTokenExpiresAt
     }
-
 }

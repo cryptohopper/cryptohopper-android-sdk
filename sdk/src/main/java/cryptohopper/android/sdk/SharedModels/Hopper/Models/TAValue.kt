@@ -8,8 +8,8 @@ data class TAValue (
         @SerializedName("coin") val coin : String?,
         @SerializedName("strategy_type") val strategyType : String?,
         @SerializedName("strategy_id") val strategyId : String?,
-        @SerializedName("values") val values : Object?,
-        @SerializedName("signals") val signals : Object?,
+        @SerializedName("values") val values : Any?,
+        @SerializedName("signals") val signals : Any?,
         @SerializedName("indicators") val indicators : List<TAIndicator>?
 )
 
