@@ -13,7 +13,6 @@ android {
         targetSdkVersion 31
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -21,6 +20,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        applicationVariants.all { variant ->
+            variant.buildConfigField "String", "API_KEY", "" + getApiKey() + ""
+            variant.buildConfigField "String", "API_AGENT", "" + getApiAgent() + ""
+            variant.buildConfigField "String", "API_USER", "" + getApiUser() + ""
+            variant.buildConfigField "String", "API_PASSWORD", "" + getApiPassword() + ""
         }
     }
     compileOptions {
@@ -30,6 +35,30 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+}
+
+def getApiKey() {
+    def Properties props = new Properties()
+    props.load(new FileInputStream(new File('secrets.properties')))
+    return props['API_KEY']
+}
+
+def getApiAgent() {
+    def Properties props = new Properties()
+    props.load(new FileInputStream(new File('secrets.properties')))
+    return props['API_AGENT']
+}
+
+def getApiUser() {
+    def Properties props = new Properties()
+    props.load(new FileInputStream(new File('secrets.properties')))
+    return props['API_USER']
+}
+
+def getApiPassword() {
+    def Properties props = new Properties()
+    props.load(new FileInputStream(new File('secrets.properties')))
+    return props['API_PASSWORD']
 }
 
 dependencies {
