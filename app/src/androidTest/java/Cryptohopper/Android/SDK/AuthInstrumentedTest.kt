@@ -65,7 +65,7 @@ class AuthInstrumentedTest {
         CryptohopperAuth.loginWithCode(
             code = StringGenerator.getRandomString(),
             userAgent = userAgent
-        ) { result, error ->
+        ) { result, _ ->
             Assert.assertNotNull(result)
         }
     }
@@ -78,7 +78,7 @@ class AuthInstrumentedTest {
     }
 
     @Test
-    fun when_the_given_isAuthenticated_fun_is_called_then_the_session_must_be_deleted() {
+    fun when_the_given_login_EndPoint_is_called_then_the_session_must_be_null() {
         val userAgent = Aes256.encrypt(API_USER, Const.API_AGENT)
         CryptohopperAuth.login(
             username = API_USER,
@@ -87,6 +87,7 @@ class AuthInstrumentedTest {
             userAgent = userAgent
         ) { _, _ ->
             Assert.assertTrue(CryptohopperAuth.isAuthenticated())
+            Assert.assertTrue(HopperAPISessionManager.shared.hasSession)
         }
     }
 }
