@@ -10,6 +10,7 @@ import com.github.mervick.aes_everywhere.Aes256
 import cryptohopper.android.sdk.CryptohopperAuth
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIEnvironment
 import Cryptohopper.Android.SDK.helper.StringGenerator
+import HopperAPISessionManager
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -55,6 +56,38 @@ class AuthInstrumentedTest {
             Assert.assertNotNull(error)
             Assert.assertEquals(HopperError.UNAUTHORIZED, error?.error)
             Assert.assertEquals(401, error?.errCode)
+        }
+    }
+
+    @Test
+    fun when_the_given_loginWithCode_Endpoint_is_called_with_forbidden_data_then_it_must_not_be_successful() {
+        val userAgent = Aes256.encrypt(StringGenerator.getRandomString(), StringGenerator.getRandomString())
+        CryptohopperAuth.loginWithCode(
+            code = StringGenerator.getRandomString(),
+            userAgent = userAgent
+        ) { result, _ ->
+            Assert.assertNotNull(result)
+        }
+    }
+
+    @Test
+    fun when_the_given_logout_fun_is_called_then_the_session_must_be_deleted() {
+        CryptohopperAuth.logout()
+        Assert.assertNull(HopperAPISessionManager.shared.session?.accessToken)
+        Assert.assertFalse(HopperAPISessionManager.shared.hasSession)
+    }
+
+    @Test
+    fun when_the_given_login_EndPoint_is_called_then_the_session_must_be_null() {
+        val userAgent = Aes256.encrypt(API_USER, Const.API_AGENT)
+        CryptohopperAuth.login(
+            username = API_USER,
+            password = API_PASSWORD,
+            verificationCode = null,
+            userAgent = userAgent
+        ) { _, _ ->
+            Assert.assertTrue(CryptohopperAuth.isAuthenticated())
+            Assert.assertTrue(HopperAPISessionManager.shared.hasSession)
         }
     }
 }
