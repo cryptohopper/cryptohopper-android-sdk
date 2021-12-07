@@ -10,7 +10,7 @@ import com.github.mervick.aes_everywhere.Aes256
 import cryptohopper.android.sdk.CryptohopperAuth
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIEnvironment
 import Cryptohopper.Android.SDK.helper.StringGenerator
-import HopperAPISessionManager
+import android.content.Context
 import android.util.Log
 import kotlinx.coroutines.*
 import org.junit.Assert
@@ -32,11 +32,11 @@ class ExchangeInstrumentedTest {
             HopperAPIEnvironment.Production
         )
 
-        if (shouldExecuteNegativeCase.not())
+        /*if (shouldExecuteNegativeCase.not())
             callAuthenticationWithAccurateDetails()
         else
             callAuthenticationWithMockDetails()
-
+*/
         shouldExecuteNegativeCase = false
     }
 
@@ -134,6 +134,95 @@ class ExchangeInstrumentedTest {
                 result?.forEach {
                     async {
                         CryptohopperExchange.getBaseCurrenciesFromExchange(it.exchangeKey!!) { baseCurrencies, baseCurrenciesError ->
+                            Assert.assertNull(baseCurrenciesError)
+                            Assert.assertNotNull(baseCurrencies)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_getBaseCurrencyFromExchange_Endpoint_is_called_with_the_correct_data_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperExchange.getExchangeDetails { result, _ ->
+                result?.forEach {
+                    async {
+                        CryptohopperExchange.getBaseCurrencyFromExchange(
+                            it.exchangeKey!!,
+                            it.defaultBaseCurrency!!
+                        ) { baseCurrencies, baseCurrenciesError ->
+                            Assert.assertNull(baseCurrenciesError)
+                            Assert.assertNotNull(baseCurrencies)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_getAvailableCurrenciesForExchange_Endpoint_is_called_with_the_correct_data_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperExchange.getExchangeDetails { result, _ ->
+                result?.forEach {
+                    async {
+                        CryptohopperExchange.getAvailableCurrenciesForExchange(it.exchangeKey!!) { baseCurrencies, baseCurrenciesError ->
+                            Assert.assertNull(baseCurrenciesError)
+                            Assert.assertNotNull(baseCurrencies)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_getPrecisionForCurrenciesOfExchange_Endpoint_is_called_with_the_correct_data_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperExchange.getExchangeDetails { result, _ ->
+                result?.forEach {
+                    async {
+                        CryptohopperExchange.getPrecisionForCurrenciesOfExchange(it.exchangeKey!!) { baseCurrencies, baseCurrenciesError ->
+                            Assert.assertNull(baseCurrenciesError)
+                            Assert.assertNotNull(baseCurrencies)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_getPrecisionForCurrencyOfExchange_Endpoint_is_called_with_the_correct_data_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperExchange.getExchangeDetails { result, _ ->
+                result?.forEach {
+                    async {
+                        CryptohopperExchange.getPrecisionForCurrencyOfExchange(
+                            it.exchangeKey!!,
+                            "btc"
+                        ) { baseCurrencies, baseCurrenciesError ->
+                            Assert.assertNull(baseCurrenciesError)
+                            Assert.assertNotNull(baseCurrencies)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_getSingleCurrencyOfExchange_Endpoint_is_called_with_the_correct_data_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperExchange.getExchangeDetails { result, _ ->
+                result?.forEach {
+                    async {
+                        CryptohopperExchange.getSingleCurrencyOfExchange(
+                            it.exchangeKey!!,
+                            it.defaultBaseCurrency!!
+                        ) { baseCurrencies, baseCurrenciesError ->
                             Assert.assertNull(baseCurrenciesError)
                             Assert.assertNotNull(baseCurrencies)
                         }
