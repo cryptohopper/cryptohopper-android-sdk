@@ -3,14 +3,14 @@ package cryptohopper.android.sdk.SharedModels.Hopper.Models
 import com.google.gson.annotations.SerializedName
 
 data class TAValue (
-        @SerializedName("settings") val settings : Map<String,String>?,
+        @SerializedName("settings") val settings : Any?,
         @SerializedName("strategy") val strategy : String?,
         @SerializedName("coin") val coin : String?,
         @SerializedName("strategy_type") val strategyType : String?,
         @SerializedName("strategy_id") val strategyId : String?,
-        @SerializedName("values") val values : Object?,
-        @SerializedName("signals") val signals : Object?,
-        @SerializedName("indicators") val indicators : List<TAIndicator>?
+        @SerializedName("values") val values : Any?,
+        @SerializedName("signals") val signals : Any?,
+        @SerializedName("indicators") val indicators : Any?
 )
 
 data class TASettings (
@@ -33,8 +33,7 @@ data class TASettings (
 )
 
 data class TAIndicator (
-
-        //@SerializedName("config") val config : TAIndicatorConfig?,
+        @SerializedName("config") val config : Any?,
         @SerializedName("chartperiod") val chartPeriod : String?,
         @SerializedName("type") val type : String?,
         @SerializedName("name") val name : String?
