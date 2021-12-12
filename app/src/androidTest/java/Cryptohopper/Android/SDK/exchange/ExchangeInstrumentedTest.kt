@@ -10,6 +10,8 @@ import com.github.mervick.aes_everywhere.Aes256
 import cryptohopper.android.sdk.CryptohopperAuth
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIEnvironment
 import Cryptohopper.Android.SDK.helper.StringGenerator
+import Cryptohopper.Android.SDK.helper.TimeLapsCalculator
+import android.util.Log
 import kotlinx.coroutines.*
 import org.junit.Assert
 import org.junit.Test
@@ -20,8 +22,6 @@ import org.junit.Before
 @RunWith(AndroidJUnit4::class)
 class ExchangeInstrumentedTest {
 
-    private var shouldExecuteNegativeCase: Boolean = false
-
     @Before
     fun setup() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
@@ -30,11 +30,7 @@ class ExchangeInstrumentedTest {
             HopperAPIEnvironment.Production
         )
 
-        if (shouldExecuteNegativeCase.not())
-            callAuthenticationWithAccurateDetails()
-        else
-            callAuthenticationWithMockDetails()
-        shouldExecuteNegativeCase = false
+        callAuthenticationWithAccurateDetails()
     }
 
     private fun callAuthenticationWithAccurateDetails() {
@@ -48,20 +44,6 @@ class ExchangeInstrumentedTest {
             Assert.assertNull(error)
             Assert.assertNotNull(result)
             Assert.assertEquals("Successfully Logged In", result)
-        }
-    }
-
-    private fun callAuthenticationWithMockDetails() {
-        val userAgent =
-            Aes256.encrypt(StringGenerator.getRandomString(), StringGenerator.getRandomString())
-        CryptohopperAuth.login(
-            username = StringGenerator.getRandomString(),
-            password = StringGenerator.getRandomString(),
-            verificationCode = null,
-            userAgent = userAgent
-        ) { result, error ->
-            Assert.assertNull(result)
-            Assert.assertNotNull(error)
         }
     }
 
@@ -336,7 +318,4 @@ class ExchangeInstrumentedTest {
             }
         }
     }
-
-
-    //******************* Negative cases ***************************
 }
