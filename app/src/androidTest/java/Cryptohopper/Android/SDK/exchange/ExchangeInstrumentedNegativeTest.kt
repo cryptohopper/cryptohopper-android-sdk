@@ -10,7 +10,6 @@ import com.github.mervick.aes_everywhere.Aes256
 import cryptohopper.android.sdk.CryptohopperAuth
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIEnvironment
 import Cryptohopper.Android.SDK.helper.StringGenerator
-import android.util.Log
 import kotlinx.coroutines.*
 import org.junit.Assert
 import org.junit.Test
@@ -37,8 +36,7 @@ class ExchangeInstrumentedNegativeTest {
 
 
     private fun callAuthenticationWithMockDetails() {
-        val userAgent =
-            Aes256.encrypt(StringGenerator.getRandomString(), StringGenerator.getRandomString())
+        val userAgent = Aes256.encrypt(API_USER, Const.API_AGENT)
         CryptohopperAuth.login(
             username = StringGenerator.getRandomString(),
             password = StringGenerator.getRandomString(),
