@@ -45,9 +45,10 @@ class AuthInstrumentedTest {
 
     @Test
     fun when_the_given_login_Endpoint_is_called_with_incorrect_details_then_it_must_not_be_successful() {
-        val userAgent = Aes256.encrypt(API_USER, Const.API_AGENT)
+        val username = StringGenerator.getRandomString()
+        val userAgent = Aes256.encrypt(username, Const.API_AGENT)
         CryptohopperAuth.login(
-            username = StringGenerator.getRandomString(),
+            username = username,
             password = StringGenerator.getRandomString(),
             verificationCode = null,
             userAgent = userAgent

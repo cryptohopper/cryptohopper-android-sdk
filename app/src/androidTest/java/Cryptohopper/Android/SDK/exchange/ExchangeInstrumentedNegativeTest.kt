@@ -34,11 +34,11 @@ class ExchangeInstrumentedNegativeTest {
         }
     }
 
-
     private fun callAuthenticationWithMockDetails() {
-        val userAgent = Aes256.encrypt(API_USER, Const.API_AGENT)
+        val username = StringGenerator.getRandomString()
+        val userAgent = Aes256.encrypt(username, Const.API_AGENT)
         CryptohopperAuth.login(
-            username = StringGenerator.getRandomString(),
+            username = username,
             password = StringGenerator.getRandomString(),
             verificationCode = null,
             userAgent = userAgent
