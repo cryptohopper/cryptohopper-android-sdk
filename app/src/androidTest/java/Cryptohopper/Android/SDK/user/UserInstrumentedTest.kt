@@ -4,6 +4,7 @@ import Cryptohopper.Android.SDK.helper.Const
 import Cryptohopper.Android.SDK.helper.Const.API_KEY
 import Cryptohopper.Android.SDK.helper.Const.API_PASSWORD
 import Cryptohopper.Android.SDK.helper.Const.API_USER
+import Cryptohopper.Android.SDK.helper.TimeLapsCalculator
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.mervick.aes_everywhere.Aes256
@@ -28,6 +29,7 @@ class UserInstrumentedTest {
             appContext, API_KEY,
             HopperAPIEnvironment.Production
         )
+
         callAuthenticationWithAccurateDetails()
     }
 
@@ -38,12 +40,10 @@ class UserInstrumentedTest {
             password = API_PASSWORD,
             verificationCode = null,
             userAgent = userAgent
-        ) { result, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(result)
+        ) { _, _ ->
+
         }
     }
-
     //******************* Positive cases ***************************
 
     @Test

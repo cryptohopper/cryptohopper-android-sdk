@@ -3,9 +3,12 @@ package Cryptohopper.Android.SDK.helper
 import android.os.SystemClock
 import java.util.concurrent.TimeUnit
 
-object TimeLapsCalculator {
+class TimeLapsCalculator {
 
-    val estimatedAPiResponseTime = TimeUnit.MILLISECONDS.toSeconds(5000)
+    companion object {
+        val estimatedAPiResponseTime = TimeUnit.MILLISECONDS.toSeconds(50000)
+    }
+
     var apiCallerStartTime = 0L
 
     fun startTimer() {

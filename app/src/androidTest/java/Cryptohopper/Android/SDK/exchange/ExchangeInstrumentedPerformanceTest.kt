@@ -24,6 +24,7 @@ import org.junit.runner.RunWith
 @DelicateCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class ExchangeInstrumentedPerformanceTest {
+    private val timeLapsCalculator = TimeLapsCalculator()
 
     @Before
     fun setup() {
@@ -33,7 +34,7 @@ class ExchangeInstrumentedPerformanceTest {
             HopperAPIEnvironment.Production
         )
 
-        TimeLapsCalculator.resetTimer()
+        timeLapsCalculator.resetTimer()
         callAuthenticationWithAccurateDetails()
     }
 
@@ -54,34 +55,35 @@ class ExchangeInstrumentedPerformanceTest {
     @Test
     fun when_the_given_getUserProfile_Endpoint_is_called_with_correct_token_then_measure_response_time() {
 
-        TimeLapsCalculator.startTimer()
+        timeLapsCalculator.startTimer()
         CryptohopperExchange.getUserProfile { _, _ ->
-            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > TimeLapsCalculator.getApiResponseTime())
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 
     @Test
     fun when_the_given_getExchanges_Endpoint_is_called_with_correct_token_then_measure_response_timet() {
 
-        TimeLapsCalculator.startTimer()
+        timeLapsCalculator.startTimer()
         CryptohopperExchange.getExchanges { _, _ ->
-            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > TimeLapsCalculator.getApiResponseTime())
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 
     @Test
     fun when_the_given_getExchangeDetails_Endpoint_is_called_with_correct_token_then_measure_response_time() {
 
-        TimeLapsCalculator.startTimer()
+        timeLapsCalculator.startTimer()
         CryptohopperExchange.getExchangeDetails { _, _ ->
-            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > TimeLapsCalculator.getApiResponseTime())
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 
     @Test
     fun when_the_given_getExchangeForexRates_Endpoint_is_called_with_correct_token_then_measure_response_time() {
+        timeLapsCalculator.startTimer()
         CryptohopperExchange.getExchangeForexRates { _, _ ->
-            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > TimeLapsCalculator.getApiResponseTime())
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 
@@ -91,11 +93,11 @@ class ExchangeInstrumentedPerformanceTest {
         GlobalScope.launch {
             CryptohopperExchange.getExchangeDetails { result, _ ->
                 async {
-                    TimeLapsCalculator.startTimer()
+                    timeLapsCalculator.startTimer()
                     CryptohopperExchange.getBaseCurrenciesFromExchange(
                         result?.get(0)?.exchangeKey ?: ""
                     ) { _, _ ->
-                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > TimeLapsCalculator.getApiResponseTime())
+                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
                     }
                 }
             }
@@ -107,12 +109,12 @@ class ExchangeInstrumentedPerformanceTest {
         GlobalScope.launch {
             CryptohopperExchange.getExchangeDetails { result, _ ->
                 async {
-                    TimeLapsCalculator.startTimer()
+                    timeLapsCalculator.startTimer()
                     CryptohopperExchange.getBaseCurrencyFromExchange(
                         result?.get(0)?.exchangeKey ?: "",
                         result?.get(0)?.defaultBaseCurrency ?: ""
                     ) { _, _ ->
-                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > TimeLapsCalculator.getApiResponseTime())
+                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
                     }
                 }
             }
@@ -125,11 +127,11 @@ class ExchangeInstrumentedPerformanceTest {
             CryptohopperExchange.getExchangeDetails { result, _ ->
 
                 async {
-                    TimeLapsCalculator.startTimer()
+                    timeLapsCalculator.startTimer()
                     CryptohopperExchange.getAvailableCurrenciesForExchange(
                         result?.get(0)?.exchangeKey ?: "",
                     ) { _, _ ->
-                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > TimeLapsCalculator.getApiResponseTime())
+                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
                     }
                 }
             }
@@ -142,11 +144,11 @@ class ExchangeInstrumentedPerformanceTest {
             CryptohopperExchange.getExchangeDetails { result, _ ->
 
                 async {
-                    TimeLapsCalculator.startTimer()
+                    timeLapsCalculator.startTimer()
                     CryptohopperExchange.getPrecisionForCurrenciesOfExchange(
                         result?.get(0)?.exchangeKey ?: "",
                     ) { _, _ ->
-                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > TimeLapsCalculator.getApiResponseTime())
+                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
                     }
                 }
             }
@@ -159,12 +161,12 @@ class ExchangeInstrumentedPerformanceTest {
             CryptohopperExchange.getExchangeDetails { result, _ ->
 
                 async {
-                    TimeLapsCalculator.startTimer()
+                    timeLapsCalculator.startTimer()
                     CryptohopperExchange.getPrecisionForCurrencyOfExchange(
                         result?.get(0)?.exchangeKey ?: "",
                         "btc"
                     ) { _, _ ->
-                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > TimeLapsCalculator.getApiResponseTime())
+                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
                     }
                 }
             }
@@ -177,12 +179,12 @@ class ExchangeInstrumentedPerformanceTest {
             CryptohopperExchange.getExchangeDetails { result, _ ->
 
                 async {
-                    TimeLapsCalculator.startTimer()
+                    timeLapsCalculator.startTimer()
                     CryptohopperExchange.getSingleCurrencyOfExchange(
                         result?.get(0)?.exchangeKey ?: "",
                         result?.get(0)?.defaultBaseCurrency ?: "",
                     ) { _, _ ->
-                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > TimeLapsCalculator.getApiResponseTime())
+                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
                     }
                 }
             }
@@ -195,13 +197,13 @@ class ExchangeInstrumentedPerformanceTest {
             CryptohopperExchange.getExchangeDetails { result, _ ->
 
                 async {
-                    TimeLapsCalculator.startTimer()
+                    timeLapsCalculator.startTimer()
                     CryptohopperExchange.getTradingPairOfExchange(
                         result?.get(0)?.exchangeKey ?: "",
                         "btc",
                         result?.get(0)?.defaultBaseCurrency ?: "",
                     ) { _, _ ->
-                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > TimeLapsCalculator.getApiResponseTime())
+                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
                     }
                 }
             }
@@ -214,11 +216,11 @@ class ExchangeInstrumentedPerformanceTest {
             CryptohopperExchange.getExchangeDetails { result, _ ->
 
                 async {
-                    TimeLapsCalculator.startTimer()
+                    timeLapsCalculator.startTimer()
                     CryptohopperExchange.getMarketsOfExchange(
                         result?.get(0)?.exchangeKey ?: ""
                     ) { _, _ ->
-                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > TimeLapsCalculator.getApiResponseTime())
+                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
                     }
                 }
             }
@@ -234,12 +236,12 @@ class ExchangeInstrumentedPerformanceTest {
                         result?.get(0)?.exchangeKey ?: ""
                     ) { markets, _ ->
                         async {
-                            TimeLapsCalculator.startTimer()
+                            timeLapsCalculator.startTimer()
                             CryptohopperExchange.getPriceAndAmountOfExchange(
                                 result?.get(0)?.exchangeKey ?: "",
                                 markets?.get(0) ?: ""
                             ) { _, _ ->
-                                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > TimeLapsCalculator.getApiResponseTime())
+                                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
                             }
                         }
                     }
@@ -253,11 +255,11 @@ class ExchangeInstrumentedPerformanceTest {
         GlobalScope.launch {
             CryptohopperExchange.getExchangeDetails { result, _ ->
                 async {
-                    TimeLapsCalculator.startTimer()
+                    timeLapsCalculator.startTimer()
                     CryptohopperExchange.getAllTickersOfExchange(
                         result?.get(0)?.exchangeKey ?: ""
                     ) { _, _ ->
-                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > TimeLapsCalculator.getApiResponseTime())
+                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
                     }
                 }
             }
@@ -273,12 +275,12 @@ class ExchangeInstrumentedPerformanceTest {
                         result?.get(0)?.exchangeKey ?: ""
                     ) { pairTickers, _ ->
                         async {
-                            TimeLapsCalculator.startTimer()
+                            timeLapsCalculator.startTimer()
                             CryptohopperExchange.getExchangeTickerPair(
                                 result?.get(0)?.exchangeKey ?: "",
                                 pairTickers?.values?.toTypedArray()?.get(0)?.currencyPair.toString()
                             ) { _, _ ->
-                                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > TimeLapsCalculator.getApiResponseTime())
+                                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
                             }
                         }
                     }
