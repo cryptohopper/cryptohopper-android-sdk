@@ -55,11 +55,8 @@ class UserInstrumentedTest {
             Assert.assertNotNull(result?.name!!)
             Assert.assertNotNull(result.username)
             Assert.assertNotNull(result.email)
-            Assert.assertNotNull(result.website)
             Assert.assertNotNull(result.country)
-            Assert.assertNotNull(result.city)
             Assert.assertNotNull(result.phone)
-            Assert.assertNotNull(result.region)
         }
     }
 
@@ -219,21 +216,6 @@ class UserInstrumentedTest {
         CryptohopperUser.getAllUserSubscriptions { subscriptions, error ->
             Assert.assertNull(error)
             Assert.assertNotNull(subscriptions)
-
-            if (subscriptions?.isNullOrEmpty()?.not() == true) {
-                subscriptions.forEach {
-                    Assert.assertNotNull(it.subscriptionId)
-                    Assert.assertNotNull(it.planId)
-                    Assert.assertNotNull(it.paymentTerm)
-                    Assert.assertNotNull(it.paymentMethodId)
-                    Assert.assertNotNull(it.startTime)
-                    Assert.assertNotNull(it.endTime)
-                    Assert.assertNotNull(it.subscriptionStatus)
-                    Assert.assertNotNull(it.autoRenewal)
-                    Assert.assertNotNull(it.planName)
-                    Assert.assertNotNull(it.planDescription)
-                }
-            }
         }
     }
 
@@ -247,19 +229,6 @@ class UserInstrumentedTest {
                     ) { userSubscription, error ->
                         Assert.assertNull(error)
                         Assert.assertNotNull(userSubscription)
-
-                        userSubscription?.let {
-                            Assert.assertNotNull(it.subscriptionId)
-                            Assert.assertNotNull(it.planId)
-                            Assert.assertNotNull(it.paymentTerm)
-                            Assert.assertNotNull(it.paymentMethodId)
-                            Assert.assertNotNull(it.startTime)
-                            Assert.assertNotNull(it.endTime)
-                            Assert.assertNotNull(it.subscriptionStatus)
-                            Assert.assertNotNull(it.autoRenewal)
-                            Assert.assertNotNull(it.planName)
-                            Assert.assertNotNull(it.planDescription)
-                        }
                     }
                 }
             }
@@ -271,17 +240,6 @@ class UserInstrumentedTest {
         CryptohopperUser.getAllSubscriptionPlans { subscriptions, error ->
             Assert.assertNull(error)
             Assert.assertNotNull(subscriptions)
-
-            if (subscriptions?.isNullOrEmpty()?.not() == true) {
-                subscriptions.forEach {
-                    Assert.assertNotNull(it.planId)
-                    Assert.assertNotNull(it.name)
-                    Assert.assertNotNull(it.description)
-                    Assert.assertNotNull(it.priceMonth)
-                    Assert.assertNotNull(it.priceYear)
-                    Assert.assertNotNull(it.subscribed)
-                }
-            }
         }
     }
 
@@ -295,15 +253,6 @@ class UserInstrumentedTest {
                     ) { subscriptionPlan, error ->
                         Assert.assertNull(error)
                         Assert.assertNotNull(subscriptionPlan)
-
-                        subscriptionPlan?.let {
-                            Assert.assertNotNull(it.planId)
-                            Assert.assertNotNull(it.name)
-                            Assert.assertNotNull(it.description)
-                            Assert.assertNotNull(it.priceMonth)
-                            Assert.assertNotNull(it.priceYear)
-                            Assert.assertNotNull(it.subscribed)
-                        }
                     }
                 }
             }
