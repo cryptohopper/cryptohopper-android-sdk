@@ -49,32 +49,8 @@ class HopperInstrumentedTest {
     @Test
     fun when_the_given_getAllHoppers_Endpoint_is_called_with_correct_token_then_it_must_return_hopper_list() {
         CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, error ->
-            Assert.assertNull(error)
             Assert.assertNotNull(hoppers)
-
-            hoppers?.forEach {
-                Assert.assertNotNull(it.id)
-                Assert.assertNotNull(it.name)
-                Assert.assertNotNull(it.baseCurrency)
-                Assert.assertNotNull(it.buyingEnabled)
-                Assert.assertNotNull(it.sellingEnabled)
-                Assert.assertNotNull(it.enabled)
-                Assert.assertNotNull(it.created)
-                Assert.assertNotNull(it.startBalance)
-                Assert.assertNotNull(it.subscriptionId)
-                Assert.assertNotNull(it.statTime)
-                Assert.assertNotNull(it.endTime)
-                Assert.assertNotNull(it.subscriptionStatus)
-                Assert.assertNotNull(it.autoRenewal)
-                Assert.assertNotNull(it.subscription)
-                Assert.assertNotNull(it.planName)
-                Assert.assertNotNull(it.planDescription)
-                Assert.assertNotNull(it.productId)
-                Assert.assertNotNull(it.image)
-                Assert.assertNotNull(it.userId)
-                Assert.assertNotNull(it.paperTrading)
-                Assert.assertNotNull(it.openPositionCount)
-            }
+            Assert.assertNull(error)
         }
     }
 
@@ -88,30 +64,6 @@ class HopperInstrumentedTest {
                     ) { hopper, error ->
                         Assert.assertNull(error)
                         Assert.assertNotNull(hopper)
-
-                        hopper?.let {
-                            Assert.assertNotNull(it.id)
-                            Assert.assertNotNull(it.name)
-                            Assert.assertNotNull(it.baseCurrency)
-                            Assert.assertNotNull(it.buyingEnabled)
-                            Assert.assertNotNull(it.sellingEnabled)
-                            Assert.assertNotNull(it.enabled)
-                            Assert.assertNotNull(it.created)
-                            Assert.assertNotNull(it.startBalance)
-                            Assert.assertNotNull(it.subscriptionId)
-                            Assert.assertNotNull(it.statTime)
-                            Assert.assertNotNull(it.endTime)
-                            Assert.assertNotNull(it.subscriptionStatus)
-                            Assert.assertNotNull(it.autoRenewal)
-                            Assert.assertNotNull(it.subscription)
-                            Assert.assertNotNull(it.planName)
-                            Assert.assertNotNull(it.planDescription)
-                            Assert.assertNotNull(it.productId)
-                            Assert.assertNotNull(it.image)
-                            Assert.assertNotNull(it.userId)
-                            Assert.assertNotNull(it.paperTrading)
-                            Assert.assertNotNull(it.openPositionCount)
-                        }
                     }
                 }
             }
@@ -122,8 +74,8 @@ class HopperInstrumentedTest {
     fun when_the_given_createHopper_Endpoint_is_called_with_correct_params_and_token_then_it_must_return_hopperId() {
         CryptohopperHopper.createHopper(
             name = API_USER, null, null, null, null
-        ) { hopperId, error ->
-            Assert.assertNotNull(hopperId)
+        ) { response, error ->
+            Assert.assertNotNull(response)
             Assert.assertNull(error)
         }
     }
@@ -336,13 +288,6 @@ class HopperInstrumentedTest {
                     ) { hopperTradedCurrency, error ->
                         Assert.assertNull(error)
                         Assert.assertNotNull(hopperTradedCurrency)
-
-                        hopperTradedCurrency?.forEach {
-                            Assert.assertNotNull(it.tradeAmount)
-                            Assert.assertNotNull(it.currency)
-                            Assert.assertNotNull(it.profit)
-                            Assert.assertNotNull(it.averageHoldingTimeInHours)
-                        }
                     }
                 }
             }
@@ -391,26 +336,6 @@ class HopperInstrumentedTest {
                     ) { orders, error ->
                         Assert.assertNull(error)
                         Assert.assertNotNull(orders)
-
-                        orders?.forEach {
-                            Assert.assertNotNull(it.id)
-                            Assert.assertNotNull(it.pair)
-                            Assert.assertNotNull(it.orderType)
-                            Assert.assertNotNull(it.orderId)
-                            Assert.assertNotNull(it.orderTrigger)
-                            Assert.assertNotNull(it.amount)
-                            Assert.assertNotNull(it.rate)
-                            Assert.assertNotNull(it.taValues)
-                            Assert.assertNotNull(it.percentageProfit)
-                            Assert.assertNotNull(it.hold)
-                            Assert.assertNotNull(it.sold)
-                            Assert.assertNotNull(it.openTime)
-                            Assert.assertNotNull(it.closeTime)
-                            Assert.assertNotNull(it.bundled)
-                            Assert.assertNotNull(it.marketOrder)
-                            Assert.assertNotNull(it.cost)
-                            Assert.assertNotNull(it.date)
-                        }
                     }
                 }
             }
@@ -431,26 +356,7 @@ class HopperInstrumentedTest {
                                 orders?.get(0)?.id ?: ""
                             ) { order, error ->
                                 Assert.assertNull(error)
-                                Assert.assertNotNull(orders)
-                                order?.let {
-                                    Assert.assertNotNull(it.id)
-                                    Assert.assertNotNull(it.pair)
-                                    Assert.assertNotNull(it.orderType)
-                                    Assert.assertNotNull(it.orderId)
-                                    Assert.assertNotNull(it.orderTrigger)
-                                    Assert.assertNotNull(it.amount)
-                                    Assert.assertNotNull(it.rate)
-                                    Assert.assertNotNull(it.taValues)
-                                    Assert.assertNotNull(it.percentageProfit)
-                                    Assert.assertNotNull(it.hold)
-                                    Assert.assertNotNull(it.sold)
-                                    Assert.assertNotNull(it.openTime)
-                                    Assert.assertNotNull(it.closeTime)
-                                    Assert.assertNotNull(it.bundled)
-                                    Assert.assertNotNull(it.marketOrder)
-                                    Assert.assertNotNull(it.cost)
-                                    Assert.assertNotNull(it.date)
-                                }
+                                Assert.assertNotNull(order)
                             }
                         }
                     }
