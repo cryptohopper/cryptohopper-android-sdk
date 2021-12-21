@@ -20,7 +20,8 @@ import kotlin.random.Random
 
 @DelicateCoroutinesApi
 @RunWith(AndroidJUnit4::class)
-class UserInstrumentedTest {
+class UserInstrumentedPerformanceTest {
+    private val timeLapsCalculator = TimeLapsCalculator()
 
     @Before
     fun setup() {
@@ -30,6 +31,7 @@ class UserInstrumentedTest {
             HopperAPIEnvironment.Production
         )
 
+        timeLapsCalculator.resetTimer()
         callAuthenticationWithAccurateDetails()
     }
 
@@ -44,35 +46,46 @@ class UserInstrumentedTest {
 
         }
     }
+
     //******************* Positive cases ***************************
 
     @Test
-    fun when_the_given_getUserProfile_Endpoint_is_called_with_correct_token_then_it_must_return_profile_details() {
-        CryptohopperUser.getUserProfile { result, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(result)
+    fun when_the_given_getUserProfile_Endpoint_is_called_with_correct_token_then_measure_response_time() {
 
-            Assert.assertNotNull(result?.name!!)
-            Assert.assertNotNull(result.username)
-            Assert.assertNotNull(result.email)
-            Assert.assertNotNull(result.country)
-            Assert.assertNotNull(result.phone)
+        timeLapsCalculator.startTimer()
+        CryptohopperExchange.getUserProfile { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
+        }
+    }
+
+    @Test
+    fun when_the_given_getUserProfile_Endpoint_is_called_with_correct_token_then_it_must_return_profile_details() {
+        callAuthenticationWithAccurateDetails()
+        GlobalScope.launch {
+            async {
+                timeLapsCalculator.startTimer()
+                CryptohopperUser.getUserProfile { _, _ ->
+                    Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime >= timeLapsCalculator.getApiResponseTime())
+                }
+            }
         }
     }
 
     @Test
     fun when_the_given_forgetPassword_Endpoint_is_called_with_correct_params_and_token_then_it_must_return_data() {
+        timeLapsCalculator.startTimer()
         val userAgent = Aes256.encrypt(API_USER, Const.API_AGENT)
         CryptohopperUser.forgetPassword(
             email = Const.API_EMAIL,
             userAgent = userAgent
-        ) { data, _ ->
-            Assert.assertNotNull(data)
+        ) { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime >= timeLapsCalculator.getApiResponseTime())
         }
     }
 
     @Test
     fun when_the_given_updateUserProfile_Endpoint_is_called_with_correct_params_and_token_then_it_must_return_data() {
+        timeLapsCalculator.startTimer()
         CryptohopperUser.updateUserProfile(
             name = "Dawar Malik",
             addressOne = "124, Avery court",
@@ -83,129 +96,122 @@ class UserInstrumentedTest {
             postalCode = "GZ-1043",
             phone = "+35699957661",
             website = "www.github.com/malikdawar"
-        ) { data, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(data)
+        ) { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime >= timeLapsCalculator.getApiResponseTime())
         }
     }
 
     @Test
     fun when_the_given_getAvailableCredits_Endpoint_is_called_with_correct_token_then_it_must_return_response() {
-        CryptohopperUser.getAvailableCredits { result, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(result)
+        timeLapsCalculator.startTimer()
+        CryptohopperUser.getAvailableCredits { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 
     @Test
     fun when_the_given_getMobilePushNotificationPrefs_Endpoint_is_called_with_correct_token_then_it_must_return_response() {
-        CryptohopperUser.getMobilePushNotificationPrefs { result, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(result)
+        timeLapsCalculator.startTimer()
+        CryptohopperUser.getMobilePushNotificationPrefs { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 
     @Test
     fun when_the_given_updateMobilePushNotificationPrefs_Endpoint_is_called_with_correct_param_then_it_must_return_response() {
+        timeLapsCalculator.startTimer()
         CryptohopperUser.updateMobilePushNotificationPrefs(HashMap<String, String>().also {
             it["Trigger"] = "on_trigger"
-        }) { response, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(response)
+        }) { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 
     @Test
     fun when_the_given_getUserEmail_Endpoint_is_called_with_correct_token_then_it_must_return_response() {
-        CryptohopperUser.getUserEmail { email, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(email)
+        timeLapsCalculator.startTimer()
+        CryptohopperUser.getUserEmail { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 
     @Test
     fun when_the_given_changeEmail_Endpoint_is_called_with_correct_token_and_email_then_it_must_return_response() {
-        CryptohopperUser.changeEmail(Const.API_EMAIL) { response, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(response)
+        timeLapsCalculator.startTimer()
+        CryptohopperUser.changeEmail(Const.API_EMAIL) { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 
     @Test
     fun when_the_given_getUserId_Endpoint_is_called_with_correct_token_and_email_then_it_must_return_response() {
-        CryptohopperUser.getUserId { UserId, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(UserId)
+        timeLapsCalculator.startTimer()
+        CryptohopperUser.getUserId { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 
     @Test
     fun when_the_given_getUserNotifications_Endpoint_is_called_with_correct_token_and_email_then_it_must_return_list() {
-        CryptohopperUser.getUserNotifications { response, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(response)
+        timeLapsCalculator.startTimer()
+        CryptohopperUser.getUserNotifications { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 
     @Test
     fun when_the_given_enableMobilePushNotification_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        timeLapsCalculator.startTimer()
         CryptohopperUser.enableMobilePushNotification(
             enableAll = Random.nextBoolean(),
             listOf()
-        ) { response, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(response)
+        ) { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime >= timeLapsCalculator.getApiResponseTime())
         }
     }
 
     @Test
     fun when_the_given_changePassword_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        timeLapsCalculator.startTimer()
         CryptohopperUser.changePassword(
             API_PASSWORD
-        ) { response, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(response)
+        ) { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 
     @Test
     fun when_the_given_getUserPurchases_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
-        CryptohopperUser.getUserPurchases { response, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(response)
+        timeLapsCalculator.startTimer()
+        CryptohopperUser.getUserPurchases { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 
     @Test
     fun when_the_given_resendActivationEmail_Endpoint_is_called_with_correct_params_and_token_then_it_must_return_response() {
+        timeLapsCalculator.startTimer()
         CryptohopperUser.resendActivationEmail(
             email = Const.API_EMAIL,
             username = API_USER
-        ) { response, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(response)
+        ) { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 
     @Test
     fun when_the_given_getUserTransactions_Endpoint_is_called_with_correct_params_and_token_then_it_must_return_response() {
-        CryptohopperUser.getUserTransactions { transactions, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(transactions)
-
-            if (transactions?.isNullOrEmpty()?.not() == true) {
-                Assert.assertNotNull(transactions[0].id)
-            }
+        timeLapsCalculator.startTimer()
+        CryptohopperUser.getUserTransactions { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 
     @Test
     fun when_the_given_getUserMetadata_Endpoint_is_called_with_correct_params_and_token_then_it_must_return_response() {
-        CryptohopperUser.getUserMetadata { metadata, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(metadata)
-
-            Assert.assertNotNull(metadata?.id)
+        timeLapsCalculator.startTimer()
+        CryptohopperUser.getUserMetadata { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 
@@ -213,48 +219,36 @@ class UserInstrumentedTest {
 
     @Test
     fun when_the_given_getAllUserSubscriptions_Endpoint_is_called_with_correct_token_then_it_must_return_response() {
-        CryptohopperUser.getAllUserSubscriptions { subscriptions, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(subscriptions)
+        timeLapsCalculator.startTimer()
+        CryptohopperUser.getAllUserSubscriptions { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 
     @Test
     fun when_the_given_getOneUserSubscriptions_Endpoint_is_called_with_correct_params_and_token_then_it_must_return_response() {
+        timeLapsCalculator.startTimer()
         GlobalScope.launch {
-            CryptohopperUser.getAllUserSubscriptions { subscriptions, _ ->
-                async {
-                    CryptohopperUser.getOneUserSubscriptions(
-                        subscriptions?.get(0)?.subscriptionId?.toInt() ?: 0
-                    ) { userSubscription, error ->
-                        Assert.assertNull(error)
-                        Assert.assertNotNull(userSubscription)
-                    }
-                }
+            CryptohopperUser.getAllUserSubscriptions { _, _ ->
+                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
             }
         }
     }
 
     @Test
     fun when_the_given_getAllSubscriptionPlans_Endpoint_is_called_with_correct_token_then_it_must_return_response() {
-        CryptohopperUser.getAllSubscriptionPlans { subscriptions, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(subscriptions)
+        timeLapsCalculator.startTimer()
+        CryptohopperUser.getAllSubscriptionPlans { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 
     @Test
     fun when_the_given_getOneSubscriptionPlan_Endpoint_is_called_with_correct_params_and_token_then_it_must_return_response() {
+        timeLapsCalculator.startTimer()
         GlobalScope.launch {
-            CryptohopperUser.getAllSubscriptionPlans { subscriptions, _ ->
-                async {
-                    CryptohopperUser.getOneSubscriptionPlan(
-                        subscriptions?.get(0)?.planId?.toInt() ?: 0
-                    ) { subscriptionPlan, error ->
-                        Assert.assertNull(error)
-                        Assert.assertNotNull(subscriptionPlan)
-                    }
-                }
+            CryptohopperUser.getAllSubscriptionPlans { _, _ ->
+                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
             }
         }
     }

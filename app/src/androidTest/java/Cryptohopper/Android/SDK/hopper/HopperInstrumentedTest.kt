@@ -48,9 +48,11 @@ class HopperInstrumentedTest {
 
     @Test
     fun when_the_given_getAllHoppers_Endpoint_is_called_with_correct_token_then_it_must_return_hopper_list() {
+        GlobalScope.launch {
         CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, error ->
             Assert.assertNotNull(hoppers)
             Assert.assertNull(error)
+        }
         }
     }
 
