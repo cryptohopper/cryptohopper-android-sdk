@@ -7,6 +7,7 @@ object Const {
     const val API_AGENT = BuildConfig.API_AGENT
     const val API_USER = BuildConfig.API_USER
     const val API_PASSWORD = BuildConfig.API_PASSWORD
+    const val API_EMAIL = BuildConfig.API_EMAIL
 
     var isUserLoggedIn = false
 }

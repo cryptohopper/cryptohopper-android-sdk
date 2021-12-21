@@ -26,6 +26,7 @@ android {
             variant.buildConfigField "String", "API_AGENT", "" + getApiAgent() + ""
             variant.buildConfigField "String", "API_USER", "" + getApiUser() + ""
             variant.buildConfigField "String", "API_PASSWORD", "" + getApiPassword() + ""
+            variant.buildConfigField "String", "API_EMAIL", "" + getApiEmail() + ""
         }
     }
 
@@ -72,6 +73,12 @@ static def getApiPassword() {
     def Properties props = new Properties()
     props.load(new FileInputStream(new File('secrets.properties')))
     return props['API_PASSWORD']
+}
+
+static def getApiEmail() {
+    def Properties props = new Properties()
+    props.load(new FileInputStream(new File('secrets.properties')))
+    return props['API_EMAIL']
 }
 
 dependencies {
