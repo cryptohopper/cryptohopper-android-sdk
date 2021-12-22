@@ -46,7 +46,7 @@ class UserInstrumentedNegativeTest {
             Assert.assertNotNull(error)
         }
     }
-    //******************* Positive cases ***************************
+    //******************* Negative cases ***************************
 
     @Test
     fun when_the_given_getUserProfile_Endpoint_is_called_with_incorrect_details_then_it_must_error() {

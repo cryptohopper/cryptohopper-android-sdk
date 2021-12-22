@@ -48,15 +48,19 @@ class UserInstrumentedTest {
 
     @Test
     fun when_the_given_getUserProfile_Endpoint_is_called_with_correct_token_then_it_must_return_profile_details() {
-        CryptohopperUser.getUserProfile { result, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(result)
+        GlobalScope.launch {
+            async {
+                CryptohopperUser.getUserProfile { result, error ->
+                    Assert.assertNull(error)
+                    Assert.assertNotNull(result)
 
-            Assert.assertNotNull(result?.name!!)
-            Assert.assertNotNull(result.username)
-            Assert.assertNotNull(result.email)
-            Assert.assertNotNull(result.country)
-            Assert.assertNotNull(result.phone)
+                    Assert.assertNotNull(result?.name!!)
+                    Assert.assertNotNull(result.username)
+                    Assert.assertNotNull(result.email)
+                    Assert.assertNotNull(result.country)
+                    Assert.assertNotNull(result.phone)
+                }
+            }
         }
     }
 
