@@ -49,10 +49,10 @@ class HopperInstrumentedTest {
     @Test
     fun when_the_given_getAllHoppers_Endpoint_is_called_with_correct_token_then_it_must_return_hopper_list() {
         GlobalScope.launch {
-        CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, error ->
-            Assert.assertNotNull(hoppers)
-            Assert.assertNull(error)
-        }
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, error ->
+                Assert.assertNotNull(hoppers)
+                Assert.assertNull(error)
+            }
         }
     }
 
@@ -356,6 +356,68 @@ class HopperInstrumentedTest {
                             CryptohopperHopper.getOneOpenOrder(
                                 hoppers?.get(0)?.id ?: "",
                                 orders?.get(0)?.id ?: ""
+                            ) { order, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(order)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_deleteMultipleOrders_Endpoint_is_called_with_correct_details_then_it_must_create_an_order() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllOpenOrders(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { orders, _ ->
+                        async {
+                            CryptohopperHopper.deleteMultipleOrders(
+                                hoppers?.get(0)?.id ?: "",
+                                orders?.get(0)?.id?.toInt() ?: 0
+                            ) { order, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(order)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_deleteAllOpenOrders_Endpoint_is_called_with_correct_token_then_it_must_rreturn_response_successt() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.deleteAllOpenOrders(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { response, error ->
+                        Assert.assertNull(error)
+                        Assert.assertNotNull(response)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_cancelTsbOrder_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllOpenOrders(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { orders, _ ->
+                        async {
+                            CryptohopperHopper.cancelTsbOrder(
+                                hoppers?.get(0)?.id ?: "",
+                                orders?.get(0)?.id?.toInt() ?: 0
                             ) { order, error ->
                                 Assert.assertNull(error)
                                 Assert.assertNotNull(order)
