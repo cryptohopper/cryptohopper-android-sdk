@@ -14,6 +14,7 @@ import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.Before
+import kotlin.random.Random
 
 @DelicateCoroutinesApi
 @RunWith(AndroidJUnit4::class)
@@ -36,9 +37,8 @@ class HopperInstrumentedTest {
             password = API_PASSWORD,
             verificationCode = null,
             userAgent = userAgent
-        ) { result, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(result)
+        ) { _, _ ->
+
         }
     }
 
@@ -407,6 +407,38 @@ class HopperInstrumentedTest {
     }
 
     @Test
+    fun when_the_given_getUnsyncedPositions_Endpoint_is_called_with_correct_token_then_it_must_rreturn_response_successt() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getUnsyncedPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { response, error ->
+                        Assert.assertNull(error)
+                        Assert.assertNotNull(response)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_getHoldPositions_Endpoint_is_called_with_correct_token_then_it_must_rreturn_response_successt() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getHoldPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { response, error ->
+                        Assert.assertNull(error)
+                        Assert.assertNotNull(response)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
     fun when_the_given_cancelTsbOrder_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
         GlobalScope.launch {
             CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
@@ -428,4 +460,730 @@ class HopperInstrumentedTest {
             }
         }
     }
+
+    @Test
+    fun when_the_given_cancelOrder_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllOpenOrders(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { orders, _ ->
+                        async {
+                            CryptohopperHopper.cancelOrder(
+                                hoppers?.get(0)?.id ?: "",
+                                orders?.get(0)?.id?.toInt() ?: 0
+                            ) { order, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(order)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_depositPapertradingAccount_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.depositPapertradingAccount(
+                        hoppers?.get(0)?.id ?: "",
+                        "btc",
+                        0.0
+                    ) { response, error ->
+                        Assert.assertNull(error)
+                        Assert.assertNotNull(response)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_withdrawPapertradingAccount_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.withdrawPapertradingAccount(
+                        hoppers?.get(0)?.id ?: "",
+                        "btc",
+                        0.0
+                    ) { response, error ->
+                        Assert.assertNull(error)
+                        Assert.assertNotNull(response)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_resetPapertradingAccount_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.resetPapertradingAccount(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { response, error ->
+                        Assert.assertNull(error)
+                        Assert.assertNotNull(response)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_getAllPositions_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, error ->
+                        Assert.assertNull(error)
+                        Assert.assertNotNull(positions)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_getOnePosition_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.getOnePosition(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.get(0)?.id?.toInt() ?: 0
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_closeOneShortPositions_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.closeOneShortPositions(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.get(0)?.id?.toInt() ?: 0
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_closeMultipleShortPositions_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.closeMultipleShortPositions(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.map {
+                                    it.id?.toInt() ?: 0
+                                } ?: arrayListOf()
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_deleteMultipleShortPositions_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.deleteMultipleShortPositions(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.map {
+                                    it.id?.toInt() ?: 0
+                                } ?: arrayListOf()
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_deleteOneShortPosition_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.deleteOneShortPosition(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.get(0)?.id?.toInt() ?: 0
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_holdShortPosition_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.holdShortPosition(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.get(0)?.id?.toInt() ?: 0
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_holdOnePosition_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.holdOnePosition(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.get(0)?.id?.toInt() ?: 0
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_getReleasePositions_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getReleasePositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { response, error ->
+                        Assert.assertNull(error)
+                        Assert.assertNotNull(response)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_releaseOnePosition_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.releaseOnePosition(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.get(0)?.id?.toInt() ?: 0
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_releaseShortPosition_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.releaseShortPosition(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.get(0)?.id?.toInt() ?: 0
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_releaseReservedPosition_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.releaseReservedPosition(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.get(0)?.id?.toInt() ?: 0
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_removeOnePosition_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.removeOnePosition(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.get(0)?.id?.toInt() ?: 0
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_removeMultiplePositions_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.removeMultiplePositions(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.map {
+                                    it.id?.toInt() ?: 0
+                                } ?: arrayListOf()
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_deletePosition_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.deletePosition(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.get(0)?.id?.toInt() ?: 0
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_sellMultiplePositions_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.sellMultiplePositions(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.map {
+                                    it.id?.toInt() ?: 0
+                                } ?: arrayListOf()
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_sellOnePosition_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.sellOnePosition(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.get(0)?.id?.toInt() ?: 0
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_takeProfit_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.takeProfit(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.map {
+                                    it.id?.toInt() ?: 0
+                                } ?: arrayListOf(),
+                                5
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_splitMultiplePositions_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.splitMultiplePositions(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.map {
+                                    it.id?.toInt() ?: 0
+                                } ?: arrayListOf()
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_splitOnePosition_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.splitOnePosition(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.get(0)?.id?.toInt() ?: 0
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_getShortPositions_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getShortPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, error ->
+                        Assert.assertNull(error)
+                        Assert.assertNotNull(positions)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_getAssets_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAssets(
+                        hoppers?.get(0)?.id ?: "",
+                        Random.nextBoolean()
+                    ) { assets, error ->
+                        Assert.assertNull(error)
+                        Assert.assertNotNull(assets)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_given_getReservedPositions_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getReservedPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, error ->
+                        Assert.assertNull(error)
+                        Assert.assertNotNull(positions)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_shortMultiplePositions_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.shortMultiplePositions(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.map {
+                                    it.id?.toInt() ?: 0
+                                } ?: arrayListOf()
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_shortOnePosition_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.shortOnePosition(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.get(0)?.id?.toInt() ?: 0
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_dcaOnePosition_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.dcaOnePosition(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.get(0)?.id?.toInt() ?: 0
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_moveMultiplePositions_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.moveMultiplePositions(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.map {
+                                    it.id?.toInt() ?: 0
+                                } ?: arrayListOf()
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_moveOnePosition_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.moveOnePosition(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.get(0)?.id?.toInt() ?: 0
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_moveReservedPositionToOpen_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getAllPositions(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { positions, _ ->
+                        async {
+                            CryptohopperHopper.moveReservedPositionToOpen(
+                                hoppers?.get(0)?.id ?: "",
+                                positions?.get(0)?.id?.toInt() ?: 0
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }

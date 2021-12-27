@@ -834,6 +834,7 @@ class CryptohopperHopper {
         ///
         /// - Parameter hopperId:  (required) Hopper Id
         /// - Parameter positionIds:  (required) Position Ids
+        @Deprecated("Use holdMultipleHopperPositions function")
         fun holdOnePosition(
             hopperId: String,
             positionId: List<Int>,
@@ -848,6 +849,27 @@ class CryptohopperHopper {
                 callback(null, error)
             })
         }
+
+
+        /// Hold Multiple Positions
+        ///
+        /// - Parameter hopperId:  (required) Hopper Id
+        /// - Parameter positionIds:  (required) Position Ids
+        fun holdMultipleHopperPositions(
+            hopperId: String,
+            positionIds: List<Int>,
+            callback: (String?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIHoldMultiplePositionsRequest(
+                hopperId,
+                positionIds
+            ).request<HopperCommonMessageResponse>({ data ->
+                callback(data.data, null)
+            }, { error ->
+                callback(null, error)
+            })
+        }
+
 
         /// Hold One Position
         ///
