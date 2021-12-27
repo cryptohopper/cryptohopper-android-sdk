@@ -1,3 +1,4 @@
+import android.util.Log
 import cryptohopper.android.sdk.API.AI.General.GetAIs.HopperAPIGetAIsDataItem
 import cryptohopper.android.sdk.API.AI.General.GetAIs.HopperAPIGetAIsResponse
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIError
@@ -16,9 +17,9 @@ object CryptoHopperAIs {
      */
     fun getHopperAIs(callback: (List<HopperAPIGetAIsDataItem>?, HopperAPIError?) -> Unit) {
         HopperAPIGetAIsRequest().request<HopperAPIGetAIsResponse>({ hopperAIs ->
-            callback(hopperAIs.data, null)
+            callback.invoke(hopperAIs.data, null)
         }, { error ->
-            callback(null, error)
+            callback.invoke(null, error)
         })
     }
 }

@@ -11,6 +11,6 @@ class HopperAPIGetAIsRequest: HopperAPIRequest<HopperAPIGetAIsResponse> {
     constructor() {
         this.httpMethod = HopperAPIHttpMethod.GET
         this.needsAuthentication = true
-        this.changeUrlPath("/v1/ai")
+        this.changeUrlPath("/ai")
     }
 }
