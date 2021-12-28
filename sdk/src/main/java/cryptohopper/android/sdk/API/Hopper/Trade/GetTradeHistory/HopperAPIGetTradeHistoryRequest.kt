@@ -10,16 +10,15 @@ import java.util.*
 
 class HopperAPIGetTradeHistoryRequest: HopperAPIRequest<HopperAPIGetTradeHistoryResponse> {
     
-    constructor(hopperId : String,dateFrom : String?,count : Int?) {
+    constructor(hopperId : String, dateFrom : String?, count : Int?) {
         this.httpMethod = HopperAPIHttpMethod.GET
         this.needsAuthentication = true
         this.changeUrlPath("/hopper/$hopperId/trade")
         if(dateFrom != null){
-            this.addQueryItem( "dateFrom", dateFrom!!)
+            this.addQueryItem( "dateFrom", dateFrom)
         }
         if(count != null){
             this.addQueryItem( "count", count.toString())
         }
     }
-    
 }

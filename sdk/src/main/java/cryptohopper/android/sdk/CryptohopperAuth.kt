@@ -12,21 +12,39 @@ class CryptohopperAuth {
 
     companion object {
 
-        fun login(username: String,password: String,verificationCode: String?,userAgent : String,callback: (String?,HopperAPIError?) -> Unit) {
-            HopperAPIAuthenticationRequest(username,password,verificationCode,userAgent).request<HopperAPIAuthenticationResponse>({response ->
+        fun login(
+            username: String,
+            password: String,
+            verificationCode: String?,
+            userAgent: String,
+            callback: (String?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIAuthenticationRequest(
+                username,
+                password,
+                verificationCode,
+                userAgent
+            ).request<HopperAPIAuthenticationResponse>({ response ->
                 HopperAPISessionManager.shared.handleAuthResponse(response)
-                callback("Successfully Logged In",null)
-            },{error ->
-                callback(null,error)
+                callback("Successfully Logged In", null)
+            }, { error ->
+                callback(null, error)
             })
         }
 
-        fun loginWithCode(code: String,userAgent : String,callback: (String?,HopperAPIError?) -> Unit) {
-            HopperAPIAuthWithCodeRequest(code,userAgent).request<HopperAPIAuthenticationResponse>({ response ->
+        fun loginWithCode(
+            code: String,
+            userAgent: String,
+            callback: (String?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIAuthWithCodeRequest(
+                code,
+                userAgent
+            ).request<HopperAPIAuthenticationResponse>({ response ->
                 HopperAPISessionManager.shared.handleAuthResponse(response)
-                callback("Successfully Logged In",null)
-            },{error ->
-                callback(null,error)
+                callback("Successfully Logged In", null)
+            }, { error ->
+                callback(null, error)
             })
         }
 
@@ -37,7 +55,5 @@ class CryptohopperAuth {
         fun isAuthenticated(): Boolean {
             return HopperAPISessionManager.shared.hasSession
         }
-
     }
-
 }

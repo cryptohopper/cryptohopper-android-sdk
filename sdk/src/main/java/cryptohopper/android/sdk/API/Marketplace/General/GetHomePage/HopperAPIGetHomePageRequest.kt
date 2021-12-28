@@ -15,5 +15,4 @@ class HopperAPIGetHomePageRequest: HopperAPIRequest<HopperAPIGetHomePageResponse
         this.changeUrlPath("/market/homepage")
         this.addQueryItem( "in_app",  "1")
     }
-    
 }

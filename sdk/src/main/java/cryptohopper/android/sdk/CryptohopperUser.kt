@@ -10,24 +10,30 @@ class CryptohopperUser {
 
         // ------------- GENERAL ----------------------------------------
 
-
         /// Get User Profile
         ///
         fun getUserProfile(callback: (UserProfile?, HopperAPIError?) -> Unit) {
             HopperAPIGetUserProfileRequest("").request<HopperAPIGetUserProfileResponse>({ data ->
-                   callback(data.userProfile,null)
-            } ,{ error ->
-                    callback(null,error)
+                callback(data.userProfile, null)
+            }, { error ->
+                callback(null, error)
             })
         }
 
         /// Get User Profile
         ///
-        fun forgetPassword(email:String,userAgent: String ,callback: (String?, HopperAPIError?) -> Unit) {
-            HopperAPIForgetPasswordRequest(email,userAgent).request<HopperCommonMessageResponse>({ data ->
-                callback(data.data,null)
-            } ,{ error ->
-                callback(null,error)
+        fun forgetPassword(
+            email: String,
+            userAgent: String,
+            callback: (String?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIForgetPasswordRequest(
+                email,
+                userAgent
+            ).request<HopperCommonMessageResponse>({ data ->
+                callback(data.data, null)
+            }, { error ->
+                callback(null, error)
             })
         }
 
@@ -42,11 +48,32 @@ class CryptohopperUser {
         ///- Parameter postalCode: (required) postal code
         ///- Parameter phone: (required) phone
         ///- Parameter website: (required) website
-        fun updateUserProfile(name : String,addressOne : String,addressTwo : String,city : String,region : String,country : String,postalCode : String,phone : String,website : String,callback: (String?, HopperAPIError?) -> Unit) {
-            HopperAPIUpdateUserProfileRequest( name,  addressOne,  addressTwo,  city,  region,  country,  postalCode,  phone,  website).request<HopperCommonMessageResponse>({ data ->
-                   callback(data.data,null)
-            } ,{ error ->
-                    callback(null,error)
+        fun updateUserProfile(
+            name: String,
+            addressOne: String,
+            addressTwo: String,
+            city: String,
+            region: String,
+            country: String,
+            postalCode: String,
+            phone: String,
+            website: String,
+            callback: (String?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIUpdateUserProfileRequest(
+                name,
+                addressOne,
+                addressTwo,
+                city,
+                region,
+                country,
+                postalCode,
+                phone,
+                website
+            ).request<HopperCommonMessageResponse>({ data ->
+                callback(data.data, null)
+            }, { error ->
+                callback(null, error)
             })
         }
 
@@ -54,32 +81,39 @@ class CryptohopperUser {
         ///
         fun getAvailableCredits(callback: (Int?, HopperAPIError?) -> Unit) {
             HopperAPIGetAvailableCreditsRequest("").request<HopperAPIGetAvailableCreditsResponse>({ data ->
-                   callback(data.credit,null)
-            } ,{ error ->
-                    callback(null,error)
+                callback(data.credit, null)
+            }, { error ->
+                callback(null, error)
             })
         }
 
 
         /// Get Mobile Notification
         ///
-        fun getMobilePushNotificationPrefs(callback: (Map<String,String>?, HopperAPIError?) -> Unit) {
-            HopperAPIUpdateGetMobileNotificationRequest("").request<HopperAPIUpdateGetMobileNotificationResponse>({ data ->
-                callback(data.notifications,null)
-            } ,{ error ->
-                callback(null,error)
-            })
+        fun getMobilePushNotificationPrefs(callback: (Map<String, String>?, HopperAPIError?) -> Unit) {
+            HopperAPIUpdateGetMobileNotificationRequest("").request<HopperAPIUpdateGetMobileNotificationResponse>(
+                { data ->
+                    callback(data.notifications, null)
+                },
+                { error ->
+                    callback(null, error)
+                })
         }
 
 
         /// Update Mobile Notification
         ///
-        fun updateMobilePushNotificationPrefs(permissions : Map<String,String>, callback: (String?, HopperAPIError?) -> Unit) {
-            HopperAPIUpdatePushNotificationRequest(permissions).request<HopperCommonMessageResponse>({ data ->
-                callback(data.data,null)
-            } ,{ error ->
-                callback(null,error)
-            })
+        fun updateMobilePushNotificationPrefs(
+            permissions: Map<String, String>,
+            callback: (String?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIUpdatePushNotificationRequest(permissions).request<HopperCommonMessageResponse>(
+                { data ->
+                    callback(data.data, null)
+                },
+                { error ->
+                    callback(null, error)
+                })
         }
 
 
@@ -87,9 +121,9 @@ class CryptohopperUser {
         ///
         fun getUserEmail(callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIGetUserEmailRequest("").request<HopperAPIGetUserEmailResponse>({ data ->
-                   callback(data.email,null)
-            } ,{ error ->
-                    callback(null,error)
+                callback(data.email, null)
+            }, { error ->
+                callback(null, error)
             })
         }
 
@@ -97,11 +131,11 @@ class CryptohopperUser {
         /// Get User Email
         ///
         ///- Parameter email: (required) email
-        fun changeEmail(email : String,callback: (String?, HopperAPIError?) -> Unit) {
-            HopperAPIChangeEmailRequest( email).request<HopperCommonMessageResponse>({ data ->
-                   callback(data.data,null)
-            } ,{ error ->
-                    callback(null,error)
+        fun changeEmail(email: String, callback: (String?, HopperAPIError?) -> Unit) {
+            HopperAPIChangeEmailRequest(email).request<HopperCommonMessageResponse>({ data ->
+                callback(data.data, null)
+            }, { error ->
+                callback(null, error)
             })
         }
 
@@ -109,11 +143,18 @@ class CryptohopperUser {
         ///
         ///- Parameter enableAll: (required) enable all permissions
         ///- Parameter permissions: (required)  enable with some permissions
-        fun enableMobilePushNotification(enableAll : Boolean,permissions : List<PushNotificationPermissions>,callback: (String?, HopperAPIError?) -> Unit) {
-            HopperAPIEnablePushNotificationRequest( enableAll,  permissions).request<HopperCommonMessageResponse>({ data ->
-                   callback(data.data,null)
-            } ,{ error ->
-                    callback(null,error)
+        fun enableMobilePushNotification(
+            enableAll: Boolean,
+            permissions: List<PushNotificationPermissions>,
+            callback: (String?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIEnablePushNotificationRequest(
+                enableAll,
+                permissions
+            ).request<HopperCommonMessageResponse>({ data ->
+                callback(data.data, null)
+            }, { error ->
+                callback(null, error)
             })
         }
 
@@ -122,31 +163,33 @@ class CryptohopperUser {
         ///
         fun getUserId(callback: (String?, HopperAPIError?) -> Unit) {
             HopperAPIGetUserIdRequest("").request<HopperAPIGetUserIdResponse>({ data ->
-                   callback(data.id,null)
-            } ,{ error ->
-                    callback(null,error)
+                callback(data.id, null)
+            }, { error ->
+                callback(null, error)
             })
         }
 
         /// Get User Notifications
         ///
         fun getUserNotifications(callback: (List<UserNotification>?, HopperAPIError?) -> Unit) {
-            HopperAPIGetUserNotificationsRequest("").request<HopperAPIGetUserNotificationsResponse>({ data ->
-                   callback(data.notifications,null)
-            } ,{ error ->
-                    callback(null,error)
-            })
+            HopperAPIGetUserNotificationsRequest("").request<HopperAPIGetUserNotificationsResponse>(
+                { data ->
+                    callback(data.notifications, null)
+                },
+                { error ->
+                    callback(null, error)
+                })
         }
 
 
         /// Change Password
         ///
         ///- Parameter newPassword: (required) your new password
-        fun changePassword(newPassword : String,callback: (String?, HopperAPIError?) -> Unit) {
-            HopperAPIChangePasswordRequest( newPassword).request<HopperCommonMessageResponse>({ data ->
-                   callback(data.data,null)
-            } ,{ error ->
-                    callback(null,error)
+        fun changePassword(newPassword: String, callback: (String?, HopperAPIError?) -> Unit) {
+            HopperAPIChangePasswordRequest(newPassword).request<HopperCommonMessageResponse>({ data ->
+                callback(data.data, null)
+            }, { error ->
+                callback(null, error)
             })
         }
 
@@ -155,9 +198,9 @@ class CryptohopperUser {
         ///
         fun getUserPurchases(callback: (List<UserPurchase>?, HopperAPIError?) -> Unit) {
             HopperAPIGetUserPurchasesRequest("").request<HopperAPIGetUserPurchasesResponse>({ data ->
-                   callback(data.purchases,null)
-            } ,{ error ->
-                    callback(null,error)
+                callback(data.purchases, null)
+            }, { error ->
+                callback(null, error)
             })
         }
 
@@ -169,11 +212,26 @@ class CryptohopperUser {
         ///- Parameter username: (required) username
         ///- Parameter subscribeNewsletter: (required) subscribe newsletter
         ///- Parameter password: (required) password
-        fun registerUser(name : String, email : String, username : String, subscribeNewsLetter : Boolean , password : String,userAgent : String,callback: (HopperAPIRegisterUserResponse?, HopperAPIError?) -> Unit) {
-            HopperAPIRegisterUserRequest( name,  email,  username,  subscribeNewsLetter,  password, userAgent).request<HopperAPIRegisterUserResponse>({ data ->
-                   callback(data,null)
-            } ,{ error ->
-                    callback(null,error)
+        fun registerUser(
+            name: String,
+            email: String,
+            username: String,
+            subscribeNewsLetter: Boolean,
+            password: String,
+            userAgent: String,
+            callback: (HopperAPIRegisterUserResponse?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIRegisterUserRequest(
+                name,
+                email,
+                username,
+                subscribeNewsLetter,
+                password,
+                userAgent
+            ).request<HopperAPIRegisterUserResponse>({ data ->
+                callback(data, null)
+            }, { error ->
+                callback(null, error)
             })
         }
 
@@ -182,11 +240,18 @@ class CryptohopperUser {
         ///
         ///- Parameter email: (required) email
         ///- Parameter username: (required) username
-        fun resendActivationEmail(email : String, username : String,callback: (String?, HopperAPIError?) -> Unit) {
-            HopperAPIResendActivationEmailRequest( email,  username).request<HopperCommonMessageResponse>({ data ->
-                   callback(data.data,null)
-            } ,{ error ->
-                    callback(null,error)
+        fun resendActivationEmail(
+            email: String,
+            username: String,
+            callback: (String?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIResendActivationEmailRequest(
+                email,
+                username
+            ).request<HopperCommonMessageResponse>({ data ->
+                callback(data.data, null)
+            }, { error ->
+                callback(null, error)
             })
         }
 
@@ -195,9 +260,9 @@ class CryptohopperUser {
         ///
         fun getUserTransactions(callback: (List<UserTransaction>?, HopperAPIError?) -> Unit) {
             HopperAPIGetUserTransactionsRequest("").request<HopperAPIGetUserTransactionsResponse>({ data ->
-                   callback(data.transactions,null)
-            } ,{ error ->
-                    callback(null,error)
+                callback(data.transactions, null)
+            }, { error ->
+                callback(null, error)
             })
         }
 
@@ -206,9 +271,9 @@ class CryptohopperUser {
         ///
         fun getUserMetadata(callback: (UserMetadata?, HopperAPIError?) -> Unit) {
             HopperAPIGetUserMetadataRequest("").request<HopperAPIGetUserMetadataResponse>({ data ->
-                   callback(data.metadata,null)
-            } ,{ error ->
-                    callback(null,error)
+                callback(data.metadata, null)
+            }, { error ->
+                callback(null, error)
             })
         }
 
@@ -216,11 +281,11 @@ class CryptohopperUser {
         ///
         ///
         ///- Parameter code: (required) Two factor authentication code
-        fun validateTwoFactorAuth(code : String,callback: (String?, HopperAPIError?) -> Unit) {
-            HopperAPIValidateTwoFactorAuthRequest( code).request<HopperCommonMessageResponse>({ data ->
-                   callback(data.data,null)
-            } ,{ error ->
-                    callback(null,error)
+        fun validateTwoFactorAuth(code: String, callback: (String?, HopperAPIError?) -> Unit) {
+            HopperAPIValidateTwoFactorAuthRequest(code).request<HopperCommonMessageResponse>({ data ->
+                callback(data.data, null)
+            }, { error ->
+                callback(null, error)
             })
         }
 
@@ -231,46 +296,60 @@ class CryptohopperUser {
         ///
         ///
         fun getAllUserSubscriptions(callback: (List<UserSubscription>?, HopperAPIError?) -> Unit) {
-            HopperAPIGetAllUserSubscriptionsRequest("").request<HopperAPIGetAllUserSubscriptionsResponse>({ data ->
-                   callback(data.data,null)
-            } ,{ error ->
-                    callback(null,error)
-            })
+            HopperAPIGetAllUserSubscriptionsRequest("").request<HopperAPIGetAllUserSubscriptionsResponse>(
+                { data ->
+                    callback(data.data, null)
+                },
+                { error ->
+                    callback(null, error)
+                })
         }
 
         /// Get One Subscription
         ///
         ///
         ///- Parameter subscriptionId: (required) Subscription Id
-        fun getOneUserSubscriptions(subscriptionId : Int, callback: (UserSubscription?, HopperAPIError?) -> Unit) {
-            HopperAPIGetOneUserSubscriptionRequest( subscriptionId).request<HopperAPIGetOneUserSubscriptionResponse>({ data ->
-                   callback(data.data,null)
-            } ,{ error ->
-                    callback(null,error)
-            })
+        fun getOneUserSubscriptions(
+            subscriptionId: Int,
+            callback: (UserSubscription?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIGetOneUserSubscriptionRequest(subscriptionId).request<HopperAPIGetOneUserSubscriptionResponse>(
+                { data ->
+                    callback(data.data, null)
+                },
+                { error ->
+                    callback(null, error)
+                })
         }
 
         /// Get All Subscription Plans
         ///
         ///
         fun getAllSubscriptionPlans(callback: (List<SubscriptionPlan>?, HopperAPIError?) -> Unit) {
-            HopperAPIGetAllSubscriptionPlansRequest("").request<HopperAPIGetAllSubscriptionPlansResponse>({ data ->
-                   callback(data.data,null)
-            } ,{ error ->
-                    callback(null,error)
-            })
+            HopperAPIGetAllSubscriptionPlansRequest("").request<HopperAPIGetAllSubscriptionPlansResponse>(
+                { data ->
+                    callback(data.data, null)
+                },
+                { error ->
+                    callback(null, error)
+                })
         }
 
         /// Get One Subscription Plan
         ///
         ///
         ///- Parameter planId: (required) Plan Id
-        fun getOneSubscriptionPlan(planId: Int,callback: (SubscriptionPlan?, HopperAPIError?) -> Unit) {
-            HopperAPIGetOneSubscriptionPlanRequest( planId).request<HopperAPIGetOneSubscriptionPlanResponse>({ data ->
-                   callback(data.data,null)
-            } ,{ error ->
-                    callback(null,error)
-            })
+        fun getOneSubscriptionPlan(
+            planId: Int,
+            callback: (SubscriptionPlan?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIGetOneSubscriptionPlanRequest(planId).request<HopperAPIGetOneSubscriptionPlanResponse>(
+                { data ->
+                    callback(data.data, null)
+                },
+                { error ->
+                    callback(null, error)
+                })
         }
 
         /// Assign Subscriotion
@@ -278,14 +357,19 @@ class CryptohopperUser {
         ///
         ///- Parameter hopperId: (required) Hopper Id
         ///- Parameter subscriptionId: (required) Subscription Id
-        fun assignSubscription(hopperId : Int, subscriptionId : Int,callback: (String?, HopperAPIError?) -> Unit) {
-            HopperAPIAssignSubscriptionRequest( hopperId,  subscriptionId).request<HopperCommonMessageResponse>({ data ->
-                   callback(data.data,null)
-            } ,{ error ->
-                    callback(null,error)
+        fun assignSubscription(
+            hopperId: Int,
+            subscriptionId: Int,
+            callback: (String?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIAssignSubscriptionRequest(
+                hopperId,
+                subscriptionId
+            ).request<HopperCommonMessageResponse>({ data ->
+                callback(data.data, null)
+            }, { error ->
+                callback(null, error)
             })
         }
-
     }
-
 }

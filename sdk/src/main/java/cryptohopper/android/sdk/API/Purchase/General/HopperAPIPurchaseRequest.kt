@@ -13,15 +13,15 @@ class HopperAPIPurchaseRequest: HopperAPIRequest<HopperAPIPurchaseResponse> {
         addBodyItem("platform", "android")
 
         if(planId != null){
-            addBodyItem( "plan_id",  planId!!)
+            addBodyItem( "plan_id",  planId)
         }
 
         if(marketplaceId != null){
-            addBodyItem( "marketplace_id",  marketplaceId!!)
+            addBodyItem( "marketplace_id",  marketplaceId)
         }
 
         if(hopperId != null){
-            addBodyItem( "hopper_id",  hopperId!!)
+            addBodyItem( "hopper_id",  hopperId)
         }
 
         addBodyItem( "receipt",  receipt)
