@@ -1186,4 +1186,192 @@ class HopperInstrumentedTest {
         }
     }
 
+    @Test
+    fun when_the_getSignalsInHopper_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getSignalsInHopper(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { signals, error ->
+                        Assert.assertNull(error)
+                        Assert.assertNotNull(signals)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_getSignalById_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getSignalsInHopper(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { signals, _ ->
+                        async {
+                            CryptohopperHopper.getSignalById(
+                                hoppers?.get(0)?.id ?: "",
+                                signals?.get(0)?.signalId?.toInt() ?: 0
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_subscribeToSignal_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getSignalsInHopper(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { signals, _ ->
+                        async {
+                            CryptohopperHopper.subscribeToSignal(
+                                hoppers?.get(0)?.id ?: "",
+                                signals?.get(0)?.signalId?.toInt() ?: 0
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_unsubscribeFromSignal_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getSignalsInHopper(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { signals, _ ->
+                        async {
+                            CryptohopperHopper.unsubscribeFromSignal(
+                                hoppers?.get(0)?.id ?: "",
+                                signals?.get(0)?.signalId?.toInt() ?: 0
+                            ) { response, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(response)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_getLastSignal_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getLastSignal(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { signal, error ->
+                        Assert.assertNull(error)
+                        Assert.assertNotNull(signal)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_getHopperStats_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getHopperStats(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { stats, error ->
+                        Assert.assertNull(error)
+                        Assert.assertNotNull(stats)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_getDashboardStats_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getDashboardStats(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { stats, error ->
+                        Assert.assertNull(error)
+                        Assert.assertNotNull(stats)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_resetHopperStats_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.resetHopperStats(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { stats, error ->
+                        Assert.assertNull(error)
+                        Assert.assertNotNull(stats)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_getSubscription_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getSubscription(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { subscription, error ->
+                        Assert.assertNull(error)
+                        Assert.assertNotNull(subscription)
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_reAssignSubscription_Endpoint_is_called_with_correct_details_then_it_must_return_response() {
+        GlobalScope.launch {
+            CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+                async {
+                    CryptohopperHopper.getSubscription(
+                        hoppers?.get(0)?.id ?: ""
+                    ) { subscription, _ ->
+                        async {
+                            CryptohopperHopper.reAssignSubscription(
+                                subscription?.hopperId.toString(),
+                                subscription?.subscriptionId?:"",
+                            ) { subscription, error ->
+                                Assert.assertNull(error)
+                                Assert.assertNotNull(subscription)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }
