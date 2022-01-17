@@ -1,8 +1,7 @@
 //
 //  Exchange.swift
-//  Cryptohopper-iOS-SDK
-//
-//  Created by Kaan Baris Bayrak on 04/11/2020.
+//  Cryptohopper-Android-SDK
+//  Created by Kaan Baris Bayrak
 //
 
 import com.google.gson.annotations.SerializedName
@@ -26,5 +25,6 @@ data class Exchange (
     @SerializedName("uptime_1m") val uptimeOneMonth: String?,
     @SerializedName("premium_partner") val preiumPartner: String?,
     @SerializedName("maintenance") val maintence: Int?,
-    @SerializedName("maintenance_message") val maintanceMessage: String?
+    @SerializedName("maintenance_message") val maintanceMessage: String?,
+    @SerializedName("optional_config_fields") val optionalConfigFields: List<String>?
 )

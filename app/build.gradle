@@ -53,31 +53,31 @@ android {
 
 static def getApiKey() {
     def Properties props = new Properties()
-    props.load(new FileInputStream(new File('secrets.properties')))
+    props.load(new FileInputStream(new File('secret.properties')))
     return props['API_KEY']
 }
 
 static def getApiAgent() {
     def Properties props = new Properties()
-    props.load(new FileInputStream(new File('secrets.properties')))
+    props.load(new FileInputStream(new File('secret.properties')))
     return props['API_AGENT']
 }
 
 static def getApiUser() {
     def Properties props = new Properties()
-    props.load(new FileInputStream(new File('secrets.properties')))
+    props.load(new FileInputStream(new File('secret.properties')))
     return props['API_USER']
 }
 
 static def getApiPassword() {
     def Properties props = new Properties()
-    props.load(new FileInputStream(new File('secrets.properties')))
+    props.load(new FileInputStream(new File('secret.properties')))
     return props['API_PASSWORD']
 }
 
 static def getApiEmail() {
     def Properties props = new Properties()
-    props.load(new FileInputStream(new File('secrets.properties')))
+    props.load(new FileInputStream(new File('secret.properties')))
     return props['API_EMAIL']
 }
 

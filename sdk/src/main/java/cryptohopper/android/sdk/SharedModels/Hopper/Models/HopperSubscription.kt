@@ -1,11 +1,10 @@
 //
 //  HopperSubscription.swift
-//  Cryptohopper-iOS-SDK
+//  Cryptohopper-Android-SDK
 //
 //  Created by Kaan Baris Bayrak on 28/10/2020.
 //
 
-import java.util.*
 import com.google.gson.annotations.SerializedName
 
 data class HopperSubscription (
