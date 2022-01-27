@@ -5,7 +5,6 @@
 //  Created by Kaan Baris Bayrak on 30/10/2020.
 //
 
-import java.util.*
 import com.google.gson.annotations.SerializedName
 import cryptohopper.android.sdk.SharedModels.Hopper.Models.TAValue
 
