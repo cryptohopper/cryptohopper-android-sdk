@@ -7,7 +7,7 @@ object StringGenerator {
 
     fun getRandomString(length: Int = 20): String {
         return (1..length)
-            .map { i -> Random.nextInt(0, charPool.size) }
+            .map { _ -> Random.nextInt(0, charPool.size) }
             .map(charPool::get)
             .joinToString("")
     }

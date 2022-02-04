@@ -7,7 +7,7 @@
 
 import com.google.gson.annotations.SerializedName
 
-data class MarketSignal (
+data class MarketSignal(
     @SerializedName("id") val id: String?,
     @SerializedName("signal_id") val signalId: String?,
     @SerializedName("performance") val performance: List<MarketSignalPerformanceTick>?,
@@ -25,7 +25,7 @@ data class MarketSignal (
     @SerializedName("total_votes") val totalVotes: String?,
     @SerializedName("link") val link: String?,
     //@SerializedName("last_10_signals") val lastTenSignals: List<Signal>?,
-    @SerializedName("signal_details") val signalDetails: Map<String,String>?,
+    @SerializedName("signal_details") val signalDetails: Map<String, String>?,
     @SerializedName("reviews") val reviews: MarketSignalReviewData?,
     @SerializedName("seller_id") val sellerId: String?,
     @SerializedName("seller_name") val sellerName: String?,
@@ -34,9 +34,9 @@ data class MarketSignal (
     @SerializedName("price_id") val priceId: String?,
     @SerializedName("total_subs") val totalSubs: String?,
     @SerializedName("total_reviews") val totalReviews: String?,
-    @SerializedName("config") val config: Map<String,String>?
+    @SerializedName("config") val config: Map<String, String>?
 )
 
-data class MarketSignalReviewData (
-        @SerializedName("data") val data: List<MarketReview>?
+data class MarketSignalReviewData(
+    @SerializedName("data") val data: List<MarketReview>?
 )
