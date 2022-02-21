@@ -14,6 +14,9 @@ import cryptohopper.android.sdk.API.Hopper.Position.ReleaseShortPosition.HopperA
 import cryptohopper.android.sdk.API.Hopper.Position.SyncPosition.HopperAPISyncPositionRequest
 import cryptohopper.android.sdk.API.Hopper.Stats.GetStats.HopperAPIGetHopperStatsResponse
 import cryptohopper.android.sdk.API.Hopper.Stats.GetStats.HopperStats
+import cryptohopper.android.sdk.API.Hopper.activities.HopperAPIGetActivityData
+import cryptohopper.android.sdk.API.Hopper.activities.HopperAPIGetActivityRequest
+import cryptohopper.android.sdk.API.Hopper.activities.HopperAPIGetActivityResponse
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIError
 import cryptohopper.android.sdk.SharedModels.Hopper.Models.HopperOutput
 import cryptohopper.android.sdk.SharedModels.Hopper.Models.HopperTradeHistory
@@ -1772,7 +1775,22 @@ class CryptohopperHopper {
             })
         }
 
+        // ------------- Activities ----------------------------------------
+
+        /// Get hopper activity
+        ///
+        /// - Parameter hopperId:  (required) Hopper Id
+        fun getHopperActivityById(
+            hopperId: String,
+            callback: (HopperAPIGetActivityData?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIGetActivityRequest(
+                hopperId
+            ).request<HopperAPIGetActivityResponse>({ data ->
+                callback(data.data, null)
+            }, { error ->
+                callback(null, error)
+            })
+        }
     }
-
-
 }
