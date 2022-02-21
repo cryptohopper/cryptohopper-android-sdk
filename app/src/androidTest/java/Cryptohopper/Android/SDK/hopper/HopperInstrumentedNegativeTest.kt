@@ -1308,7 +1308,7 @@ class HopperInstrumentedNegativeTest {
     }
 
     @Test
-    fun when_the_getHopperActivityById_Endpoint_is_called_with_correct_details_then_it_return_hopper_activity() {
+    fun when_the_getHopperActivityById_Endpoint_is_called_with_incorrect_details_then_it_shouldnot_return_hopper_activity() {
         CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
             CryptohopperHopper.getHopperActivityById(
                 hoppers?.get(0)?.id ?: ""
