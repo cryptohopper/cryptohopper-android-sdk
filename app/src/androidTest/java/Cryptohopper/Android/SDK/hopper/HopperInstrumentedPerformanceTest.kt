@@ -1368,4 +1368,16 @@ class HopperInstrumentedPerformanceTest {
             }
         }
     }
+
+    @Test
+    fun when_the_getHopperActivityById_Endpoint_is_called_with_correct_details_then_validate_the_response_time() {
+        CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+            timeLapsCalculator.startTimer()
+            CryptohopperHopper.getHopperActivityById(
+                hoppers?.get(0)?.id ?: ""
+            ) { _, _ ->
+                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
+            }
+        }
+    }
 }

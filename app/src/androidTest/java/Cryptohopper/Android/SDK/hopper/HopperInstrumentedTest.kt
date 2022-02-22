@@ -4,6 +4,7 @@ import Cryptohopper.Android.SDK.helper.Const
 import Cryptohopper.Android.SDK.helper.Const.API_KEY
 import Cryptohopper.Android.SDK.helper.Const.API_PASSWORD
 import Cryptohopper.Android.SDK.helper.Const.API_USER
+import Cryptohopper.Android.SDK.helper.TimeLapsCalculator
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.mervick.aes_everywhere.Aes256
@@ -1169,6 +1170,21 @@ class HopperInstrumentedTest {
                     Assert.assertNull(error)
                     Assert.assertNotNull(assignedSubscription)
                 }
+            }
+        }
+    }
+
+    @Test
+    fun when_the_getHopperActivityById_Endpoint_is_called_with_correct_details_then_it_return_hopper_activity() {
+        CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+            CryptohopperHopper.getHopperActivityById(
+                hoppers?.get(0)?.id ?: ""
+            ) { activity, error ->
+                Assert.assertNull(error)
+                Assert.assertNotNull(activity)
+                Assert.assertNotNull(activity?.task)
+                Assert.assertNotNull(activity?.start)
+                Assert.assertNotNull(activity?.time)
             }
         }
     }
