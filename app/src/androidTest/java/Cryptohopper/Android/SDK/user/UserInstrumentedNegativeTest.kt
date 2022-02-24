@@ -195,15 +195,11 @@ class UserInstrumentedNegativeTest {
 
     @Test
     fun when_the_given_getOneUserSubscriptions_Endpoint_is_called_with_incorrect_details_then_it_must_error() {
-        GlobalScope.launch {
-            CryptohopperUser.getAllUserSubscriptions { subscriptions, _ ->
-                async {
-                    CryptohopperUser.getOneUserSubscriptions(
-                        subscriptions?.get(0)?.subscriptionId?.toInt() ?: 0
-                    ) { _, error ->
-                        Assert.assertNotNull(error)
-                    }
-                }
+        CryptohopperUser.getAllUserSubscriptions { subscriptions, _ ->
+            CryptohopperUser.getOneUserSubscriptions(
+                subscriptions?.get(0)?.subscriptionId?.toInt() ?: 0
+            ) { _, error ->
+                Assert.assertNotNull(error)
             }
         }
     }
@@ -217,15 +213,11 @@ class UserInstrumentedNegativeTest {
 
     @Test
     fun when_the_given_getOneSubscriptionPlan_Endpoint_is_called_with_incorrect_details_then_it_must_error() {
-        GlobalScope.launch {
-            CryptohopperUser.getAllSubscriptionPlans { subscriptions, _ ->
-                async {
-                    CryptohopperUser.getOneSubscriptionPlan(
-                        subscriptions?.get(0)?.planId?.toInt() ?: 0
-                    ) { _, error ->
-                        Assert.assertNotNull(error)
-                    }
-                }
+        CryptohopperUser.getAllSubscriptionPlans { subscriptions, _ ->
+            CryptohopperUser.getOneSubscriptionPlan(
+                subscriptions?.get(0)?.planId?.toInt() ?: 0
+            ) { _, error ->
+                Assert.assertNotNull(error)
             }
         }
     }

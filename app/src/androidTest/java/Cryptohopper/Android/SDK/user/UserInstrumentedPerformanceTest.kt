@@ -61,13 +61,9 @@ class UserInstrumentedPerformanceTest {
     @Test
     fun when_the_given_getUserProfile_Endpoint_is_called_with_correct_token_then_it_must_return_profile_details() {
         callAuthenticationWithAccurateDetails()
-        GlobalScope.launch {
-            async {
-                timeLapsCalculator.startTimer()
-                CryptohopperUser.getUserProfile { _, _ ->
-                    Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime >= timeLapsCalculator.getApiResponseTime())
-                }
-            }
+        timeLapsCalculator.startTimer()
+        CryptohopperUser.getUserProfile { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime >= timeLapsCalculator.getApiResponseTime())
         }
     }
 
@@ -228,10 +224,8 @@ class UserInstrumentedPerformanceTest {
     @Test
     fun when_the_given_getOneUserSubscriptions_Endpoint_is_called_with_correct_params_and_token_then_it_must_return_response() {
         timeLapsCalculator.startTimer()
-        GlobalScope.launch {
-            CryptohopperUser.getAllUserSubscriptions { _, _ ->
-                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
-            }
+        CryptohopperUser.getAllUserSubscriptions { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 
@@ -246,10 +240,8 @@ class UserInstrumentedPerformanceTest {
     @Test
     fun when_the_given_getOneSubscriptionPlan_Endpoint_is_called_with_correct_params_and_token_then_it_must_return_response() {
         timeLapsCalculator.startTimer()
-        GlobalScope.launch {
-            CryptohopperUser.getAllSubscriptionPlans { _, _ ->
-                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
-            }
+        CryptohopperUser.getAllSubscriptionPlans { _, _ ->
+            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
         }
     }
 }
