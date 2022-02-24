@@ -97,17 +97,13 @@ class ExchangeInstrumentedNegativeTest {
 
     @Test
     fun when_the_given_getBaseCurrenciesFromExchange_Endpoint_is_called_with_the_incorrect_exchangeKey_then_it_must_return_error() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-                result?.forEach {
-                    async {
-                        CryptohopperExchange.getBaseCurrenciesFromExchange(
-                            it.exchangeKey ?: ""
-                        ) { baseCurrencies, baseCurrenciesError ->
-                            Assert.assertNotNull(baseCurrenciesError)
-                            Assert.assertNull(baseCurrencies)
-                        }
-                    }
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            result?.forEach {
+                CryptohopperExchange.getBaseCurrenciesFromExchange(
+                    it.exchangeKey ?: ""
+                ) { baseCurrencies, baseCurrenciesError ->
+                    Assert.assertNotNull(baseCurrenciesError)
+                    Assert.assertNull(baseCurrencies)
                 }
             }
         }
@@ -115,18 +111,14 @@ class ExchangeInstrumentedNegativeTest {
 
     @Test
     fun when_the_given_getBaseCurrencyFromExchange_Endpoint_is_called_with_the_incorrect_data_then_it_must_return_error() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-                result?.forEach {
-                    async {
-                        CryptohopperExchange.getBaseCurrencyFromExchange(
-                            it.exchangeKey ?: "",
-                            it.defaultBaseCurrency ?: ""
-                        ) { baseCurrencies, baseCurrenciesError ->
-                            Assert.assertNotNull(baseCurrenciesError)
-                            Assert.assertNull(baseCurrencies)
-                        }
-                    }
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            result?.forEach {
+                CryptohopperExchange.getBaseCurrencyFromExchange(
+                    it.exchangeKey ?: "",
+                    it.defaultBaseCurrency ?: ""
+                ) { baseCurrencies, baseCurrenciesError ->
+                    Assert.assertNotNull(baseCurrenciesError)
+                    Assert.assertNull(baseCurrencies)
                 }
             }
         }
@@ -134,18 +126,14 @@ class ExchangeInstrumentedNegativeTest {
 
     @Test
     fun when_the_given_getAvailableCurrenciesForExchange_Endpoint_is_called_with_the_incorrect_data_then_it_must_return_error() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-                result?.forEach {
-                    async {
-                        CryptohopperExchange.getAvailableCurrenciesForExchange(
-                            it.exchangeKey ?: "",
-                        ) { baseCurrencies, baseCurrenciesError ->
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            result?.forEach {
+                CryptohopperExchange.getAvailableCurrenciesForExchange(
+                    it.exchangeKey ?: "",
+                ) { baseCurrencies, baseCurrenciesError ->
 
-                            Assert.assertNotNull(baseCurrenciesError)
-                            Assert.assertNull(baseCurrencies)
-                        }
-                    }
+                    Assert.assertNotNull(baseCurrenciesError)
+                    Assert.assertNull(baseCurrencies)
                 }
             }
         }
@@ -153,18 +141,14 @@ class ExchangeInstrumentedNegativeTest {
 
     @Test
     fun when_the_given_getPrecisionForCurrenciesOfExchange_Endpoint_is_called_with_the_incorrect_data_then_it_must_return_error() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-                result?.forEach {
-                    async {
-                        CryptohopperExchange.getPrecisionForCurrenciesOfExchange(
-                            it.exchangeKey ?: "",
-                        ) { baseCurrencies, baseCurrenciesError ->
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            result?.forEach {
+                CryptohopperExchange.getPrecisionForCurrenciesOfExchange(
+                    it.exchangeKey ?: "",
+                ) { baseCurrencies, baseCurrenciesError ->
 
-                            Assert.assertNotNull(baseCurrenciesError)
-                            Assert.assertNull(baseCurrencies)
-                        }
-                    }
+                    Assert.assertNotNull(baseCurrenciesError)
+                    Assert.assertNull(baseCurrencies)
                 }
             }
         }
@@ -172,19 +156,16 @@ class ExchangeInstrumentedNegativeTest {
 
     @Test
     fun when_the_given_getPrecisionForCurrencyOfExchange_Endpoint_is_called_with_the_incorrect_data_then_it_must_return_error() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-                result?.forEach {
-                    async {
-                        CryptohopperExchange.getPrecisionForCurrencyOfExchange(
-                            it.exchangeKey ?: "",
-                            "btc"
-                        ) { baseCurrencies, baseCurrenciesError ->
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            result?.forEach {
 
-                            Assert.assertNotNull(baseCurrenciesError)
-                            Assert.assertNull(baseCurrencies)
-                        }
-                    }
+                CryptohopperExchange.getPrecisionForCurrencyOfExchange(
+                    it.exchangeKey ?: "",
+                    "btc"
+                ) { baseCurrencies, baseCurrenciesError ->
+
+                    Assert.assertNotNull(baseCurrenciesError)
+                    Assert.assertNull(baseCurrencies)
                 }
             }
         }
@@ -192,22 +173,18 @@ class ExchangeInstrumentedNegativeTest {
 
     @Test
     fun when_the_given_getSingleCurrencyOfExchange_Endpoint_is_called_with_the_incorrect_data_then_it_must_return_error() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-                result?.forEach {
-                    async {
-                        CryptohopperExchange.getSingleCurrencyOfExchange(
-                            it.exchangeKey ?: "",
-                            it.defaultBaseCurrency ?: "",
-                        ) { baseCurrencies, baseCurrenciesError ->
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            result?.forEach {
+                CryptohopperExchange.getSingleCurrencyOfExchange(
+                    it.exchangeKey ?: "",
+                    it.defaultBaseCurrency ?: "",
+                ) { baseCurrencies, baseCurrenciesError ->
 
-                            Assert.assertNotNull(baseCurrenciesError)
-                            Assert.assertNull(baseCurrencies)
+                    Assert.assertNotNull(baseCurrenciesError)
+                    Assert.assertNull(baseCurrencies)
 
-                            Assert.assertNull(baseCurrencies?.id)
-                            Assert.assertNull(baseCurrencies?.name)
-                        }
-                    }
+                    Assert.assertNull(baseCurrencies?.id)
+                    Assert.assertNull(baseCurrencies?.name)
                 }
             }
         }
@@ -215,20 +192,16 @@ class ExchangeInstrumentedNegativeTest {
 
     @Test
     fun when_the_given_getTradingPairOfExchange_Endpoint_is_called_with_the_incorrect_data_then_it_must_return_error() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-                result?.forEach {
-                    async {
-                        CryptohopperExchange.getTradingPairOfExchange(
-                            it.exchangeKey ?: "",
-                            "btc",
-                            it.defaultBaseCurrency ?: ""
-                        ) { pairCode, baseCurrenciesError ->
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            result?.forEach {
+                CryptohopperExchange.getTradingPairOfExchange(
+                    it.exchangeKey ?: "",
+                    "btc",
+                    it.defaultBaseCurrency ?: ""
+                ) { pairCode, baseCurrenciesError ->
 
-                            Assert.assertNotNull(baseCurrenciesError)
-                            Assert.assertNull(pairCode)
-                        }
-                    }
+                    Assert.assertNotNull(baseCurrenciesError)
+                    Assert.assertNull(pairCode)
                 }
             }
         }
@@ -236,18 +209,14 @@ class ExchangeInstrumentedNegativeTest {
 
     @Test
     fun when_the_given_getMarketsOfExchange_Endpoint_is_called_with_the_incorrect_data_then_it_must_return_error() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-                result?.forEach {
-                    async {
-                        CryptohopperExchange.getMarketsOfExchange(
-                            it.exchangeKey ?: ""
-                        ) { markets, marketError ->
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            result?.forEach {
+                CryptohopperExchange.getMarketsOfExchange(
+                    it.exchangeKey ?: ""
+                ) { markets, marketError ->
 
-                            Assert.assertNotNull(marketError)
-                            Assert.assertNull(markets)
-                        }
-                    }
+                    Assert.assertNotNull(marketError)
+                    Assert.assertNull(markets)
                 }
             }
         }
@@ -255,23 +224,17 @@ class ExchangeInstrumentedNegativeTest {
 
     @Test
     fun when_the_given_getPriceAndAmountOfExchange_Endpoint_is_called_with_the_incorrect_data_then_it_must_return_error() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-                async {
-                    CryptohopperExchange.getMarketsOfExchange(
-                        result?.get(0)?.exchangeKey ?: ""
-                    ) { markets, _ ->
-                        async {
-                            CryptohopperExchange.getPriceAndAmountOfExchange(
-                                result?.get(0)?.exchangeKey ?: "",
-                                markets?.get(0) ?: ""
-                            ) { exchangeAmountResponse, exchangeAmountError ->
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            CryptohopperExchange.getMarketsOfExchange(
+                result?.get(0)?.exchangeKey ?: ""
+            ) { markets, _ ->
+                CryptohopperExchange.getPriceAndAmountOfExchange(
+                    result?.get(0)?.exchangeKey ?: "",
+                    markets?.get(0) ?: ""
+                ) { exchangeAmountResponse, exchangeAmountError ->
 
-                                Assert.assertNotNull(exchangeAmountError)
-                                Assert.assertNull(exchangeAmountResponse)
-                            }
-                        }
-                    }
+                    Assert.assertNotNull(exchangeAmountError)
+                    Assert.assertNull(exchangeAmountResponse)
                 }
             }
         }
@@ -279,39 +242,28 @@ class ExchangeInstrumentedNegativeTest {
 
     @Test
     fun when_the_given_getAllTickersOfExchange_Endpoint_is_called_with_the_incorrect_data_then_it_must_return_error() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-                async {
-                    CryptohopperExchange.getAllTickersOfExchange(
-                        result?.get(0)?.exchangeKey ?: ""
-                    ) { pairTickers, pairTickersError ->
-                        Assert.assertNotNull(pairTickersError)
-                        Assert.assertNull(pairTickers)
-                    }
-                }
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            CryptohopperExchange.getAllTickersOfExchange(
+                result?.get(0)?.exchangeKey ?: ""
+            ) { pairTickers, pairTickersError ->
+                Assert.assertNotNull(pairTickersError)
+                Assert.assertNull(pairTickers)
             }
         }
     }
 
     @Test
     fun when_the_given_getExchangeTickerPair_Endpoint_is_called_with_the_incorrect_data_then_it_must_return_error() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-                async {
-                    CryptohopperExchange.getAllTickersOfExchange(
-                        result?.get(0)?.exchangeKey ?: ""
-                    ) { pairTickers, _ ->
-                        async {
-                            CryptohopperExchange.getExchangeTickerPair(
-                                result?.get(0)?.exchangeKey ?: "",
-                                pairTickers?.values?.toTypedArray()?.get(0)?.currencyPair.toString()
-                            ) { ticker, pairTickersError ->
-
-                                Assert.assertNotNull(pairTickersError)
-                                Assert.assertNull(ticker)
-                            }
-                        }
-                    }
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            CryptohopperExchange.getAllTickersOfExchange(
+                result?.get(0)?.exchangeKey ?: ""
+            ) { pairTickers, _ ->
+                CryptohopperExchange.getExchangeTickerPair(
+                    result?.get(0)?.exchangeKey ?: "",
+                    pairTickers?.values?.toTypedArray()?.get(0)?.currencyPair.toString()
+                ) { ticker, pairTickersError ->
+                    Assert.assertNotNull(pairTickersError)
+                    Assert.assertNull(ticker)
                 }
             }
         }
