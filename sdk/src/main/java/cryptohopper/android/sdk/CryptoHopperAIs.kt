@@ -1,4 +1,3 @@
-import android.util.Log
 import cryptohopper.android.sdk.API.AI.General.GetAIs.HopperAPIGetAIsDataItem
 import cryptohopper.android.sdk.API.AI.General.GetAIs.HopperAPIGetAIsResponse
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIError

@@ -89,201 +89,147 @@ class ExchangeInstrumentedPerformanceTest {
 
     @Test
     fun when_the_given_getBaseCurrenciesFromExchange_Endpoint_is_called_with_the_correct_exchangeKey_then_measure_response_time() {
-
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-                async {
-                    timeLapsCalculator.startTimer()
-                    CryptohopperExchange.getBaseCurrenciesFromExchange(
-                        result?.get(0)?.exchangeKey ?: ""
-                    ) { _, _ ->
-                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
-                    }
-                }
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            timeLapsCalculator.startTimer()
+            CryptohopperExchange.getBaseCurrenciesFromExchange(
+                result?.get(0)?.exchangeKey ?: ""
+            ) { _, _ ->
+                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
             }
         }
     }
 
     @Test
     fun when_the_given_getBaseCurrencyFromExchange_Endpoint_is_called_with_the_correct_data_then_measure_response_time() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-                async {
-                    timeLapsCalculator.startTimer()
-                    CryptohopperExchange.getBaseCurrencyFromExchange(
-                        result?.get(0)?.exchangeKey ?: "",
-                        result?.get(0)?.defaultBaseCurrency ?: ""
-                    ) { _, _ ->
-                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
-                    }
-                }
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            timeLapsCalculator.startTimer()
+            CryptohopperExchange.getBaseCurrencyFromExchange(
+                result?.get(0)?.exchangeKey ?: "",
+                result?.get(0)?.defaultBaseCurrency ?: ""
+            ) { _, _ ->
+                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
             }
         }
     }
 
     @Test
     fun when_the_given_getAvailableCurrenciesForExchange_Endpoint_is_called_with_the_correct_data_then_measure_response_time() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-
-                async {
-                    timeLapsCalculator.startTimer()
-                    CryptohopperExchange.getAvailableCurrenciesForExchange(
-                        result?.get(0)?.exchangeKey ?: "",
-                    ) { _, _ ->
-                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
-                    }
-                }
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            timeLapsCalculator.startTimer()
+            CryptohopperExchange.getAvailableCurrenciesForExchange(
+                result?.get(0)?.exchangeKey ?: "",
+            ) { _, _ ->
+                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
             }
         }
     }
 
     @Test
     fun when_the_given_getPrecisionForCurrenciesOfExchange_Endpoint_is_called_with_the_correct_data_then_measure_response_time() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-
-                async {
-                    timeLapsCalculator.startTimer()
-                    CryptohopperExchange.getPrecisionForCurrenciesOfExchange(
-                        result?.get(0)?.exchangeKey ?: "",
-                    ) { _, _ ->
-                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
-                    }
-                }
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            timeLapsCalculator.startTimer()
+            CryptohopperExchange.getPrecisionForCurrenciesOfExchange(
+                result?.get(0)?.exchangeKey ?: "",
+            ) { _, _ ->
+                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
             }
         }
     }
 
     @Test
     fun when_the_given_getPrecisionForCurrencyOfExchange_Endpoint_is_called_with_the_correct_data_then_measure_response_time() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-
-                async {
-                    timeLapsCalculator.startTimer()
-                    CryptohopperExchange.getPrecisionForCurrencyOfExchange(
-                        result?.get(0)?.exchangeKey ?: "",
-                        "btc"
-                    ) { _, _ ->
-                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
-                    }
-                }
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            timeLapsCalculator.startTimer()
+            CryptohopperExchange.getPrecisionForCurrencyOfExchange(
+                result?.get(0)?.exchangeKey ?: "",
+                "btc"
+            ) { _, _ ->
+                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
             }
         }
     }
 
     @Test
     fun when_the_given_getSingleCurrencyOfExchange_Endpoint_is_called_with_the_correct_data_then_measure_response_time() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-
-                async {
-                    timeLapsCalculator.startTimer()
-                    CryptohopperExchange.getSingleCurrencyOfExchange(
-                        result?.get(0)?.exchangeKey ?: "",
-                        result?.get(0)?.defaultBaseCurrency ?: "",
-                    ) { _, _ ->
-                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
-                    }
-                }
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            timeLapsCalculator.startTimer()
+            CryptohopperExchange.getSingleCurrencyOfExchange(
+                result?.get(0)?.exchangeKey ?: "",
+                result?.get(0)?.defaultBaseCurrency ?: "",
+            ) { _, _ ->
+                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
             }
         }
     }
 
     @Test
     fun when_the_given_getTradingPairOfExchange_Endpoint_is_called_with_the_correct_data_then_measure_response_time() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-
-                async {
-                    timeLapsCalculator.startTimer()
-                    CryptohopperExchange.getTradingPairOfExchange(
-                        result?.get(0)?.exchangeKey ?: "",
-                        "btc",
-                        result?.get(0)?.defaultBaseCurrency ?: "",
-                    ) { _, _ ->
-                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
-                    }
-                }
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            timeLapsCalculator.startTimer()
+            CryptohopperExchange.getTradingPairOfExchange(
+                result?.get(0)?.exchangeKey ?: "",
+                "btc",
+                result?.get(0)?.defaultBaseCurrency ?: "",
+            ) { _, _ ->
+                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
             }
         }
     }
 
     @Test
     fun when_the_given_getMarketsOfExchange_Endpoint_is_called_with_the_correct_data_then_measure_response_time() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-
-                async {
-                    timeLapsCalculator.startTimer()
-                    CryptohopperExchange.getMarketsOfExchange(
-                        result?.get(0)?.exchangeKey ?: ""
-                    ) { _, _ ->
-                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
-                    }
-                }
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            timeLapsCalculator.startTimer()
+            CryptohopperExchange.getMarketsOfExchange(
+                result?.get(0)?.exchangeKey ?: ""
+            ) { _, _ ->
+                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
             }
         }
     }
 
     @Test
     fun when_the_given_getPriceAndAmountOfExchange_Endpoint_is_called_with_the_correct_data_then_measure_response_time() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-                async {
-                    CryptohopperExchange.getMarketsOfExchange(
-                        result?.get(0)?.exchangeKey ?: ""
-                    ) { markets, _ ->
-                        async {
-                            timeLapsCalculator.startTimer()
-                            CryptohopperExchange.getPriceAndAmountOfExchange(
-                                result?.get(0)?.exchangeKey ?: "",
-                                markets?.get(0) ?: ""
-                            ) { _, _ ->
-                                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
-                            }
-                        }
-                    }
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            CryptohopperExchange.getMarketsOfExchange(
+                result?.get(0)?.exchangeKey ?: ""
+            ) { markets, _ ->
+                timeLapsCalculator.startTimer()
+                CryptohopperExchange.getPriceAndAmountOfExchange(
+                    result?.get(0)?.exchangeKey ?: "",
+                    markets?.get(0) ?: ""
+                ) { _, _ ->
+                    Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
                 }
             }
         }
     }
 
+
     @Test
     fun when_the_given_getAllTickersOfExchange_Endpoint_is_called_with_the_correct_data_then_measure_response_time() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-                async {
-                    timeLapsCalculator.startTimer()
-                    CryptohopperExchange.getAllTickersOfExchange(
-                        result?.get(0)?.exchangeKey ?: ""
-                    ) { _, _ ->
-                        Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
-                    }
-                }
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            timeLapsCalculator.startTimer()
+            CryptohopperExchange.getAllTickersOfExchange(
+                result?.get(0)?.exchangeKey ?: ""
+            ) { _, _ ->
+                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
             }
         }
     }
 
     @Test
     fun when_the_given_getExchangeTickerPair_Endpoint_is_called_with_the_correct_data_then_measure_response_time() {
-        GlobalScope.launch {
-            CryptohopperExchange.getExchangeDetails { result, _ ->
-                async {
-                    CryptohopperExchange.getAllTickersOfExchange(
-                        result?.get(0)?.exchangeKey ?: ""
-                    ) { pairTickers, _ ->
-                        async {
-                            timeLapsCalculator.startTimer()
-                            CryptohopperExchange.getExchangeTickerPair(
-                                result?.get(0)?.exchangeKey ?: "",
-                                pairTickers?.values?.toTypedArray()?.get(0)?.currencyPair.toString()
-                            ) { _, _ ->
-                                Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
-                            }
-                        }
-                    }
+        CryptohopperExchange.getExchangeDetails { result, _ ->
+            CryptohopperExchange.getAllTickersOfExchange(
+                result?.get(0)?.exchangeKey ?: ""
+            ) { pairTickers, _ ->
+                timeLapsCalculator.startTimer()
+                CryptohopperExchange.getExchangeTickerPair(
+                    result?.get(0)?.exchangeKey ?: "",
+                    pairTickers?.values?.toTypedArray()?.get(0)?.currencyPair.toString()
+                ) { _, _ ->
+                    Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
                 }
             }
         }
