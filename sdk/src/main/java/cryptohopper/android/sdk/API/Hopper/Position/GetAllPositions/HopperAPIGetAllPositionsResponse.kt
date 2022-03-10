@@ -7,6 +7,6 @@
 
 import com.google.gson.annotations.SerializedName
 
-data class HopperAPIGetAllPositionsResponse (
-        @SerializedName("data") val data: List<HopperPosition>?
+data class HopperAPIGetAllPositionsResponse(
+    @SerializedName("data") val data: List<HopperPosition>?
 )
