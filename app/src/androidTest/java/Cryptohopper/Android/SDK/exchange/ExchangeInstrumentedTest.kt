@@ -1,24 +1,21 @@
 package Cryptohopper.Android.SDK.exchange
 
+import CryptoHopperConfig
 import Cryptohopper.Android.SDK.helper.Const
 import Cryptohopper.Android.SDK.helper.Const.API_KEY
 import Cryptohopper.Android.SDK.helper.Const.API_PASSWORD
 import Cryptohopper.Android.SDK.helper.Const.API_USER
-import androidx.test.platform.app.InstrumentationRegistry
+import CryptohopperExchange
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import com.github.mervick.aes_everywhere.Aes256
 import cryptohopper.android.sdk.CryptohopperAuth
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIEnvironment
-import Cryptohopper.Android.SDK.helper.StringGenerator
-import Cryptohopper.Android.SDK.helper.TimeLapsCalculator
-import android.util.Log
-import kotlinx.coroutines.*
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.Before
 
-@DelicateCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class ExchangeInstrumentedTest {
 

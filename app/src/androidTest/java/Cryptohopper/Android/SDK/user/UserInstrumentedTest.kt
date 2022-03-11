@@ -1,24 +1,22 @@
 package Cryptohopper.Android.SDK.exchange
 
+import CryptoHopperConfig
 import Cryptohopper.Android.SDK.helper.Const
 import Cryptohopper.Android.SDK.helper.Const.API_KEY
 import Cryptohopper.Android.SDK.helper.Const.API_PASSWORD
 import Cryptohopper.Android.SDK.helper.Const.API_USER
-import Cryptohopper.Android.SDK.helper.TimeLapsCalculator
-import androidx.test.platform.app.InstrumentationRegistry
+import CryptohopperUser
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import com.github.mervick.aes_everywhere.Aes256
 import cryptohopper.android.sdk.CryptohopperAuth
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIEnvironment
-import CryptohopperUser
-import kotlinx.coroutines.*
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.Before
 import kotlin.random.Random
 
-@DelicateCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class UserInstrumentedTest {
 
@@ -48,19 +46,15 @@ class UserInstrumentedTest {
 
     @Test
     fun when_the_given_getUserProfile_Endpoint_is_called_with_correct_token_then_it_must_return_profile_details() {
-        GlobalScope.launch {
-            async {
-                CryptohopperUser.getUserProfile { result, error ->
-                    Assert.assertNull(error)
-                    Assert.assertNotNull(result)
+        CryptohopperUser.getUserProfile { result, error ->
+            Assert.assertNull(error)
+            Assert.assertNotNull(result)
 
-                    Assert.assertNotNull(result?.name!!)
-                    Assert.assertNotNull(result.username)
-                    Assert.assertNotNull(result.email)
-                    Assert.assertNotNull(result.country)
-                    Assert.assertNotNull(result.phone)
-                }
-            }
+            Assert.assertNotNull(result?.name!!)
+            Assert.assertNotNull(result.username)
+            Assert.assertNotNull(result.email)
+            Assert.assertNotNull(result.country)
+            Assert.assertNotNull(result.phone)
         }
     }
 
@@ -225,19 +219,16 @@ class UserInstrumentedTest {
 
     @Test
     fun when_the_given_getOneUserSubscriptions_Endpoint_is_called_with_correct_params_and_token_then_it_must_return_response() {
-        GlobalScope.launch {
-            CryptohopperUser.getAllUserSubscriptions { subscriptions, _ ->
-                async {
-                    CryptohopperUser.getOneUserSubscriptions(
-                        subscriptions?.get(0)?.subscriptionId?.toInt() ?: 0
-                    ) { userSubscription, error ->
-                        Assert.assertNull(error)
-                        Assert.assertNotNull(userSubscription)
-                    }
-                }
+        CryptohopperUser.getAllUserSubscriptions { subscriptions, _ ->
+            CryptohopperUser.getOneUserSubscriptions(
+                subscriptions?.get(0)?.subscriptionId?.toInt() ?: 0
+            ) { userSubscription, error ->
+                Assert.assertNull(error)
+                Assert.assertNotNull(userSubscription)
             }
         }
     }
+
 
     @Test
     fun when_the_given_getAllSubscriptionPlans_Endpoint_is_called_with_correct_token_then_it_must_return_response() {
@@ -249,16 +240,12 @@ class UserInstrumentedTest {
 
     @Test
     fun when_the_given_getOneSubscriptionPlan_Endpoint_is_called_with_correct_params_and_token_then_it_must_return_response() {
-        GlobalScope.launch {
-            CryptohopperUser.getAllSubscriptionPlans { subscriptions, _ ->
-                async {
-                    CryptohopperUser.getOneSubscriptionPlan(
-                        subscriptions?.get(0)?.planId?.toInt() ?: 0
-                    ) { subscriptionPlan, error ->
-                        Assert.assertNull(error)
-                        Assert.assertNotNull(subscriptionPlan)
-                    }
-                }
+        CryptohopperUser.getAllSubscriptionPlans { subscriptions, _ ->
+            CryptohopperUser.getOneSubscriptionPlan(
+                subscriptions?.get(0)?.planId?.toInt() ?: 0
+            ) { subscriptionPlan, error ->
+                Assert.assertNull(error)
+                Assert.assertNotNull(subscriptionPlan)
             }
         }
     }

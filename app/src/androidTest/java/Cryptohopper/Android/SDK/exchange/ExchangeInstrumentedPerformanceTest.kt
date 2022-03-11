@@ -12,16 +12,12 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.github.mervick.aes_everywhere.Aes256
 import cryptohopper.android.sdk.CryptohopperAuth
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIEnvironment
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@DelicateCoroutinesApi
+
 @RunWith(AndroidJUnit4::class)
 class ExchangeInstrumentedPerformanceTest {
     private val timeLapsCalculator = TimeLapsCalculator()

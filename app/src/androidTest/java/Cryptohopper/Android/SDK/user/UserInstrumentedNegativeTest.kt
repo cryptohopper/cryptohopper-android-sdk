@@ -1,24 +1,23 @@
 package Cryptohopper.Android.SDK.exchange
 
+import CryptoHopperConfig
 import Cryptohopper.Android.SDK.helper.Const
 import Cryptohopper.Android.SDK.helper.Const.API_KEY
 import Cryptohopper.Android.SDK.helper.Const.API_PASSWORD
 import Cryptohopper.Android.SDK.helper.Const.API_USER
 import Cryptohopper.Android.SDK.helper.StringGenerator
-import androidx.test.platform.app.InstrumentationRegistry
+import CryptohopperUser
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import com.github.mervick.aes_everywhere.Aes256
 import cryptohopper.android.sdk.CryptohopperAuth
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIEnvironment
-import CryptohopperUser
-import kotlinx.coroutines.*
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.Before
 import kotlin.random.Random
 
-@DelicateCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class UserInstrumentedNegativeTest {
 
@@ -195,15 +194,11 @@ class UserInstrumentedNegativeTest {
 
     @Test
     fun when_the_given_getOneUserSubscriptions_Endpoint_is_called_with_incorrect_details_then_it_must_error() {
-        GlobalScope.launch {
-            CryptohopperUser.getAllUserSubscriptions { subscriptions, _ ->
-                async {
-                    CryptohopperUser.getOneUserSubscriptions(
-                        subscriptions?.get(0)?.subscriptionId?.toInt() ?: 0
-                    ) { _, error ->
-                        Assert.assertNotNull(error)
-                    }
-                }
+        CryptohopperUser.getAllUserSubscriptions { subscriptions, _ ->
+            CryptohopperUser.getOneUserSubscriptions(
+                subscriptions?.get(0)?.subscriptionId?.toInt() ?: 0
+            ) { _, error ->
+                Assert.assertNotNull(error)
             }
         }
     }
@@ -217,15 +212,11 @@ class UserInstrumentedNegativeTest {
 
     @Test
     fun when_the_given_getOneSubscriptionPlan_Endpoint_is_called_with_incorrect_details_then_it_must_error() {
-        GlobalScope.launch {
-            CryptohopperUser.getAllSubscriptionPlans { subscriptions, _ ->
-                async {
-                    CryptohopperUser.getOneSubscriptionPlan(
-                        subscriptions?.get(0)?.planId?.toInt() ?: 0
-                    ) { _, error ->
-                        Assert.assertNotNull(error)
-                    }
-                }
+        CryptohopperUser.getAllSubscriptionPlans { subscriptions, _ ->
+            CryptohopperUser.getOneSubscriptionPlan(
+                subscriptions?.get(0)?.planId?.toInt() ?: 0
+            ) { _, error ->
+                Assert.assertNotNull(error)
             }
         }
     }
