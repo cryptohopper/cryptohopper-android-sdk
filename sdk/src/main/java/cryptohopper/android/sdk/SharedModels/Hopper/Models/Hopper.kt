@@ -11,7 +11,7 @@ import cryptohopper.android.sdk.SharedModels.Hopper.Enums.HopperBotType
 data class Hopper (
     @SerializedName("id") val id: String?,
     @SerializedName("name") val name: String?,
-    @SerializedName("exchange") val exchange: HopperConfigExchange?,
+    @SerializedName("exchange") val exchange: String?,
     @SerializedName("base_currency") val baseCurrency: String?,
     @SerializedName("buying_enabled") val buyingEnabled: Int?,
     @SerializedName("selling_enabled") val sellingEnabled: Int?,
