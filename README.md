@@ -1,5 +1,8 @@
 # Cryptohopper Android SDK -> Kotlin
 
+[![JitPack](https://jitpack.io/v/cryptohopper/cryptohopper-android-sdk.svg)](https://jitpack.io/#cryptohopper/cryptohopper-android-sdk)
+
+
 Add following to your root build.gradle
 
 ```
