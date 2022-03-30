@@ -336,8 +336,6 @@ class CryptohopperUser {
         }
 
         /// Get One Subscription Plan
-        ///
-        ///
         ///- Parameter planId: (required) Plan Id
         fun getOneSubscriptionPlan(
             planId: Int,
@@ -353,8 +351,6 @@ class CryptohopperUser {
         }
 
         /// Assign Subscriotion
-        ///
-        ///
         ///- Parameter hopperId: (required) Hopper Id
         ///- Parameter subscriptionId: (required) Subscription Id
         fun assignSubscription(
