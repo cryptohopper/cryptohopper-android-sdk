@@ -1,7 +1,6 @@
 //
 //  Hopper.swift
 //  Cryptohopper-iOS-SDK
-//
 //  Created by Kaan Baris Bayrak on 26/10/2020.
 //
 
