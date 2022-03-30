@@ -82,3 +82,7 @@ CryptohopperAuth.login("test","test",callback = { s: String?, hopperError: Hoppe
     }
 })
 ```
+Developed By
+------------
+
+[Cryptohopper](https://www.cryptohopper.com/)
