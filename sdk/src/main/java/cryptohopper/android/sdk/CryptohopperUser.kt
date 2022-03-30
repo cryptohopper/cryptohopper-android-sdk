@@ -351,8 +351,8 @@ class CryptohopperUser {
         }
 
         /// Assign Subscriotion
-        ///- Parameter hopperId: (required) Hopper Id
-        ///- Parameter subscriptionId: (required) Subscription Id
+        // @param hopperId: (required) Hopper Id
+        ///- @param subscriptionId: (required) Subscription Id
         fun assignSubscription(
             hopperId: Int,
             subscriptionId: Int,
