@@ -33,4 +33,5 @@ data class HopperShortPosition(
     @SerializedName("stop_loss_enabled") val stopLossEnabled: String?,
     @SerializedName("auto_close_enabled") val autoCloseEnabled: String?,
     @SerializedName("auto_remove_enabled") val autoRemoveEnabled: String?
+
 )
