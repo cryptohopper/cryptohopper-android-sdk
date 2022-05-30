@@ -1,11 +1,9 @@
-
 //
 //  HopperAPIRequest.swift
 //  iOS SDK
 //
 //  Created by Kaan Baris Bayrak on 21/10/2020.
 //
-
 
 
 import android.net.Uri
@@ -31,21 +29,23 @@ open class HopperAPIRequest<Object> {
 
     var isAuthenticationRequest: Boolean = false
 
+    var isV2Api: Boolean = false
+
     var client = OkHttpClient.Builder()
         .connectionSpecs(
-                listOf(
-                        ConnectionSpec.MODERN_TLS,
-                        ConnectionSpec.COMPATIBLE_TLS
-                )
+            listOf(
+                ConnectionSpec.MODERN_TLS,
+                ConnectionSpec.COMPATIBLE_TLS
+            )
         )
         .build()
 
-    var httpHeaders: MutableMap<String, String>? =  null
+    var httpHeaders: MutableMap<String, String>? = null
     var queryItems: MutableMap<String, String>? = null
     var bodyItems: MutableMap<String, Any>? = null
 
 
-    val url: String? = ""
+    val url: String = ""
 
     fun setIsAuthenticationRequest(isAuthenticationMethod: Boolean) {
         this.isAuthenticationRequest = isAuthenticationMethod
@@ -60,8 +60,9 @@ open class HopperAPIRequest<Object> {
         httpHeaders?.set(name, value)
     }
 
-    fun changeUrlPath(path: String) {
+    fun changeUrlPath(path: String, isV2Endpoint : Boolean = false) {
         this.path = path
+        this.isV2Api = isV2Endpoint
     }
 
     fun addQueryItem(name: String, value: String) {
@@ -82,38 +83,33 @@ open class HopperAPIRequest<Object> {
         if (HopperAPIConfigurationManager.shared.config.debugModeEnabled) {
             print(error)
         }
-        val err = HopperAPIError(0,"Unkown response error occured",0)
+        val err = HopperAPIError(0, "Unkown response error occured", 0)
         err.error = error
         failClosure.invoke(err)
     }
 
-    fun createUrl() : String {
+    fun createUrl(): String {
         var reqUrl = ""
 
-        if(this.isAuthenticationRequest){
-            val builder: Uri.Builder = Uri.Builder()
-            val scheme = builder.scheme(HopperAPIConfigurationManager.shared.config.urlScheme)
-                .authority(HopperAPIConfigurationManager.shared.config.authenticationHost)
-                .appendPath(this.path)
-            this.queryItems?.forEach { map ->
-                scheme.appendQueryParameter(map.key, map.value)
-            }
-            reqUrl = scheme.build().toString()
-        }else{
-            val builder: Uri.Builder = Uri.Builder()
-            val scheme = builder.scheme(HopperAPIConfigurationManager.shared.config.urlScheme)
-                .authority(HopperAPIConfigurationManager.shared.config.host)
-                .appendPath(this.path)
-            this.queryItems?.forEach { map ->
-                scheme.appendQueryParameter(map.key, map.value)
-            }
-            reqUrl = scheme.build().toString()
+        val configHost: String = when {
+            this.isAuthenticationRequest -> HopperAPIConfigurationManager.shared.config.authenticationHost
+            this.isV2Api -> HopperAPIConfigurationManager.shared.config.v2Host
+            else -> HopperAPIConfigurationManager.shared.config.host
         }
+
+        val builder: Uri.Builder = Uri.Builder()
+        val scheme = builder.scheme(HopperAPIConfigurationManager.shared.config.urlScheme)
+            .authority(configHost)
+            .appendPath(this.path)
+        this.queryItems?.forEach { map ->
+            scheme.appendQueryParameter(map.key, map.value)
+        }
+        reqUrl = scheme.build().toString()
 
         return reqUrl
     }
 
-    fun generateRequest(url: String) : Request{
+    fun generateRequest(url: String): Request {
         val urlTwoF = url.replace("%2F", "/")
         val newUrl = urlTwoF.replace("//", "/")
         val reqBuilder = Request.Builder().url(newUrl)
@@ -121,7 +117,7 @@ open class HopperAPIRequest<Object> {
             reqBuilder.addHeader(map.key, map.value)
         }
 
-        when(httpMethod){
+        when (httpMethod) {
             HopperAPIHttpMethod.POST -> {
                 val reqBody = Gson().toJson(bodyItems).toString().toRequestBody()
                 return reqBuilder.post(reqBody).build()
@@ -142,7 +138,6 @@ open class HopperAPIRequest<Object> {
                 return reqBuilder.get().build()
             }
         }
-
     }
 
     inline fun <reified T> Gson.fromJsonType(json: String): T {
@@ -151,7 +146,10 @@ open class HopperAPIRequest<Object> {
         return fromJson(json, tt);
     }
 
-    inline fun <reified T : Any> startRequest(onSuccess: (T) -> Unit?, noinline onFail: (HopperAPIError) -> Unit?) {
+    inline fun <reified T : Any> startRequest(
+        onSuccess: (T) -> Unit?,
+        noinline onFail: (HopperAPIError) -> Unit?
+    ) {
         try {
             val url = createUrl()
 
@@ -163,70 +161,92 @@ open class HopperAPIRequest<Object> {
             val request = generateRequest(url = url)
 
             client.newCall(request).execute().use { response ->
-                if (!response.isSuccessful){
+                if (!response.isSuccessful) {
                     if (HopperAPIConfigurationManager.shared.config.debugModeEnabled) {
                         print("API ERROR RESPONSE :" + response.body?.string() ?: "No response")
                     }
-                    onFail.invoke(HopperAPIError(response.code, response.body?.string() ?: "No response", 0))
-                }else{
+                    onFail.invoke(
+                        HopperAPIError(
+                            response.code,
+                            response.body?.string() ?: "No response",
+                            0
+                        )
+                    )
+                } else {
                     if (HopperAPIConfigurationManager.shared.config.debugModeEnabled) {
                         print("API RESPONSE :" + response.body.toString())
                     }
 
-                    if(response != null) {
+                    if (response != null) {
                         if (response.code in 200..299) {
                             val responseString = response.body!!.string()
-                            var commonResponse : HopperCommonMessageResponse? = null
+                            var commonResponse: HopperCommonMessageResponse? = null
                             try {
-                                commonResponse = Gson().fromJsonType<HopperCommonMessageResponse>(responseString)
-                            } catch (e: JsonParseException) { }
+                                commonResponse =
+                                    Gson().fromJsonType<HopperCommonMessageResponse>(responseString)
+                            } catch (e: JsonParseException) {
+                            }
 
-                            if(commonResponse != null){
-                                if(commonResponse.error != null && commonResponse.status != null){
-                                    Log.d("HOPPER ERROR : ",commonResponse.message ?: "No error message")
-                                    val err = HopperAPIError((commonResponse.error?.toInt() ?: 0),commonResponse.message,(commonResponse.status?.toInt() ?: 0))
+                            if (commonResponse != null) {
+                                if (commonResponse.error != null && commonResponse.status != null) {
+                                    Log.d(
+                                        "HOPPER ERROR : ",
+                                        commonResponse.message ?: "No error message"
+                                    )
+                                    val err = HopperAPIError(
+                                        (commonResponse.error?.toInt() ?: 0),
+                                        commonResponse.message,
+                                        (commonResponse.status?.toInt() ?: 0)
+                                    )
                                     err.error = HopperError.UNKOWN_ERROR
                                     onFail(err)
-                                }else{
+                                } else {
                                     val jsonResponse = Gson().fromJsonType<T>(responseString)
                                     onSuccess(jsonResponse)
                                 }
-                            }else{
+                            } else {
                                 val jsonResponse = Gson().fromJsonType<T>(responseString)
                                 onSuccess(jsonResponse)
                             }
                         } else {
-                            val jsonResponse = Gson().fromJson(response.body!!.string(), HopperAPIError::class.java)
+                            val jsonResponse = Gson().fromJson(
+                                response.body!!.string(),
+                                HopperAPIError::class.java
+                            )
                             onFail(jsonResponse)
                         }
-                    }else{
+                    } else {
                         if (HopperAPIConfigurationManager.shared.config.debugModeEnabled) {
                             print("RESPONSE NULL")
                         }
-                        val err = HopperAPIError(0,"Unkown response error occured",0)
+                        val err = HopperAPIError(0, "Unkown response error occured", 0)
                         err.error = HopperError.UNKOWN_ERROR
                         onFail(err)
                     }
                 }
             }
-        }catch(e : Exception){
-            val err = HopperAPIError(0,"Unkown response error occured",0)
+        } catch (e: Exception) {
+            val err = HopperAPIError(0, "Unkown response error occured", 0)
             err.error = HopperError.UNKOWN_ERROR
             onFail(err)
         }
     }
 
     inline fun <reified T : Any> request(
-            noinline onSuccess: (T) -> Unit?,
-            noinline onFail: (HopperAPIError) -> Unit?
+        noinline onSuccess: (T) -> Unit?,
+        noinline onFail: (HopperAPIError) -> Unit?
     ) {
+        if(isV2Api){
+            this.addV2Headers()
+        }
+
         if (needsAuthentication) {
             this.authenticateAndRequestAgain(onSuccess, onFail)
         } else {
             try {
                 startRequest<T>({ response ->
                     onSuccess.invoke(response)
-                }) { error  ->
+                }) { error ->
                     val err = error as? HopperAPIError
                     if (err != null) {
                         when (err.error) {
@@ -241,22 +261,26 @@ open class HopperAPIRequest<Object> {
                             }
                         }
                     } else {
-                        val err = HopperAPIError(0,"Unkown response error occured",0)
+                        val err = HopperAPIError(0, "Unkown response error occured", 0)
                         err.error = HopperError.UNKOWN_ERROR
                         onFail.invoke(err)
                     }
                 }
-            }catch(e : Exception){
-                val err = HopperAPIError(0,"Unkown response error occured",0)
+            } catch (e: Exception) {
+                val err = HopperAPIError(0, "Unkown response error occured", 0)
                 err.error = HopperError.UNKOWN_ERROR
                 onFail.invoke(err)
             }
         }
     }
 
-    inline fun < reified T : Any> authenticateAndRequestAgain(
-            crossinline onSuccess: (T) -> Unit?,
-            noinline onFail: (HopperAPIError) -> Unit?
+    fun addV2Headers(){
+        this.addHeader(HopperAPIConfigurationManager.shared.config.v2ApiValidationKey,  HopperAPIConfigurationManager.shared.config.v2ApiValidationValue)
+    }
+
+    inline fun <reified T : Any> authenticateAndRequestAgain(
+        crossinline onSuccess: (T) -> Unit?,
+        noinline onFail: (HopperAPIError) -> Unit?
     ) {
         HopperAPISessionManager.shared.checkAuthentication(onSuccess = {
             val accessToken = HopperAPISessionManager.shared.session?.accessToken
@@ -264,7 +288,14 @@ open class HopperAPIRequest<Object> {
                 this.handleError(failClosure = onFail, error = HopperError.MISSING_ACCESS_TOKEN)
                 return@checkAuthentication
             }
-            this.addHeader(name = "access-token", value = accessToken)
+
+            if(this.isV2Api){
+                this.addHeader( "Auth-Type",  "oauth")
+                this.addHeader("Authorization", "Bearer $accessToken")
+            }else{
+                this.addHeader("access-token", accessToken)
+            }
+
             this.startRequest(onSuccess, onFail)
         }, onFail = onFail)
     }

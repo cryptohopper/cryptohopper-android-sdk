@@ -1,4 +1,3 @@
-
 //
 //  HopperAPIConfiguration.swift
 //  iOS SDK
@@ -16,12 +15,22 @@ class HopperAPIConfiguration {
     var clientId: String? = null
     var isAuthenticationRequest = false
     var authenticationHost: String = "www.cryptohopper.com"
+    var v2ApiValidationKey: String = ""
+    var v2ApiValidationValue: String = ""
 
     val host: String
         get() {
             return when (environment) {
                 HopperAPIEnvironment.Sandbox -> "api.cryptohopper.com/v1"
                 HopperAPIEnvironment.Production -> "api.cryptohopper.com/v1"
+            }
+        }
+
+    val v2Host: String
+        get() {
+            return when (environment) {
+                HopperAPIEnvironment.Sandbox -> "www-dev.cryptohopper.com/rest/api/v2"
+                HopperAPIEnvironment.Production -> "www.cryptohopper.com/rest/api/v2"
             }
         }
 
