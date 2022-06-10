@@ -1,21 +1,20 @@
 package Cryptohopper.Android.SDK.market
 
+import CryptoHopperConfig
 import Cryptohopper.Android.SDK.helper.Const
 import Cryptohopper.Android.SDK.helper.Const.API_KEY
 import Cryptohopper.Android.SDK.helper.StringGenerator
-import androidx.test.platform.app.InstrumentationRegistry
+import CryptohopperMarketplace
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import com.github.mervick.aes_everywhere.Aes256
 import cryptohopper.android.sdk.CryptohopperAuth
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIEnvironment
-import kotlinx.coroutines.*
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.Before
 
-
-@DelicateCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class MarketPlaceInstrumentedNegativeTest {
 
