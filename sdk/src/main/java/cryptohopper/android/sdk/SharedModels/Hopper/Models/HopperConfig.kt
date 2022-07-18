@@ -171,12 +171,17 @@ data class HopperConfig(
     @SerializedName("auto_dca_strategy") var auto_dca_strategy: String?,
     @SerializedName("auto_dca_size") var auto_dca_size: String?,
     @SerializedName("auto_dca_size_custom") var auto_dca_size_custom: String?,
+    @SerializedName("load_api_from") var load_api_from: String?,
+
+
+    //AI Configs
     @SerializedName("min_buy_score") var minBuyScore: String?,
     @SerializedName("min_sell_score") var minSellScore: String?,
     @SerializedName("sell_score_corrected") var sellScoreCorrected: String?,
     @SerializedName("buy_score_corrected") var buyScoreCorrected: String?,
 ) {
     constructor() : this(
+        null,
         null,
         null,
         null,
