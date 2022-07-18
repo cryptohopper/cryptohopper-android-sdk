@@ -3,6 +3,7 @@ import cryptohopper.android.sdk.API.Hopper.General.CreateHopper.HopperAPICreateH
 import cryptohopper.android.sdk.API.Hopper.General.CreateHopper.HopperAPICreateHopperResponse
 import cryptohopper.android.sdk.API.Hopper.General.GetAssets.HopperAPIGetAssetsRequest
 import cryptohopper.android.sdk.API.Hopper.General.GetAssets.HopperAPIGetAssetsResponse
+import cryptohopper.android.sdk.API.Hopper.General.StopWithoutSelling.HopperAPIStopHopperWithoutSellingRequest
 import cryptohopper.android.sdk.API.Hopper.Position.DCAOnePosition.HopperAPIDCAOnePositionRequest
 import cryptohopper.android.sdk.API.Hopper.Position.GetUnsyncedPositions.HopperAPIGetUnsyncedPositionRequest
 import cryptohopper.android.sdk.API.Hopper.Position.GetUnsyncedPositions.HopperAPIGetUnsyncedPositionResponse
@@ -282,11 +283,23 @@ class CryptohopperHopper {
                 })
         }
 
+        /// Stop Hopper Without Selling
+        ///
+        /// - Parameter hopperId:  (required) Hopper id
+        fun stopHopperWithoutSelling(hopperId: String, callback: (String?, HopperAPIError?) -> Unit) {
+            HopperAPIStopHopperWithoutSellingRequest(hopperId).request<HopperCommonMessageResponse>({ message ->
+                callback(message.data, null)
+            }, { error ->
+                callback(null, error)
+            })
+        }
+
+
         /// Enable Hopper Panic
         ///
         /// - Parameter hopperId:  (required) Hopper id
-        fun enableHopperPanic(hopperId: String, callback: (String?, HopperAPIError?) -> Unit) {
-            HopperAPIEnableHopperPanicRequest(hopperId).request<HopperCommonMessageResponse>({ message ->
+        fun enableHopperPanic(hopperId: String, useMarketOrder: Boolean, callback: (String?, HopperAPIError?) -> Unit) {
+            HopperAPIEnableHopperPanicRequest(hopperId, useMarketOrder).request<HopperCommonMessageResponse>({ message ->
                 callback(message.data, null)
             }, { error ->
                 callback(null, error)
