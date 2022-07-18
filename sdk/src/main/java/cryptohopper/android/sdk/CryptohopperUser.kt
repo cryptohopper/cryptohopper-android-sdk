@@ -1,3 +1,5 @@
+import cryptohopper.android.sdk.API.User.Check2FAReset.HopperAPICheck2FAResetRequest
+import cryptohopper.android.sdk.API.User.CheckPasswordReset.HopperAPICheckPasswordResetRequest
 import cryptohopper.android.sdk.API.User.General.GetMobileNotifications.HopperAPIUpdateGetMobileNotificationRequest
 import cryptohopper.android.sdk.API.User.General.GetMobileNotifications.HopperAPIUpdateGetMobileNotificationResponse
 import cryptohopper.android.sdk.API.User.General.RegisterUser.HopperAPIRegisterUserResponse
@@ -30,6 +32,34 @@ class CryptohopperUser {
             HopperAPIForgetPasswordRequest(
                 email,
                 userAgent
+            ).request<HopperCommonMessageResponse>({ data ->
+                callback(data.data, null)
+            }, { error ->
+                callback(null, error)
+            })
+        }
+
+        ///  Check 2FA Reset
+        ///
+        fun check2FAReset(
+            callback: (String?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPICheck2FAResetRequest(
+                ""
+            ).request<HopperCommonMessageResponse>({ data ->
+                callback(data.data, null)
+            }, { error ->
+                callback(null, error)
+            })
+        }
+
+        ///  Check Password reset
+        ///
+        fun checkPasswordReset(
+            callback: (String?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPICheckPasswordResetRequest(
+                ""
             ).request<HopperCommonMessageResponse>({ data ->
                 callback(data.data, null)
             }, { error ->
