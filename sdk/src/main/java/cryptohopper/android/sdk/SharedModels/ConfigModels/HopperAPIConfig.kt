@@ -14,7 +14,7 @@ class HopperAPIConfiguration {
     var debugModeEnabled: Boolean = false
     var clientId: String? = null
     var isAuthenticationRequest = false
-    var authenticationHost: String = "www.cryptohopper.com"
+    var authenticationHost: String = "app-aws-useast1.cryptohopper.com"
     var v2ApiValidationKey: String = ""
     var v2ApiValidationValue: String = ""
 
