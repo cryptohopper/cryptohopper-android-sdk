@@ -5,6 +5,7 @@ import HopperAPIAuthenticationResponse
 import HopperError
 import android.content.Context
 import cryptohopper.android.sdk.API.Authentication.AuthWithCode.HopperAPIAuthWithCodeRequest
+import cryptohopper.android.sdk.API.Authentication.SocialLogin.HopperAPISocialLoginRequest
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIEnvironment
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIError
 
@@ -39,6 +40,35 @@ class CryptohopperAuth {
         ) {
             HopperAPIAuthWithCodeRequest(
                 code,
+                userAgent
+            ).request<HopperAPIAuthenticationResponse>({ response ->
+                HopperAPISessionManager.shared.handleAuthResponse(response)
+                callback("Successfully Logged In", null)
+            }, { error ->
+                callback(null, error)
+            })
+        }
+
+        /*!
+    *
+    * @discussion Social login with token
+    *
+    * @param socialType String
+    * @param token String
+    * @param nonce String? optional
+    */
+
+        fun socialLogin(
+            socialType: String,
+            token: String,
+            nonce: String,
+            userAgent: String,
+            callback: (String?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPISocialLoginRequest(
+                socialType,
+                token,
+                nonce,
                 userAgent
             ).request<HopperAPIAuthenticationResponse>({ response ->
                 HopperAPISessionManager.shared.handleAuthResponse(response)

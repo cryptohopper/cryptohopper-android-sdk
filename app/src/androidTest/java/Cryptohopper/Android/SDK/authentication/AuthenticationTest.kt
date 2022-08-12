@@ -73,4 +73,5 @@ class AuthenticationTest {
             Assert.assertEquals(HopperError.ENDPOINT_FORBIDDEN, error?.errCode)
         }
     }
+
 }
