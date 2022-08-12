@@ -61,7 +61,7 @@ class HopperAPISessionManager {
         if (hasSession) {
             updateRefreshTokenIfNeeded(onSuccess = onSuccess, onFail = onFail)
         } else {
-            val err = HopperAPIError(0,"Unkown response error occured",0)
+            val err = HopperAPIError(0,"Unkown response error occured",0,null)
             err.error = HopperError.MISSING_REFRESH_TOKEN
             onFail?.invoke(err)
         }
@@ -77,7 +77,7 @@ class HopperAPISessionManager {
         if (currentDate > refreshDate) {
             val refreshToken = session?.refreshToken
             if (refreshToken == null) {
-                val err = HopperAPIError(0,"Unkown response error occured",0)
+                val err = HopperAPIError(0,"Unkown response error occured",0, null)
                 err.error = HopperError.MISSING_REFRESH_TOKEN
                 onFail?.invoke(err)
                 return

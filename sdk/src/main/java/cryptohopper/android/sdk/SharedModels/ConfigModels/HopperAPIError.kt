@@ -11,7 +11,8 @@ import com.google.gson.annotations.SerializedName
 data class HopperAPIError(
         @SerializedName("error") val errCode: Int?,
         @SerializedName("message") val errMessage: String?,
-        @SerializedName("status") val status: Int?
+        @SerializedName("status") val status: Int?,
+        @SerializedName("code") val code: Int?
 ){
     var error : HopperError? = HopperError.UNKOWN_ERROR
         get()  {

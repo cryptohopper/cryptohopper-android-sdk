@@ -15,3 +15,4 @@
 local.properties
 secret.properties
 /secret.properties
+app/src/androidTest/java/Cryptohopper/Android/SDK/BuildConfig.kt

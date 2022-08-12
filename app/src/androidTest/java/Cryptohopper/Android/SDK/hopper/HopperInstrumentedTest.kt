@@ -321,7 +321,8 @@ class HopperInstrumentedTest {
     fun when_the_given_enableHopperPanic_Endpoint_is_called_with_correct_params_and_token_then_it_must_return_response() {
         CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
             CryptohopperHopper.enableHopperPanic(
-                hoppers?.get(0)?.id ?: ""
+                hoppers?.get(0)?.id ?: "",
+                false
             ) { data, error ->
                 Assert.assertNull(error)
                 Assert.assertNotNull(data)
