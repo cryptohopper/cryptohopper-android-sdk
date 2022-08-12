@@ -83,7 +83,7 @@ open class HopperAPIRequest<Object> {
         if (HopperAPIConfigurationManager.shared.config.debugModeEnabled) {
             print(error)
         }
-        val err = HopperAPIError(0, "Unkown response error occured", 0)
+        val err = HopperAPIError(0, "Unkown response error occured", 0,null)
         err.error = error
         failClosure.invoke(err)
     }
@@ -169,7 +169,8 @@ open class HopperAPIRequest<Object> {
                         HopperAPIError(
                             response.code,
                             response.body?.string() ?: "No response",
-                            0
+                            0,
+                            null
                         )
                     )
                 } else {
@@ -194,9 +195,10 @@ open class HopperAPIRequest<Object> {
                                         commonResponse.message ?: "No error message"
                                     )
                                     val err = HopperAPIError(
-                                        (commonResponse.error?.toInt() ?: 0),
+                                        (commonResponse.error ?: 0),
                                         commonResponse.message,
-                                        (commonResponse.status?.toInt() ?: 0)
+                                        (commonResponse.status?: 0),
+                                        commonResponse.code ?: 0
                                     )
                                     err.error = HopperError.UNKOWN_ERROR
                                     onFail(err)
@@ -219,14 +221,14 @@ open class HopperAPIRequest<Object> {
                         if (HopperAPIConfigurationManager.shared.config.debugModeEnabled) {
                             print("RESPONSE NULL")
                         }
-                        val err = HopperAPIError(0, "Unkown response error occured", 0)
+                        val err = HopperAPIError(0, "Unkown response error occured", 0,null)
                         err.error = HopperError.UNKOWN_ERROR
                         onFail(err)
                     }
                 }
             }
         } catch (e: Exception) {
-            val err = HopperAPIError(0, "Unkown response error occured", 0)
+            val err = HopperAPIError(0, "Unkown response error occured", 0,null)
             err.error = HopperError.UNKOWN_ERROR
             onFail(err)
         }
@@ -261,13 +263,13 @@ open class HopperAPIRequest<Object> {
                             }
                         }
                     } else {
-                        val err = HopperAPIError(0, "Unkown response error occured", 0)
+                        val err = HopperAPIError(0, "Unkown response error occured", 0,null)
                         err.error = HopperError.UNKOWN_ERROR
                         onFail.invoke(err)
                     }
                 }
             } catch (e: Exception) {
-                val err = HopperAPIError(0, "Unkown response error occured", 0)
+                val err = HopperAPIError(0, "Unkown response error occured", 0,null)
                 err.error = HopperError.UNKOWN_ERROR
                 onFail.invoke(err)
             }

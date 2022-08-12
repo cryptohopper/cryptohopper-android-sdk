@@ -305,7 +305,8 @@ class HopperInstrumentedPerformanceTest {
 
             timeLapsCalculator.startTimer()
             CryptohopperHopper.enableHopperPanic(
-                hoppers?.get(0)?.id ?: ""
+                hoppers?.get(0)?.id ?: "",
+                false
             ) { _, _ ->
                 Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
             }

@@ -242,7 +242,8 @@ class HopperInstrumentedNegativeTest {
     fun when_the_given_enableHopperPanic_Endpoint_is_called_with_incorrect_details_then_it_must_error() {
         CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
             CryptohopperHopper.enableHopperPanic(
-                hoppers?.get(0)?.id ?: ""
+                hoppers?.get(0)?.id ?: "",
+                false
             ) { _, error ->
                 Assert.assertNotNull(error)
             }
