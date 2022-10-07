@@ -6,7 +6,9 @@
 //
 
 
+import android.annotation.SuppressLint
 import android.net.Uri
+import android.provider.Settings.Secure
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
@@ -238,6 +240,8 @@ open class HopperAPIRequest<Object> {
         noinline onSuccess: (T) -> Unit?,
         noinline onFail: (HopperAPIError) -> Unit?
     ) {
+        this.addRequiredHeaders()
+        
         if(isV2Api){
             this.addV2Headers()
         }
@@ -278,6 +282,17 @@ open class HopperAPIRequest<Object> {
 
     fun addV2Headers(){
         this.addHeader(HopperAPIConfigurationManager.shared.config.v2ApiValidationKey,  HopperAPIConfigurationManager.shared.config.v2ApiValidationValue)
+    }
+
+    @SuppressLint("HardwareIds")
+    fun addRequiredHeaders(){
+        // Required for Security(User Device and Platform check)
+        this.addHeader("Platform","Android")
+        val android_id = Secure.getString(
+            HopperAPIConfigurationManager.shared.config.context!!.contentResolver,
+            Secure.ANDROID_ID
+        )
+        this.addHeader("DeviceId",android_id)
     }
 
     inline fun <reified T : Any> authenticateAndRequestAgain(
