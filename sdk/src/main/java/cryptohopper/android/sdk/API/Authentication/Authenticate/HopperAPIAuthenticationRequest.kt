@@ -13,7 +13,8 @@ class HopperAPIAuthenticationRequest : HopperAPIRequest<HopperAPIAuthenticationR
         username: String,
         password: String,
         verificationCode: String? = null,
-        userAgent: String
+        userAgent: String,
+        appCheckToken: String?
     ) {
         this.httpMethod = HopperAPIHttpMethod.POST
         this.needsAuthentication = false
@@ -29,6 +30,9 @@ class HopperAPIAuthenticationRequest : HopperAPIRequest<HopperAPIAuthenticationR
         addHeader("User-Agent", userAgent)
         if (verificationCode != null) {
             addBodyItem("verification_code", (verificationCode))
+        }
+        if(appCheckToken != null){
+            addHeader("X-Firebase-AppCheck",(appCheckToken?: ""))
         }
     }
 

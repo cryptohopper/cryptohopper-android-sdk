@@ -27,11 +27,13 @@ class CryptohopperUser {
         fun forgetPassword(
             email: String,
             userAgent: String,
+            appCheckToken : String?,
             callback: (String?, HopperAPIError?) -> Unit
         ) {
             HopperAPIForgetPasswordRequest(
                 email,
-                userAgent
+                userAgent,
+                appCheckToken
             ).request<HopperCommonMessageResponse>({ data ->
                 callback(data.data, null)
             }, { error ->
@@ -249,6 +251,7 @@ class CryptohopperUser {
             subscribeNewsLetter: Boolean,
             password: String,
             userAgent: String,
+            appCheckToken : String?,
             callback: (HopperAPIRegisterUserResponse?, HopperAPIError?) -> Unit
         ) {
             HopperAPIRegisterUserRequest(
@@ -257,7 +260,8 @@ class CryptohopperUser {
                 username,
                 subscribeNewsLetter,
                 password,
-                userAgent
+                userAgent,
+                appCheckToken
             ).request<HopperAPIRegisterUserResponse>({ data ->
                 callback(data, null)
             }, { error ->
