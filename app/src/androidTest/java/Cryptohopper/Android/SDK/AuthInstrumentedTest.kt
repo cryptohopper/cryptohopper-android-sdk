@@ -28,37 +28,37 @@ class AuthInstrumentedTest {
         )
     }
 
-    @Test
-    fun when_the_given_login_Endpoint_is_called_with_correct_details_then_it_must_be_successful() {
-        val userAgent = Aes256.encrypt(API_USER, Const.API_AGENT)
-        CryptohopperAuth.login(
-            username = API_USER,
-            password = API_PASSWORD,
-            verificationCode = null,
-            userAgent = userAgent
-        ) { result, error ->
-            Assert.assertNull(error)
-            Assert.assertNotNull(result)
-            Assert.assertEquals("Successfully Logged In", result)
-        }
-    }
+//    @Test
+//    fun when_the_given_login_Endpoint_is_called_with_correct_details_then_it_must_be_successful() {
+//        val userAgent = Aes256.encrypt(API_USER, Const.API_AGENT)
+//        CryptohopperAuth.login(
+//            username = API_USER,
+//            password = API_PASSWORD,
+//            verificationCode = null,
+//            userAgent = userAgent
+//        ) { result, error ->
+//            Assert.assertNull(error)
+//            Assert.assertNotNull(result)
+//            Assert.assertEquals("Successfully Logged In", result)
+//        }
+//    }
 
-    @Test
-    fun when_the_given_login_Endpoint_is_called_with_incorrect_details_then_it_must_not_be_successful() {
-        val username = StringGenerator.getRandomString()
-        val userAgent = Aes256.encrypt(username, Const.API_AGENT)
-        CryptohopperAuth.login(
-            username = username,
-            password = StringGenerator.getRandomString(),
-            verificationCode = null,
-            userAgent = userAgent
-        ) { result, error ->
-            Assert.assertNull(result)
-            Assert.assertNotNull(error)
-            Assert.assertEquals(HopperError.UNAUTHORIZED, error?.error)
-            Assert.assertEquals(401, error?.errCode)
-        }
-    }
+//    @Test
+//    fun when_the_given_login_Endpoint_is_called_with_incorrect_details_then_it_must_not_be_successful() {
+//        val username = StringGenerator.getRandomString()
+//        val userAgent = Aes256.encrypt(username, Const.API_AGENT)
+//        CryptohopperAuth.login(
+//            username = username,
+//            password = StringGenerator.getRandomString(),
+//            verificationCode = null,
+//            userAgent = userAgent
+//        ) { result, error ->
+//            Assert.assertNull(result)
+//            Assert.assertNotNull(error)
+//            Assert.assertEquals(HopperError.UNAUTHORIZED, error?.error)
+//            Assert.assertEquals(401, error?.errCode)
+//        }
+//    }
 
     @Test
     fun when_the_given_loginWithCode_Endpoint_is_called_with_forbidden_data_then_it_must_not_be_successful() {
@@ -77,18 +77,18 @@ class AuthInstrumentedTest {
         Assert.assertNull(HopperAPISessionManager.shared.session?.accessToken)
         Assert.assertFalse(HopperAPISessionManager.shared.hasSession)
     }
-
-    @Test
-    fun when_the_given_login_EndPoint_is_called_then_the_session_must_be_null() {
-        val userAgent = Aes256.encrypt(API_USER, Const.API_AGENT)
-        CryptohopperAuth.login(
-            username = API_USER,
-            password = API_PASSWORD,
-            verificationCode = null,
-            userAgent = userAgent
-        ) { _, _ ->
-            Assert.assertTrue(CryptohopperAuth.isAuthenticated())
-            Assert.assertTrue(HopperAPISessionManager.shared.hasSession)
-        }
-    }
+//
+//    @Test
+//    fun when_the_given_login_EndPoint_is_called_then_the_session_must_be_null() {
+//        val userAgent = Aes256.encrypt(API_USER, Const.API_AGENT)
+//        CryptohopperAuth.login(
+//            username = API_USER,
+//            password = API_PASSWORD,
+//            verificationCode = null,
+//            userAgent = userAgent
+//        ) { _, _ ->
+//            Assert.assertTrue(CryptohopperAuth.isAuthenticated())
+//            Assert.assertTrue(HopperAPISessionManager.shared.hasSession)
+//        }
+//    }
 }

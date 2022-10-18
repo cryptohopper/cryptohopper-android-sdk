@@ -32,20 +32,20 @@ class UserInstrumentedPerformanceTest {
         )
 
         timeLapsCalculator.resetTimer()
-        callAuthenticationWithAccurateDetails()
+        //callAuthenticationWithAccurateDetails()
     }
 
-    private fun callAuthenticationWithAccurateDetails() {
-        val userAgent = Aes256.encrypt(API_USER, Const.API_AGENT)
-        CryptohopperAuth.login(
-            username = API_USER,
-            password = API_PASSWORD,
-            verificationCode = null,
-            userAgent = userAgent
-        ) { _, _ ->
-
-        }
-    }
+//    private fun callAuthenticationWithAccurateDetails() {
+//        val userAgent = Aes256.encrypt(API_USER, Const.API_AGENT)
+//        CryptohopperAuth.login(
+//            username = API_USER,
+//            password = API_PASSWORD,
+//            verificationCode = null,
+//            userAgent = userAgent
+//        ) { _, _ ->
+//
+//        }
+//    }
 
     //******************* Positive cases ***************************
 
@@ -58,26 +58,26 @@ class UserInstrumentedPerformanceTest {
         }
     }
 
-    @Test
-    fun when_the_given_getUserProfile_Endpoint_is_called_with_correct_token_then_it_must_return_profile_details() {
-        callAuthenticationWithAccurateDetails()
-        timeLapsCalculator.startTimer()
-        CryptohopperUser.getUserProfile { _, _ ->
-            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime >= timeLapsCalculator.getApiResponseTime())
-        }
-    }
+//    @Test
+//    fun when_the_given_getUserProfile_Endpoint_is_called_with_correct_token_then_it_must_return_profile_details() {
+//        callAuthenticationWithAccurateDetails()
+//        timeLapsCalculator.startTimer()
+//        CryptohopperUser.getUserProfile { _, _ ->
+//            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime >= timeLapsCalculator.getApiResponseTime())
+//        }
+//    }
 
-    @Test
-    fun when_the_given_forgetPassword_Endpoint_is_called_with_correct_params_and_token_then_it_must_return_data() {
-        timeLapsCalculator.startTimer()
-        val userAgent = Aes256.encrypt(API_USER, Const.API_AGENT)
-        CryptohopperUser.forgetPassword(
-            email = Const.API_EMAIL,
-            userAgent = userAgent
-        ) { _, _ ->
-            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime >= timeLapsCalculator.getApiResponseTime())
-        }
-    }
+//    @Test
+//    fun when_the_given_forgetPassword_Endpoint_is_called_with_correct_params_and_token_then_it_must_return_data() {
+//        timeLapsCalculator.startTimer()
+//        val userAgent = Aes256.encrypt(API_USER, Const.API_AGENT)
+//        CryptohopperUser.forgetPassword(
+//            email = Const.API_EMAIL,
+//            userAgent = userAgent
+//        ) { _, _ ->
+//            Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime >= timeLapsCalculator.getApiResponseTime())
+//        }
+//    }
 
     @Test
     fun when_the_given_updateUserProfile_Endpoint_is_called_with_correct_params_and_token_then_it_must_return_data() {

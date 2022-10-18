@@ -24,21 +24,21 @@ class StrategyInstrumentedNegativeTest {
             appContext, API_KEY,
             HopperAPIEnvironment.Production
         )
-        callAuthenticationWithMockDetails()
+        //callAuthenticationWithMockDetails()
     }
 
-    private fun callAuthenticationWithMockDetails() {
-        val username = StringGenerator.getRandomString()
-        val userAgent = Aes256.encrypt(username, Const.API_AGENT)
-        CryptohopperAuth.login(
-            username = username,
-            password = StringGenerator.getRandomString(),
-            verificationCode = null,
-            userAgent = userAgent
-        ) { _, _ ->
-
-        }
-    }
+//    private fun callAuthenticationWithMockDetails() {
+//        val username = StringGenerator.getRandomString()
+//        val userAgent = Aes256.encrypt(username, Const.API_AGENT)
+//        CryptohopperAuth.login(
+//            username = username,
+//            password = StringGenerator.getRandomString(),
+//            verificationCode = null,
+//            userAgent = userAgent
+//        ) { _, _ ->
+//
+//        }
+//    }
 
     //******************* negative cases ***************************
 

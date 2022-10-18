@@ -6,7 +6,13 @@ import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIHttpMethod
 
 class HopperAPISocialLoginRequest : HopperAPIRequest<HopperAPIAuthenticationResponse> {
 
-    constructor(socialType: String, token: String, nonce: String?, userAgent: String) {
+    constructor(
+        socialType: String,
+        token: String,
+        nonce: String?,
+        userAgent: String,
+        appCheckToken: String?
+    ) {
         this.httpMethod = HopperAPIHttpMethod.POST
         this.needsAuthentication = false
         this.setIsAuthenticationRequest(true)
@@ -18,6 +24,9 @@ class HopperAPISocialLoginRequest : HopperAPIRequest<HopperAPIAuthenticationResp
         addBodyItem( "token", token)
         if(nonce != null){
             addBodyItem( "nonce", nonce?: "")
+        }
+        if(appCheckToken != null){
+            addHeader("X-Firebase-AppCheck",(appCheckToken?: ""))
         }
         addHeader("User-Agent",userAgent)
     }

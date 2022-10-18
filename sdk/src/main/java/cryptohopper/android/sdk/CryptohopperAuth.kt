@@ -18,13 +18,15 @@ class CryptohopperAuth {
             password: String,
             verificationCode: String?,
             userAgent: String,
+            appCheckToken : String?,
             callback: (String?, HopperAPIError?) -> Unit
         ) {
             HopperAPIAuthenticationRequest(
                 username,
                 password,
                 verificationCode,
-                userAgent
+                userAgent,
+                appCheckToken
             ).request<HopperAPIAuthenticationResponse>({ response ->
                 HopperAPISessionManager.shared.handleAuthResponse(response)
                 callback("Successfully Logged In", null)
@@ -63,13 +65,15 @@ class CryptohopperAuth {
             token: String,
             nonce: String,
             userAgent: String,
+            appCheckToken : String?,
             callback: (String?, HopperAPIError?) -> Unit
         ) {
             HopperAPISocialLoginRequest(
                 socialType,
                 token,
                 nonce,
-                userAgent
+                userAgent,
+                appCheckToken
             ).request<HopperAPIAuthenticationResponse>({ response ->
                 HopperAPISessionManager.shared.handleAuthResponse(response)
                 callback("Successfully Logged In", null)
