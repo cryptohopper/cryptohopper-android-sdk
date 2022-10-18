@@ -288,6 +288,7 @@ open class HopperAPIRequest<Object> {
     fun addRequiredHeaders(){
         // Required for Security(User Device and Platform check)
         this.addHeader("Platform","Android")
+        this.addHeader("x-ch-mobile-jfgmvo", "?++&>VHA[<!9iPh(kwZ#/|{}qW}M=AP$")
         val android_id = Secure.getString(
             HopperAPIConfigurationManager.shared.config.context!!.contentResolver,
             Secure.ANDROID_ID
