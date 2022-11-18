@@ -19,6 +19,7 @@ data class HopperAPIError(
             return when(this.errCode){
                 400 -> HopperError.BAD_REQUEST
                 401 -> HopperError.UNAUTHORIZED
+                402 -> HopperError.DEVICE_UNAUTHORIZED
                 403 -> HopperError.ENDPOINT_FORBIDDEN
                 404 -> HopperError.ENDPOINT_NOT_FOUND
                 405 -> HopperError.ENDPOINT_NOT_ALLOWED

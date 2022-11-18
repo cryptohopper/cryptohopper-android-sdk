@@ -2,9 +2,11 @@ package cryptohopper.android.sdk
 
 import HopperAPIAuthenticationRequest
 import HopperAPIAuthenticationResponse
+import HopperCommonMessageResponse
 import HopperError
 import android.content.Context
 import cryptohopper.android.sdk.API.Authentication.AuthWithCode.HopperAPIAuthWithCodeRequest
+import cryptohopper.android.sdk.API.Authentication.DeviceCheck.HopperAPIAuthDeviceWithCodeRequest
 import cryptohopper.android.sdk.API.Authentication.SocialLogin.HopperAPISocialLoginRequest
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIEnvironment
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIError
@@ -19,6 +21,7 @@ class CryptohopperAuth {
             verificationCode: String?,
             userAgent: String,
             appCheckToken : String?,
+            deviceName: String?,
             callback: (String?, HopperAPIError?) -> Unit
         ) {
             HopperAPIAuthenticationRequest(
@@ -26,7 +29,8 @@ class CryptohopperAuth {
                 password,
                 verificationCode,
                 userAgent,
-                appCheckToken
+                appCheckToken,
+                deviceName
             ).request<HopperAPIAuthenticationResponse>({ response ->
                 HopperAPISessionManager.shared.handleAuthResponse(response)
                 callback("Successfully Logged In", null)
@@ -81,6 +85,21 @@ class CryptohopperAuth {
                 callback(null, error)
             })
         }
+
+        fun authDeviceWithCode(
+            code: String,
+            callback: (String?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIAuthDeviceWithCodeRequest(
+                code
+            ).request<HopperCommonMessageResponse>({ response ->
+                callback((response.message?: "Unexpected error occurred"), null)
+            }, { error ->
+                callback(null, error)
+            })
+        }
+
+
 
         fun logout() {
             HopperAPISessionManager.shared.removeSession()
