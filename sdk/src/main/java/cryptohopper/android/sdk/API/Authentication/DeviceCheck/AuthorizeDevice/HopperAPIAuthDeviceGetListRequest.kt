@@ -5,7 +5,7 @@ import HopperCommonMessageResponse
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIHttpMethod
 
 class HopperAPIAuthDeviceGetListRequest(data: String) :
-    HopperAPIRequest<HopperCommonMessageResponse>() {
+    HopperAPIRequest<HopperAPIAuthDeviceGetListResponse>() {
 
     init {
         this.httpMethod = HopperAPIHttpMethod.GET

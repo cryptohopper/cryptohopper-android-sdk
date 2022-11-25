@@ -6,10 +6,7 @@ import HopperCommonMessageResponse
 import HopperError
 import android.content.Context
 import cryptohopper.android.sdk.API.Authentication.AuthWithCode.HopperAPIAuthWithCodeRequest
-import cryptohopper.android.sdk.API.Authentication.DeviceCheck.AuthorizeDevice.HopperAPIAuthDeviceCheckIfAuthorizedRequest
-import cryptohopper.android.sdk.API.Authentication.DeviceCheck.AuthorizeDevice.HopperAPIAuthDeviceGetListRequest
-import cryptohopper.android.sdk.API.Authentication.DeviceCheck.AuthorizeDevice.HopperAPIAuthDeviceResendEmailRequest
-import cryptohopper.android.sdk.API.Authentication.DeviceCheck.AuthorizeDevice.HopperAPIAuthDeviceRevokeRequest
+import cryptohopper.android.sdk.API.Authentication.DeviceCheck.AuthorizeDevice.*
 import cryptohopper.android.sdk.API.Authentication.DeviceCheck.HopperAPIAuthDeviceWithCodeRequest
 import cryptohopper.android.sdk.API.Authentication.SocialLogin.HopperAPISocialLoginRequest
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIEnvironment
@@ -155,12 +152,12 @@ class CryptohopperAuth {
         */
 
         fun authDeviceList(
-            callback: (String?, HopperAPIError?) -> Unit
+            callback: (List<HopperAPIAuthDeviceGetListModel>?, HopperAPIError?) -> Unit
         ) {
             HopperAPIAuthDeviceGetListRequest(
                 ""
-            ).request<HopperCommonMessageResponse>({ response ->
-                callback((response.message?: ""), null)
+            ).request<HopperAPIAuthDeviceGetListResponse>({ response ->
+                callback((response.data), null)
             }, { error ->
                 callback(null, error)
             })
