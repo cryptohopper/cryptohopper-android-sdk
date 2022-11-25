@@ -11,7 +11,7 @@ class HopperAPIAuthDeviceWithCodeRequest : HopperAPIRequest<HopperCommonMessageR
     ){
 
         this.httpMethod = HopperAPIHttpMethod.GET
-        this.needsAuthentication = false
+        this.needsAuthentication = true
         this.changeUrlPath("/device/authorize")
         addQueryItem("code", code)
     }
