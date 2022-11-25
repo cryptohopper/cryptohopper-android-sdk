@@ -2,9 +2,12 @@ package cryptohopper.android.sdk
 
 import HopperAPIAuthenticationRequest
 import HopperAPIAuthenticationResponse
+import HopperCommonMessageResponse
 import HopperError
 import android.content.Context
 import cryptohopper.android.sdk.API.Authentication.AuthWithCode.HopperAPIAuthWithCodeRequest
+import cryptohopper.android.sdk.API.Authentication.DeviceCheck.AuthorizeDevice.*
+import cryptohopper.android.sdk.API.Authentication.DeviceCheck.HopperAPIAuthDeviceWithCodeRequest
 import cryptohopper.android.sdk.API.Authentication.SocialLogin.HopperAPISocialLoginRequest
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIEnvironment
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIError
@@ -19,6 +22,7 @@ class CryptohopperAuth {
             verificationCode: String?,
             userAgent: String,
             appCheckToken : String?,
+            deviceName: String?,
             callback: (String?, HopperAPIError?) -> Unit
         ) {
             HopperAPIAuthenticationRequest(
@@ -26,7 +30,8 @@ class CryptohopperAuth {
                 password,
                 verificationCode,
                 userAgent,
-                appCheckToken
+                appCheckToken,
+                deviceName
             ).request<HopperAPIAuthenticationResponse>({ response ->
                 HopperAPISessionManager.shared.handleAuthResponse(response)
                 callback("Successfully Logged In", null)
@@ -81,6 +86,103 @@ class CryptohopperAuth {
                 callback(null, error)
             })
         }
+
+        //----------DEVICE AUTHORIZATION---------
+
+        /*!
+         *
+         * @discussion Device authorization with code
+         *
+         * @param code String
+         */
+
+        fun authDeviceWithCode(
+            code: String,
+            callback: (String?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIAuthDeviceWithCodeRequest(
+                code
+            ).request<HopperCommonMessageResponse>({ response ->
+                callback((response.message?: ""), null)
+            }, { error ->
+                callback(null, error)
+            })
+        }
+
+        /*!
+        *
+         * @discussion Device authorization resend email (60 second cooldown)
+        *
+        */
+
+        fun authDeviceResendEmail(
+            callback: (String?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIAuthDeviceResendEmailRequest(
+                ""
+            ).request<HopperCommonMessageResponse>({ response ->
+                callback((response.message?: ""), null)
+            }, { error ->
+                callback(null, error)
+            })
+        }
+
+        /*!
+        *
+        * @discussion Device authorization check if device authorized
+        *
+        */
+
+        fun authDeviceCheck(
+            callback: (String?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIAuthDeviceCheckIfAuthorizedRequest(
+                ""
+            ).request<HopperCommonMessageResponse>({ response ->
+                callback((response.message?: ""), null)
+            }, { error ->
+                callback(null, error)
+            })
+        }
+
+        /*!
+        *
+        * @discussion Device authorization get list
+        *
+        */
+
+        fun authDeviceList(
+            callback: (List<HopperAPIAuthDeviceGetListModel>?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIAuthDeviceGetListRequest(
+                ""
+            ).request<HopperAPIAuthDeviceGetListResponse>({ response ->
+                callback((response.data), null)
+            }, { error ->
+                callback(null, error)
+            })
+        }
+
+        /*!
+        *
+        * @discussion Device authorization revoke device
+        *
+        */
+
+        fun authDeviceRevoke(
+            deviceId : String,
+            callback: (String?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIAuthDeviceRevokeRequest(
+                deviceId = deviceId
+            ).request<HopperCommonMessageResponse>({ response ->
+                callback((response.message?: ""), null)
+            }, { error ->
+                callback(null, error)
+            })
+        }
+
+
 
         fun logout() {
             HopperAPISessionManager.shared.removeSession()
