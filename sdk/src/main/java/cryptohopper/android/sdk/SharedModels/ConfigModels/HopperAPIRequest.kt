@@ -7,9 +7,11 @@
 
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.net.Uri
 import android.provider.Settings.Secure
 import android.util.Log
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import com.google.gson.reflect.TypeToken
@@ -192,6 +194,9 @@ open class HopperAPIRequest<Object> {
 
                             if (commonResponse != null) {
                                 if (commonResponse.error != null && commonResponse.status != null) {
+                                    if(commonResponse.status == 402){
+                                        sendDeviceUnauthorized()
+                                    }
                                     Log.d(
                                         "HOPPER ERROR : ",
                                         commonResponse.message ?: "No error message"
@@ -213,6 +218,9 @@ open class HopperAPIRequest<Object> {
                                 onSuccess(jsonResponse)
                             }
                         } else {
+                            if(response.code == 402){
+                                sendDeviceUnauthorized()
+                            }
                             val jsonResponse = Gson().fromJson(
                                 response.body!!.string(),
                                 HopperAPIError::class.java
@@ -278,6 +286,11 @@ open class HopperAPIRequest<Object> {
                 onFail.invoke(err)
             }
         }
+    }
+
+    fun sendDeviceUnauthorized(){
+        val userDataChanaged = Intent("CH_UNAUTHORIZED_DEVICE")
+        LocalBroadcastManager.getInstance(HopperAPIConfigurationManager.shared.config.context!!).sendBroadcast(userDataChanaged)
     }
 
     fun addV2Headers(){
