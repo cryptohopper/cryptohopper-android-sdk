@@ -11,7 +11,8 @@ class HopperAPISocialLoginRequest : HopperAPIRequest<HopperAPIAuthenticationResp
         token: String,
         nonce: String?,
         userAgent: String,
-        appCheckToken: String?
+        appCheckToken: String?,
+        deviceName: String?
     ) {
         this.httpMethod = HopperAPIHttpMethod.POST
         this.needsAuthentication = false
@@ -27,6 +28,9 @@ class HopperAPISocialLoginRequest : HopperAPIRequest<HopperAPIAuthenticationResp
         }
         if(appCheckToken != null){
             addHeader("X-Firebase-AppCheck",(appCheckToken?: ""))
+        }
+        if(deviceName != null){
+            addHeader("deviceName",(deviceName?: ""))
         }
         addHeader("User-Agent",userAgent)
     }
