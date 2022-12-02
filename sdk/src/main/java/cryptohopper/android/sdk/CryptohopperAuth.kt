@@ -71,6 +71,7 @@ class CryptohopperAuth {
             nonce: String,
             userAgent: String,
             appCheckToken : String?,
+            deviceName: String?,
             callback: (String?, HopperAPIError?) -> Unit
         ) {
             HopperAPISocialLoginRequest(
@@ -78,7 +79,8 @@ class CryptohopperAuth {
                 token,
                 nonce,
                 userAgent,
-                appCheckToken
+                appCheckToken,
+                deviceName
             ).request<HopperAPIAuthenticationResponse>({ response ->
                 HopperAPISessionManager.shared.handleAuthResponse(response)
                 callback("Successfully Logged In", null)
@@ -157,7 +159,7 @@ class CryptohopperAuth {
             HopperAPIAuthDeviceGetListRequest(
                 ""
             ).request<HopperAPIAuthDeviceGetListResponse>({ response ->
-                callback((response.data), null)
+                callback((response.data?: listOf()), null)
             }, { error ->
                 callback(null, error)
             })
