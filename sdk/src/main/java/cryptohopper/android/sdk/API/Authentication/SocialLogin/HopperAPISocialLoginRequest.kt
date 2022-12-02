@@ -30,7 +30,7 @@ class HopperAPISocialLoginRequest : HopperAPIRequest<HopperAPIAuthenticationResp
             addHeader("X-Firebase-AppCheck",(appCheckToken?: ""))
         }
         if(deviceName != null){
-            addHeader("deviceName",(deviceName?: ""))
+            addBodyItem("deviceName",(deviceName?: ""))
         }
         addHeader("User-Agent",userAgent)
     }
