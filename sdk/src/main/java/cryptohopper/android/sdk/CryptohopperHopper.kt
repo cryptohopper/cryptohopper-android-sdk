@@ -1080,11 +1080,13 @@ class CryptohopperHopper {
         fun sellMultiplePositions(
             hopperId: String,
             positionIds: List<Int>,
+            marketOrder: Boolean,
             callback: (String?, HopperAPIError?) -> Unit
         ) {
             HopperAPISellMultiplePositionsRequest(
                 hopperId,
-                positionIds
+                positionIds,
+                marketOrder
             ).request<HopperCommonMessageResponse>({ data ->
                 callback(data.data, null)
             }, { error ->
@@ -1100,11 +1102,13 @@ class CryptohopperHopper {
         fun sellOnePosition(
             hopperId: String,
             positionId: Int,
+            marketOrder: Boolean,
             callback: (String?, HopperAPIError?) -> Unit
         ) {
             HopperAPISellOnePositionRequest(
                 hopperId,
-                positionId
+                positionId,
+                marketOrder
             ).request<HopperCommonMessageResponse>({ data ->
                 callback(data.data, null)
             }, { error ->
@@ -1274,11 +1278,13 @@ class CryptohopperHopper {
         fun dcaOnePosition(
             hopperId: String,
             positionId: Int,
+            marketOrder : Boolean,
             callback: (String?, HopperAPIError?) -> Unit
         ) {
             HopperAPIDCAOnePositionRequest(
                 hopperId,
-                positionId
+                positionId,
+                marketOrder
             ).request<HopperCommonMessageResponse>({ data ->
                 callback(data.data, null)
             }, { error ->
