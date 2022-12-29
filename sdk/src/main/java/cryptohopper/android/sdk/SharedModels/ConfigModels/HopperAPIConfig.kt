@@ -29,8 +29,8 @@ class HopperAPIConfiguration {
     val v2Host: String
         get() {
             return when (environment) {
-                HopperAPIEnvironment.Sandbox -> "www-dev.cryptohopper.com"//"www-dev.cryptohopper.com/rest/api/v2"
-                HopperAPIEnvironment.Production -> "www.cryptohopper.com/rest/api/v2"
+                HopperAPIEnvironment.Sandbox -> "restapi.cryptohopper.com/rest/api/v2"
+                HopperAPIEnvironment.Production -> "restapi.cryptohopper.com/rest/api/v2"
             }
         }
 
