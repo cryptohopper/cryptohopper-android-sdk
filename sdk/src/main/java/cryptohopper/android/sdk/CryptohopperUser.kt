@@ -1,3 +1,6 @@
+import cryptohopper.android.sdk.API.Platform.Countries.HopperAPICountriesResult
+import cryptohopper.android.sdk.API.Platform.Countries.HopperAPIGetPlatformCountriesRequest
+import cryptohopper.android.sdk.API.Platform.Countries.HopperAPIPlatformCountriesResponse
 import cryptohopper.android.sdk.API.User.Check2FAReset.HopperAPICheck2FAResetRequest
 import cryptohopper.android.sdk.API.User.CheckPasswordReset.HopperAPICheckPasswordResetRequest
 import cryptohopper.android.sdk.API.User.General.GetMobileNotifications.HopperAPIUpdateGetMobileNotificationRequest
@@ -404,6 +407,21 @@ class CryptohopperUser {
             }, { error ->
                 callback(null, error)
             })
+        }
+
+        /// Get One Subscription Plan
+        ///
+        ///
+        fun getCountries(
+            callback: (HopperAPICountriesResult?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIGetPlatformCountriesRequest("").request<HopperAPICountriesResult>(
+                { data ->
+                    callback(data, null)
+                },
+                { error ->
+                    callback(null, error)
+                })
         }
     }
 }
