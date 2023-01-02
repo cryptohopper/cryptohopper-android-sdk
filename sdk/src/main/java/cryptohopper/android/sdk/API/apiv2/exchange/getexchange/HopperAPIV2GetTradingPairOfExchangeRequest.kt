@@ -10,6 +10,6 @@ class HopperAPIV2GetTradingPairOfExchangeRequest : HopperAPIRequest<V2Pair> {
     constructor(exchangeId : Int) {
         this.httpMethod = HopperAPIHttpMethod.GET
         this.needsAuthentication = true
-        this.changeUrlPath(path = "rest/api/v2/exchange/$exchangeId/markets", isV2Endpoint = true)
+        this.changeUrlPath(path = "/exchange/$exchangeId/markets", isV2Endpoint = true)
     }
 }

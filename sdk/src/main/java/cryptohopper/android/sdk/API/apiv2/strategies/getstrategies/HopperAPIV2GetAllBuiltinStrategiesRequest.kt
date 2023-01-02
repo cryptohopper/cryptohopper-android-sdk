@@ -9,6 +9,6 @@ class HopperAPIV2GetAllBuiltinStrategiesRequest : HopperAPIRequest<List<V2Strate
     constructor() {
         this.httpMethod = HopperAPIHttpMethod.GET
         this.needsAuthentication = true
-        this.changeUrlPath(path = "/rest/api/v2/strategy/list", isV2Endpoint = true)
+        this.changeUrlPath(path = "/strategy/list", isV2Endpoint = true)
     }
 }

@@ -9,7 +9,7 @@ class HopperAPIV2CreateContactMessageRequest : HopperAPIRequest<HopperCommonMess
     constructor(email: String, message: String, name: String, subject: String) {
         this.httpMethod = HopperAPIHttpMethod.POST
         this.needsAuthentication = true
-        this.changeUrlPath(path = "rest/api/v2/user/contact", isV2Endpoint = true)
+        this.changeUrlPath(path = "/user/contact", isV2Endpoint = true)
 
         addBodyItem("email", email)
         addBodyItem("message", message)

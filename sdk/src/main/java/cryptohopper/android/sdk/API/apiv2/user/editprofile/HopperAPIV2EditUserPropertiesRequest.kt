@@ -10,7 +10,7 @@ class HopperAPIV2EditUserPropertiesRequest : HopperAPIRequest<HopperCommonMessag
 
         this.httpMethod = HopperAPIHttpMethod.PUT
         this.needsAuthentication = true
-        this.changeUrlPath(path = "/rest/api/v2/user", isV2Endpoint = true)
+        this.changeUrlPath(path = "/user", isV2Endpoint = true)
 
         properties.forEach {
             addBodyItem(it.key, it.value)
