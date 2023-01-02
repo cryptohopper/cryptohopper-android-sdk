@@ -9,6 +9,6 @@ class HopperAPIV2GetAllTournamentsRequest : HopperAPIRequest<List<V2Tournament>>
     constructor() {
         this.httpMethod = HopperAPIHttpMethod.GET
         this.needsAuthentication = true
-        this.changeUrlPath(path = "/rest/api/v2/tournaments/list", isV2Endpoint = true)
+        this.changeUrlPath(path = "/tournaments/list", isV2Endpoint = true)
     }
 }

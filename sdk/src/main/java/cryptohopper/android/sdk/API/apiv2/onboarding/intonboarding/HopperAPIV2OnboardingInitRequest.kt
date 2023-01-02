@@ -13,7 +13,7 @@ class HopperAPIV2OnboardingInitRequest : HopperAPIRequest<HopperAPIV2OnboardingI
     ) {
         this.httpMethod = HopperAPIHttpMethod.POST
         this.needsAuthentication = true
-        this.changeUrlPath(path = "/rest/api/v2/onboarding/init", isV2Endpoint = true)
+        this.changeUrlPath(path = "/onboarding/init", isV2Endpoint = true)
 
         val exchangeObject = HashMap<String, Any>()
         exchangeObject["id"] = exchangeId

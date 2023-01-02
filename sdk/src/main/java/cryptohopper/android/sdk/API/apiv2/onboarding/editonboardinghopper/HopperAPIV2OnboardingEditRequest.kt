@@ -14,7 +14,7 @@ class HopperAPIV2OnboardingEditRequest : HopperAPIRequest<HopperCommonMessageRes
     ) {
         this.httpMethod = HopperAPIHttpMethod.PATCH
         this.needsAuthentication = true
-        this.changeUrlPath(path = "/rest/api/v2/onboarding/edit", isV2Endpoint = true)
+        this.changeUrlPath(path = "/onboarding/edit", isV2Endpoint = true)
 
         val exchangeObject = HashMap<String, Any>()
         exchangeObject["id"] = exchangeId

@@ -9,6 +9,6 @@ class HopperAPIV2GetAllCurrenciesRequest : HopperAPIRequest<List<V2Currency>> {
     constructor(data: String? = null) {
         this.httpMethod = HopperAPIHttpMethod.GET
         this.needsAuthentication = true
-        this.changeUrlPath(path = "/rest/api/v2/currencies/list", isV2Endpoint = true)
+        this.changeUrlPath(path = "/currencies/list", isV2Endpoint = true)
     }
 }

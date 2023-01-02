@@ -11,6 +11,6 @@ class HopperAPIV2GetUserProfileRequest : HopperAPIRequest<V2User?> {
         this.httpMethod = HopperAPIHttpMethod.GET
         this.needsAuthentication = true
 
-        this.changeUrlPath(path = "/rest/api/v2/user", isV2Endpoint = true)
+        this.changeUrlPath(path = "/user", isV2Endpoint = true)
     }
 }
