@@ -12,7 +12,7 @@ class CryptohopperV2Exchange {
 
         /// Get Exchanges
         fun getAllExchanges(callback: (List<V2Exchange>?, HopperAPIError?) -> Unit) {
-            HopperAPIV2GetAllExchangesRequest().request<List<V2Exchange>>({ data ->
+            HopperAPIV2GetAllExchangesRequest("").request<List<V2Exchange>>({ data ->
                 callback(data, null)
             }, { error ->
                 callback(null, error)

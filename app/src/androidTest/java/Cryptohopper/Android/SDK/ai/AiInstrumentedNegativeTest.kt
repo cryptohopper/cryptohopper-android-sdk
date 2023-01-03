@@ -35,7 +35,9 @@ class AiInstrumentedNegativeTest {
             username = username,
             password = StringGenerator.getRandomString(),
             verificationCode = null,
-            userAgent = userAgent
+            userAgent = userAgent,
+            "",
+            "Android"
         ) { _, _ ->
 
         }

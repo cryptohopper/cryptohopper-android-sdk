@@ -39,7 +39,9 @@ class ExchangeInstrumentedNegativeTest {
             username = username,
             password = StringGenerator.getRandomString(),
             verificationCode = null,
-            userAgent = userAgent
+            userAgent = userAgent,
+            "",
+            "Android"
         ) { result, error ->
             Assert.assertNull(result)
             Assert.assertNotNull(error)

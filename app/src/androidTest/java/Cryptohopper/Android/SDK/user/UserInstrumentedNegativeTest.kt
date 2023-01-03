@@ -39,7 +39,9 @@ class UserInstrumentedNegativeTest {
             username = username,
             password = StringGenerator.getRandomString(),
             verificationCode = null,
-            userAgent = userAgent
+            userAgent = userAgent,
+            "",
+            "Android"
         ) { result, error ->
             Assert.assertNull(result)
             Assert.assertNotNull(error)
@@ -59,7 +61,8 @@ class UserInstrumentedNegativeTest {
         val userAgent = Aes256.encrypt(API_USER, Const.API_AGENT)
         CryptohopperUser.forgetPassword(
             email = Const.API_EMAIL,
-            userAgent = userAgent
+            userAgent = userAgent,
+            ""
         ) { _, error ->
             Assert.assertNotNull(error)
         }
