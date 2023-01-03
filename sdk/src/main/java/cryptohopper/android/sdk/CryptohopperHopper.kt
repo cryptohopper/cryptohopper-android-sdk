@@ -3,6 +3,8 @@ import cryptohopper.android.sdk.API.Hopper.General.CreateHopper.HopperAPICreateH
 import cryptohopper.android.sdk.API.Hopper.General.CreateHopper.HopperAPICreateHopperResponse
 import cryptohopper.android.sdk.API.Hopper.General.GetAssets.HopperAPIGetAssetsRequest
 import cryptohopper.android.sdk.API.Hopper.General.GetAssets.HopperAPIGetAssetsResponse
+import cryptohopper.android.sdk.API.Hopper.General.GetIPWhitelist.HopperAPIGetHopperWhitelistIPRequest
+import cryptohopper.android.sdk.API.Hopper.General.GetIPWhitelist.HopperAPIGetHopperWhitelistIPResponse
 import cryptohopper.android.sdk.API.Hopper.General.StopWithoutSelling.HopperAPIStopHopperWithoutSellingRequest
 import cryptohopper.android.sdk.API.Hopper.Position.DCAOnePosition.HopperAPIDCAOnePositionRequest
 import cryptohopper.android.sdk.API.Hopper.Position.GetUnsyncedPositions.HopperAPIGetUnsyncedPositionRequest
@@ -60,6 +62,20 @@ class CryptohopperHopper {
                 callback(null, error)
             })
         }
+
+
+       ///@discussion Gets Hopper Whitelist Ips
+
+       ///@param hopperId: (required) Hopper's id
+       fun getHopperIPWhitelist(hopperId: Int, callback: (String?, HopperAPIError?) -> Unit) {
+           HopperAPIGetHopperWhitelistIPRequest(hopperId = hopperId).request<HopperAPIGetHopperWhitelistIPResponse>({ hopper ->
+               callback(hopper.data?.ips, null)
+           }, { error ->
+               callback(null, error)
+           })
+       }
+
+
 
         /// Create new Hopper with parameters
         ///
