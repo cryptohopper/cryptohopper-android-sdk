@@ -3,12 +3,14 @@ package Cryptohopper.Android.SDK.exchange
 import CryptoHopperConfig
 import Cryptohopper.Android.SDK.helper.Const
 import Cryptohopper.Android.SDK.helper.Const.API_KEY
-import Cryptohopper.Android.SDK.helper.Const.API_PASSWORD
 import Cryptohopper.Android.SDK.helper.Const.API_USER
+import Cryptohopper.Android.SDK.helper.Const.V2_KEY
+import Cryptohopper.Android.SDK.helper.Const.V2_VALUE
 import CryptohopperExchange
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.github.mervick.aes_everywhere.Aes256
+import cryptohopper.android.sdk.BuildConfig
 import cryptohopper.android.sdk.CryptohopperAuth
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIEnvironment
 import org.junit.Assert
@@ -24,7 +26,9 @@ class ExchangeInstrumentedTest {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         CryptoHopperConfig.configure(
             appContext, API_KEY,
-            HopperAPIEnvironment.Production
+            HopperAPIEnvironment.Production,
+            V2_KEY,
+            V2_VALUE
         )
 
         callAuthenticationWithAccurateDetails()
@@ -33,10 +37,12 @@ class ExchangeInstrumentedTest {
     private fun callAuthenticationWithAccurateDetails() {
         val userAgent = Aes256.encrypt(API_USER, Const.API_AGENT)
         CryptohopperAuth.login(
-            username = API_USER,
-            password = API_PASSWORD,
-            verificationCode = null,
-            userAgent = userAgent
+            username = Cryptohopper.Android.SDK.BuildConfig.API_EMAIL,
+            password = Cryptohopper.Android.SDK.BuildConfig.API_PASSWORD,
+            verificationCode = "",
+            userAgent = Cryptohopper.Android.SDK.BuildConfig.API_AGENT,
+            "",
+            "Android"
         ) { result, error ->
             Assert.assertNull(error)
             Assert.assertNotNull(result)
@@ -68,6 +74,14 @@ class ExchangeInstrumentedTest {
         CryptohopperExchange.getExchanges { result, error ->
             Assert.assertNotNull(result)
             Assert.assertTrue(result?.javaClass?.name == "java.util.ArrayList")
+        }
+    }
+
+    @Test
+    fun v2_exchanges_error_must_return_null() {
+        CryptohopperV2Exchange.getAllExchanges { result, error ->
+            Assert.assertNull(error)
+            Assert.assertNotNull(result)
         }
     }
 

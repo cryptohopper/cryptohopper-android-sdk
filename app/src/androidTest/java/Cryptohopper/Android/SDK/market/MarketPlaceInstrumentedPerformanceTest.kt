@@ -37,7 +37,9 @@ class MarketPlaceInstrumentedPerformanceTest {
             username = API_USER,
             password = API_PASSWORD,
             verificationCode = null,
-            userAgent = userAgent
+            userAgent = userAgent,
+            "",
+            "Android"
         ) { _, _ ->
 
         }

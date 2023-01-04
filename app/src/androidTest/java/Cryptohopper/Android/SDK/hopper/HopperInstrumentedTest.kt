@@ -36,7 +36,9 @@ class HopperInstrumentedTest {
             username = API_USER,
             password = API_PASSWORD,
             verificationCode = null,
-            userAgent = userAgent
+            userAgent = userAgent,
+            "",
+            "Android"
         ) { _, _ ->
 
         }
@@ -801,7 +803,8 @@ class HopperInstrumentedTest {
                     hoppers?.get(0)?.id ?: "",
                     positions?.map {
                         it.id?.toInt() ?: 0
-                    } ?: arrayListOf()
+                    } ?: arrayListOf(),
+                    false
                 ) { response, error ->
                     Assert.assertNull(error)
                     Assert.assertNotNull(response)
@@ -818,7 +821,8 @@ class HopperInstrumentedTest {
             ) { positions, _ ->
                 CryptohopperHopper.sellOnePosition(
                     hoppers?.get(0)?.id ?: "",
-                    positions?.get(0)?.id?.toInt() ?: 0
+                    positions?.get(0)?.id?.toInt() ?: 0,
+                    false
                 ) { response, error ->
                     Assert.assertNull(error)
                     Assert.assertNotNull(response)
@@ -964,7 +968,8 @@ class HopperInstrumentedTest {
             ) { positions, _ ->
                 CryptohopperHopper.dcaOnePosition(
                     hoppers?.get(0)?.id ?: "",
-                    positions?.get(0)?.id?.toInt() ?: 0
+                    positions?.get(0)?.id?.toInt() ?: 0,
+                    false
                 ) { response, error ->
                     Assert.assertNull(error)
                     Assert.assertNotNull(response)

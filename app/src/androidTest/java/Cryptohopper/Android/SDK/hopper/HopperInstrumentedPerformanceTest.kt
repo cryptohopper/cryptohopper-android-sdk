@@ -41,7 +41,9 @@ class HopperInstrumentedPerformanceTest {
             username = API_USER,
             password = API_PASSWORD,
             verificationCode = null,
-            userAgent = userAgent
+            userAgent = userAgent,
+            "",
+            ""
         ) { _, _ ->
 
         }
@@ -826,7 +828,8 @@ class HopperInstrumentedPerformanceTest {
                     hoppers?.get(0)?.id ?: "",
                     positions?.map {
                         it.id?.toInt() ?: 0
-                    } ?: arrayListOf()
+                    } ?: arrayListOf(),
+                    false
                 ) { _, _ ->
                     Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
                 }
@@ -846,7 +849,8 @@ class HopperInstrumentedPerformanceTest {
                 timeLapsCalculator.startTimer()
                 CryptohopperHopper.sellOnePosition(
                     hoppers?.get(0)?.id ?: "",
-                    positions?.get(0)?.id?.toInt() ?: 0
+                    positions?.get(0)?.id?.toInt() ?: 0,
+                    false
                 ) { _, _ ->
                     Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
                 }
@@ -1024,7 +1028,8 @@ class HopperInstrumentedPerformanceTest {
                 timeLapsCalculator.startTimer()
                 CryptohopperHopper.dcaOnePosition(
                     hoppers?.get(0)?.id ?: "",
-                    positions?.get(0)?.id?.toInt() ?: 0
+                    positions?.get(0)?.id?.toInt() ?: 0,
+                    false
                 ) { _, _ ->
                     Assert.assertTrue(TimeLapsCalculator.estimatedAPiResponseTime > timeLapsCalculator.getApiResponseTime())
                 }

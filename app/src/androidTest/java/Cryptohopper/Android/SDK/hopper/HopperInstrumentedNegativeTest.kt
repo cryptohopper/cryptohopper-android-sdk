@@ -37,7 +37,9 @@ class HopperInstrumentedNegativeTest {
             username = username,
             password = StringGenerator.getRandomString(),
             verificationCode = null,
-            userAgent = userAgent
+            userAgent = userAgent,
+            "",
+            ""
         ) { _, _ ->
 
         }
@@ -432,11 +434,11 @@ class HopperInstrumentedNegativeTest {
     fun when_the_given_getOnePosition_Endpoint_is_called_with_incorrect_details_then_it_must_error() {
         CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
             CryptohopperHopper.getAllPositions(
-                hoppers?.get(0)?.id ?: ""
+                hoppers?.get(0)?.id ?: "",
             ) { positions, _ ->
                 CryptohopperHopper.getOnePosition(
                     hoppers?.get(0)?.id ?: "",
-                    positions?.get(0)?.id?.toInt() ?: 0
+                    positions?.get(0)?.id?.toInt() ?: 0,
                 ) { _, error ->
                     Assert.assertNotNull(error)
                 }
@@ -676,7 +678,8 @@ class HopperInstrumentedNegativeTest {
                     hoppers?.get(0)?.id ?: "",
                     positions?.map {
                         it.id?.toInt() ?: 0
-                    } ?: arrayListOf()
+                    } ?: arrayListOf(),
+                    false
                 ) { _, error ->
                     Assert.assertNotNull(error)
                 }
@@ -693,7 +696,8 @@ class HopperInstrumentedNegativeTest {
             ) { positions, _ ->
                 CryptohopperHopper.sellOnePosition(
                     hoppers?.get(0)?.id ?: "",
-                    positions?.get(0)?.id?.toInt() ?: 0
+                    positions?.get(0)?.id?.toInt() ?: 0,
+                    false
                 ) { _, error ->
                     Assert.assertNotNull(error)
                 }
@@ -837,7 +841,8 @@ class HopperInstrumentedNegativeTest {
             ) { positions, _ ->
                 CryptohopperHopper.dcaOnePosition(
                     hoppers?.get(0)?.id ?: "",
-                    positions?.get(0)?.id?.toInt() ?: 0
+                    positions?.get(0)?.id?.toInt() ?: 0,
+                    false
                 ) { _, error ->
                     Assert.assertNotNull(error)
                 }

@@ -28,9 +28,9 @@ data class V2Exchange(
     @SerializedName("display") val display: Boolean?,
     @SerializedName("maintenance") val maintenance: Boolean?,
     @SerializedName("margin") val margin: Boolean?,
-    @SerializedName("extraLinks") val extraLinks: List<String>?,
+    @SerializedName("extraLinks") val extraLinks: List<Map<String,String>>?,
     @SerializedName("quoteCurrencies") val quoteCurrencies: List<String>?,
-    @SerializedName("images") val images: List<Map<String?, String?>>?,
+    @SerializedName("images") val images: Map<String?, String?>?,
     @SerializedName("apiConfigFields") val apiConfigFields: List<String>?,
     @SerializedName("optionalConfigFields") val optionalConfigFields: List<String>?
 )

@@ -37,7 +37,9 @@ class UserInstrumentedTest {
             username = API_USER,
             password = API_PASSWORD,
             verificationCode = null,
-            userAgent = userAgent
+            userAgent = userAgent,
+            "",
+            "Android"
         ) { _, _ ->
 
         }
@@ -63,7 +65,8 @@ class UserInstrumentedTest {
         val userAgent = Aes256.encrypt(API_USER, Const.API_AGENT)
         CryptohopperUser.forgetPassword(
             email = Const.API_EMAIL,
-            userAgent = userAgent
+            userAgent = userAgent,
+            ""
         ) { data, _ ->
             Assert.assertNotNull(data)
         }
