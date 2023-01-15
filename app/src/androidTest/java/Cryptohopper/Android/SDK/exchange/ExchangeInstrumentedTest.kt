@@ -86,6 +86,14 @@ class ExchangeInstrumentedTest {
     }
 
     @Test
+    fun v2_signals_error_must_return_null() {
+        CryptohopperV2Signal.getSignals("binance") { result, error ->
+            Assert.assertNull(error)
+            Assert.assertNotNull(result)
+        }
+    }
+
+    @Test
     fun when_the_given_getExchangeDetails_Endpoint_is_called_with_correct_token_then_it_must_return_list() {
         CryptohopperExchange.getExchangeDetails { result, error ->
             Assert.assertNull(error)

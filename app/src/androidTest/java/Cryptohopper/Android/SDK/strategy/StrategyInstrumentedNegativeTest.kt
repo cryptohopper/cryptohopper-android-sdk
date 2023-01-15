@@ -22,7 +22,9 @@ class StrategyInstrumentedNegativeTest {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         CryptoHopperConfig.configure(
             appContext, API_KEY,
-            HopperAPIEnvironment.Production
+            HopperAPIEnvironment.Production,
+            Const.V2_KEY,
+            Const.V2_VALUE
         )
         //callAuthenticationWithMockDetails()
     }
@@ -139,6 +141,14 @@ class StrategyInstrumentedNegativeTest {
                 Assert.assertNotNull(error)
                 Assert.assertNull(response)
             }
+        }
+    }
+
+    @Test
+    fun v2_get_strats_error_must_return_null() {
+        CryptohopperV2Strategy.getBuiltinStrategies{ result, error ->
+            Assert.assertNull(error)
+            Assert.assertNotNull(result)
         }
     }
 }

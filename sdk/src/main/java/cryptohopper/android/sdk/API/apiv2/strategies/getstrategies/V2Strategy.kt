@@ -6,10 +6,10 @@ data class V2Strategy(
     @SerializedName("id") val id: String?,
     @SerializedName("name") val name: String?,
     @SerializedName("description") val description: String?,
-    @SerializedName("image") val image: Double?,
-    @SerializedName("createdAt") val createdAt: Double?,
-    @SerializedName("updatedAt") val updatedAt: Int?,
-    @SerializedName("risk") val risk: Double?,
+    @SerializedName("image") val image: String?,
+    @SerializedName("createdAt") val createdAt: String?,
+    @SerializedName("updatedAt") val updatedAt: String?,
+    @SerializedName("risk") val risk: String?,
     @SerializedName("availableCoins") val availableCoins: List<String>?
 )
 
