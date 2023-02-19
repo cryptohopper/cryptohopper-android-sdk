@@ -1,3 +1,4 @@
+import cryptohopper.android.sdk.API.Exchange.GetExchangeWhitelistIP.CHIPWhitelist
 import cryptohopper.android.sdk.API.Hopper.Balance.EditStartBalance.HopperAPIEditStartBalanceRequest
 import cryptohopper.android.sdk.API.Hopper.General.CreateHopper.HopperAPICreateHopperModel
 import cryptohopper.android.sdk.API.Hopper.General.CreateHopper.HopperAPICreateHopperResponse
@@ -20,6 +21,8 @@ import cryptohopper.android.sdk.API.Hopper.Stats.GetStats.HopperStats
 import cryptohopper.android.sdk.API.Hopper.activities.HopperAPIGetActivityData
 import cryptohopper.android.sdk.API.Hopper.activities.HopperAPIGetActivityRequest
 import cryptohopper.android.sdk.API.Hopper.activities.HopperAPIGetActivityResponse
+import cryptohopper.android.sdk.API.Marketplace.Copybot.CopyBotCreateHopper.HopperAPICopyBotCreateHopperRequest
+import cryptohopper.android.sdk.API.Purchase.General.HopperAPIPurchaseResponse
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIError
 import cryptohopper.android.sdk.SharedModels.Hopper.Models.HopperOutput
 import cryptohopper.android.sdk.SharedModels.Hopper.Models.HopperTradeHistory
@@ -67,9 +70,9 @@ class CryptohopperHopper {
        ///@discussion Gets Hopper Whitelist Ips
 
        ///@param hopperId: (required) Hopper's id
-       fun getHopperIPWhitelist(hopperId: Int, callback: (String?, HopperAPIError?) -> Unit) {
-           HopperAPIGetHopperWhitelistIPRequest(hopperId = hopperId).request<HopperAPIGetHopperWhitelistIPResponse>({ hopper ->
-               callback(hopper.data?.ips, null)
+       fun getHopperIPWhitelist(hopperId: Int,exchange: String, callback: (CHIPWhitelist?, HopperAPIError?) -> Unit) {
+           HopperAPIGetHopperWhitelistIPRequest(hopperId = hopperId, exchange = exchange).request<HopperAPIGetHopperWhitelistIPResponse>({ hopper ->
+               callback(hopper.data, null)
            }, { error ->
                callback(null, error)
            })
@@ -1795,6 +1798,31 @@ class CryptohopperHopper {
                 hopperId
             ).request<HopperAPIGetActivityResponse>({ data ->
                 callback(data.data, null)
+            }, { error ->
+                callback(null, error)
+            })
+        }
+
+        fun createCopyBot(
+            copyBotMarketplaceId : String,
+            paperTrading: Boolean ,
+            apiKey : String? ,
+            apiSecret : String? ,
+            apiPassphrase : String? ,
+            extraApiKey : String? ,
+            extraApiSecret : String?,
+            callback: (String?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPICopyBotCreateHopperRequest(
+                copyBotMarketplaceId = copyBotMarketplaceId,
+                paperTrading = paperTrading,
+                apiKey = apiKey,
+                apiSecret = apiSecret,
+                apiPassphrase = apiPassphrase,
+                extraApiKey = extraApiKey,
+                extraApiSecret = extraApiSecret
+            ).request<HopperAPIPurchaseResponse>({ data ->
+                callback(data.message, null)
             }, { error ->
                 callback(null, error)
             })

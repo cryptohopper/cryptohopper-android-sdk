@@ -1,9 +1,12 @@
 import cryptohopper.android.sdk.API.Hopper.Signal.GetChartData.HopperAPIGetSignalChartDataRequest
 import cryptohopper.android.sdk.API.Hopper.Signal.GetChartData.HopperAPIGetSignalChartDataResponse
 import cryptohopper.android.sdk.API.Hopper.Signal.GetChartData.SignalChartData
+import cryptohopper.android.sdk.API.Marketplace.Copybot.GetCopyBots.HopperAPIGetCopyBotsRequest
+import cryptohopper.android.sdk.API.Marketplace.Copybot.GetCopyBots.HopperAPIGetCopyBotsResponse
 import cryptohopper.android.sdk.API.Marketplace.Seller.HopperAPIGetMarketSellerRequest
 import cryptohopper.android.sdk.API.Marketplace.Seller.HopperAPIGetMarketSellerResponse
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIError
+import cryptohopper.android.sdk.SharedModels.Marketplace.Models.MarketCopyBot
 import cryptohopper.android.sdk.SharedModels.Marketplace.Models.MarketplaceSeller
 
 class CryptohopperMarketplace {
@@ -448,6 +451,18 @@ class CryptohopperMarketplace {
                 rating
             ).request<HopperCommonMessageResponse>({ data ->
                 callback(data.data, null)
+            }, { error ->
+                callback(null, error)
+            })
+        }
+
+
+        /// @discussion Get Marketplace Copy Bots
+
+
+        fun getMarketCopyBots(callback: (List<MarketCopyBot>?, HopperAPIError?) -> Unit) {
+            HopperAPIGetCopyBotsRequest("").request<HopperAPIGetCopyBotsResponse>({ data ->
+                callback(data.data?.copybots, null)
             }, { error ->
                 callback(null, error)
             })

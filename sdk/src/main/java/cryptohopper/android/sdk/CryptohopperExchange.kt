@@ -1,3 +1,4 @@
+import cryptohopper.android.sdk.API.Exchange.GetExchangeWhitelistIP.CHIPWhitelist
 import cryptohopper.android.sdk.API.Exchange.GetExchangeWhitelistIP.HopperAPIGetExchangeWhitelistIPRequest
 import cryptohopper.android.sdk.API.Exchange.GetExchangeWhitelistIP.HopperAPIGetExchangeWhitelistIPResponse
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIError
@@ -44,9 +45,9 @@ class CryptohopperExchange {
 
         /// Get Exchanges IP Whitelist
         ///
-        fun getExchangeWhitelistIps(exchangeKey: String, callback: (String?, HopperAPIError?) -> Unit) {
+        fun getExchangeWhitelistIps(exchangeKey: String, callback: (CHIPWhitelist?, HopperAPIError?) -> Unit) {
             HopperAPIGetExchangeWhitelistIPRequest(exchange = exchangeKey).request<HopperAPIGetExchangeWhitelistIPResponse>({ data ->
-                callback(data.data?.ips, null)
+                callback(data.data, null)
             }, { error ->
                 callback(null, error)
             })

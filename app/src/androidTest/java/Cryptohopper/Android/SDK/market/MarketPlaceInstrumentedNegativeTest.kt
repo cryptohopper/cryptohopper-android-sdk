@@ -22,26 +22,29 @@ class MarketPlaceInstrumentedNegativeTest {
     fun setup() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         CryptoHopperConfig.configure(
-            appContext, API_KEY,
-            HopperAPIEnvironment.Production
+            appContext,
+            API_KEY,
+            HopperAPIEnvironment.Production,
+            Const.V2_KEY,
+            Const.V2_VALUE
         )
-        callAuthenticationWithMockDetails()
+        //callAuthenticationWithMockDetails()
     }
 
-    private fun callAuthenticationWithMockDetails() {
-        val username = StringGenerator.getRandomString()
-        val userAgent = Aes256.encrypt(username, Const.API_AGENT)
-        CryptohopperAuth.login(
-            username = username,
-            password = StringGenerator.getRandomString(),
-            verificationCode = null,
-            userAgent = userAgent,
-            "",
-            "Android"
-        ) { _, _ ->
-
-        }
-    }
+//    private fun callAuthenticationWithMockDetails() {
+//        val username = StringGenerator.getRandomString()
+//        val userAgent = Aes256.encrypt(username, Const.API_AGENT)
+//        CryptohopperAuth.login(
+//            username = username,
+//            password = StringGenerator.getRandomString(),
+//            verificationCode = null,
+//            userAgent = userAgent,
+//            "",
+//            "Android"
+//        ) { _, _ ->
+//
+//        }
+//    }
 
     //******************* Positive cases ***************************
 
@@ -307,6 +310,14 @@ class MarketPlaceInstrumentedNegativeTest {
             ) { _, error ->
                 Assert.assertNotNull(error)
             }
+        }
+    }
+
+    @Test
+    fun getCopyBotsTest() {
+        CryptohopperMarketplace.getMarketCopyBots { copybots, err ->
+            Assert.assertNull(err)
+            Assert.assertNotNull(copybots)
         }
     }
 }
