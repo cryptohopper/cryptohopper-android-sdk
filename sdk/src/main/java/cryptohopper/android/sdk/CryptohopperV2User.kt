@@ -1,4 +1,5 @@
 import cryptohopper.android.sdk.API.apiv2.user.TestKeys.HopperAPIV2TestApiKeyRequest
+import cryptohopper.android.sdk.API.apiv2.user.TestKeys.HopperAPIV2TestApiKeyResponse
 import cryptohopper.android.sdk.API.apiv2.user.balancecheck.HopperAPIV2CheckUserBalanceRequest
 import cryptohopper.android.sdk.API.apiv2.user.createcontactmessage.HopperAPIV2CreateContactMessageRequest
 import cryptohopper.android.sdk.API.apiv2.user.editprofile.HopperAPIV2EditUserPropertiesRequest
@@ -59,9 +60,9 @@ class CryptohopperV2User {
             })
         }
 
-        fun testKeys(exchange : String?,apiKey : String?,apiSecret : String?,apiPassphrase : String?,extraApiKey : String?,extraApiSecret : String?,subAccount : String?, callback: (String?, HopperAPIError?) -> Unit) {
-            HopperAPIV2TestApiKeyRequest(exchange, apiKey, apiSecret, apiPassphrase,extraApiKey, extraApiSecret, subAccount).request<HopperCommonMessageResponse>({ data ->
-                callback("Success!", null)
+        fun testKeys(exchange : String?,apiKey : String?,apiSecret : String?,apiPassphrase : String?,extraApiKey : String?,extraApiSecret : String?,subAccount : String?, callback: (Map<String,Double>?, HopperAPIError?) -> Unit) {
+            HopperAPIV2TestApiKeyRequest(exchange, apiKey, apiSecret, apiPassphrase,extraApiKey, extraApiSecret, subAccount).request<HopperAPIV2TestApiKeyResponse>({ data ->
+                callback(data?.balances, null)
             }, { error ->
                 callback(null, error)
             })

@@ -4,7 +4,7 @@ import HopperAPIRequest
 import HopperCommonMessageResponse
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIHttpMethod
 
-class HopperAPIV2TestApiKeyRequest: HopperAPIRequest<HopperCommonMessageResponse?> {
+class HopperAPIV2TestApiKeyRequest: HopperAPIRequest<HopperAPIV2TestApiKeyResponse?> {
 
     constructor(
         exchange : String?,

@@ -8,5 +8,7 @@ data class HopperAPIGetExchangeWhitelistIPResponse (
 )
 
 data class CHIPWhitelist  (
-    @SerializedName("ip_addresses") val ips : String?
+    @SerializedName("ip_addresses") val ips: String?,
+    @SerializedName("show_ip_addresses") val showIpAddresses: String?,
+    @SerializedName("copy_ip_addresses") val copyIPAddresses: String?
 )
