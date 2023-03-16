@@ -172,6 +172,8 @@ data class HopperConfig(
     @SerializedName("auto_dca_size") var auto_dca_size: String?,
     @SerializedName("auto_dca_size_custom") var auto_dca_size_custom: String?,
     @SerializedName("load_api_from") var load_api_from: String?,
+    @SerializedName("only_when_new") var only_when_new : String?,
+    @SerializedName("only_when_new_range") val only_when_new_range : String?,
 
 
     //AI Configs
@@ -181,6 +183,8 @@ data class HopperConfig(
     @SerializedName("buy_score_corrected") var buyScoreCorrected: String?,
 ) {
     constructor() : this(
+        null,
+        null,
         null,
         null,
         null,
