@@ -8,7 +8,7 @@ class HopperAPIGetCopyBotsRequest: HopperAPIRequest<HopperAPIGetCopyBotsResponse
 
     constructor(data : String) {
         this.httpMethod = HopperAPIHttpMethod.GET
-        this.needsAuthentication = false
+        this.needsAuthentication = true
         this.changeUrlPath("/market/copybots")
     }
 }
