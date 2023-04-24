@@ -16,6 +16,7 @@ data class MarketCopyBot(
     @SerializedName("feature_image") val featureImage: String?,
     @SerializedName("top_item") val topItem: String?,
     @SerializedName("link") val link: String?,
+    @SerializedName("rating") val rating: String?,
     @SerializedName("total_votes") val totalVotes: String?,
     @SerializedName("sales") val sales: String?,
     @SerializedName("price") val price: String?,
