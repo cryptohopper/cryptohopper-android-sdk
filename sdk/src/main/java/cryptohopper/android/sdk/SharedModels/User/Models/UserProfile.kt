@@ -21,5 +21,5 @@ data class UserProfile (
     @SerializedName("address1") val addressOne: String?,
     @SerializedName("address2") val addressTwo: String?,
     @SerializedName("enabled_2fa") val enableTwoFactorAuth: Boolean?,
-    @SerializedName("user_has_trial") val userHasTrial: String?
+    @SerializedName("is_trial_user") val isTrialUser: String?
 )
