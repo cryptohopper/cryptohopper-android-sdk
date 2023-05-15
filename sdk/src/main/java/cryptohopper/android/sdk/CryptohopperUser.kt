@@ -84,15 +84,15 @@ class CryptohopperUser {
         ///- Parameter phone: (required) phone
         ///- Parameter website: (required) website
         fun updateUserProfile(
-            name: String,
-            addressOne: String,
-            addressTwo: String,
-            city: String,
-            region: String,
-            country: String,
-            postalCode: String,
-            phone: String,
-            website: String,
+            name: String?,
+            addressOne: String?,
+            addressTwo: String?,
+            city: String?,
+            region: String?,
+            country: String?,
+            postalCode: String?,
+            phone: String?,
+            website: String?,
             callback: (String?, HopperAPIError?) -> Unit
         ) {
             HopperAPIUpdateUserProfileRequest(

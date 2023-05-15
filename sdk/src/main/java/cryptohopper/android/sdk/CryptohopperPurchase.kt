@@ -20,8 +20,8 @@ class CryptohopperPurchase {
             })
         }
 
-        fun purchaseIAP(planId: String?,marketplaceId: String?,hopperId: String?,transactionId: String, callback : (HopperAPIPurchaseResponse?, HopperAPIError?) -> Unit) {
-            HopperAPIIAPPurchaseRequest(planId,marketplaceId,hopperId,transactionId).request<HopperAPIPurchaseResponse>({ data ->
+        fun purchaseIAP(planId: String?,marketplaceId: String?,hopperId: String?,transactionId: String,isSandBox : Boolean = false, callback : (HopperAPIPurchaseResponse?, HopperAPIError?) -> Unit) {
+            HopperAPIIAPPurchaseRequest(planId,marketplaceId,hopperId,transactionId,isSandBox).request<HopperAPIPurchaseResponse>({ data ->
                 callback(data,null)
             } , { error ->
                 callback(null,error)

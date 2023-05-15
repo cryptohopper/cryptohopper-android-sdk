@@ -6,6 +6,7 @@ data class MarketCopyBot(
     @SerializedName("id") val id: String?,
     @SerializedName("item_id") val itemId: String?,
     @SerializedName("exchange") val exchange: String?,
+    @SerializedName("description") val description : String?,
     @SerializedName("quote_currency") val quoteCurrency: String?,
     @SerializedName("allowed_coins") val allowedCoins: List<String>?,
     @SerializedName("free_trial") val freeTrial: String?,
