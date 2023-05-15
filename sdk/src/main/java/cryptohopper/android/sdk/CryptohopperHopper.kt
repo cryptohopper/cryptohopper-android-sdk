@@ -1839,6 +1839,8 @@ class CryptohopperHopper {
             apiPassphrase : String? ,
             extraApiKey : String? ,
             extraApiSecret : String?,
+            autoSync : Boolean = true,
+            isSandbox : Boolean = false,
             callback: (String?, HopperAPIError?) -> Unit
         ) {
             HopperAPICopyBotCreateHopperRequest(
@@ -1848,7 +1850,9 @@ class CryptohopperHopper {
                 apiSecret = apiSecret,
                 apiPassphrase = apiPassphrase,
                 extraApiKey = extraApiKey,
-                extraApiSecret = extraApiSecret
+                extraApiSecret = extraApiSecret,
+                autoSync = autoSync,
+                isSandbox = isSandbox
             ).request<HopperAPIPurchaseResponse>({ data ->
                 callback(data.message, null)
             }, { error ->

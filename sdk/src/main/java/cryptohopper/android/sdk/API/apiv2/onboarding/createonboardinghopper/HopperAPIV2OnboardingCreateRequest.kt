@@ -11,7 +11,8 @@ class HopperAPIV2OnboardingCreateRequest : HopperAPIRequest<HopperCommonMessageR
         hopperId: Int,
         isBuyingEnabled: Boolean,
         isSellingEnabled: Boolean,
-        isEnabled: Boolean,
+        isHopperEnabled: Boolean,
+        isPortfolioSyncEnabled: Boolean,
         isPaperTrading: Boolean,
         quoteCurrency: String,
         signallerId: Int?,
@@ -19,7 +20,7 @@ class HopperAPIV2OnboardingCreateRequest : HopperAPIRequest<HopperCommonMessageR
     ) {
         this.httpMethod = HopperAPIHttpMethod.POST
         this.needsAuthentication = true
-        this.changeUrlPath(path = "/onboarding/edit", isV2Endpoint = true)
+        this.changeUrlPath(path = "/onboarding/create", isV2Endpoint = true)
 
         val exchangeObject = HashMap<String, Any>()
         exchangeObject["paperTrading"] = isPaperTrading
@@ -30,7 +31,8 @@ class HopperAPIV2OnboardingCreateRequest : HopperAPIRequest<HopperCommonMessageR
         settingsObject["id"] = hopperId
         settingsObject["buying"] = isBuyingEnabled
         settingsObject["selling"] = isSellingEnabled
-        settingsObject["enabled"] = isEnabled
+        settingsObject["enabled"] = isHopperEnabled
+        settingsObject["autosync"] = isPortfolioSyncEnabled
 
         val botObject = HashMap<String, Any>()
         botObject["settings"] = settingsObject
