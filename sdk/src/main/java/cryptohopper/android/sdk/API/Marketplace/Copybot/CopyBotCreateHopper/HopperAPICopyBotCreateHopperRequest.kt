@@ -6,7 +6,7 @@ import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIHttpMethod
 
 class HopperAPICopyBotCreateHopperRequest : HopperAPIRequest<HopperAPIPurchaseResponse> {
 
-    constructor(copyBotMarketplaceId  : String, paperTrading: Boolean, apiKey : String? , apiSecret : String? , apiPassphrase : String? , extraApiKey : String? , extraApiSecret : String?,autoSync : Boolean = true, isSandbox : Boolean = false ) {
+    constructor(hopperId : String?, copyBotMarketplaceId  : String, paperTrading: Boolean, apiKey : String? , apiSecret : String? , apiPassphrase : String? , extraApiKey : String? , extraApiSecret : String?,autoSync : Boolean = true, isSandbox : Boolean = false ) {
         this.httpMethod = HopperAPIHttpMethod.POST
         this.needsAuthentication = true
         this.changeUrlPath("/app/mobile/iap")
@@ -17,6 +17,9 @@ class HopperAPICopyBotCreateHopperRequest : HopperAPIRequest<HopperAPIPurchaseRe
         addBodyItem( "walletscrubber", "1")
         addBodyItem( "autosync", "1")
 
+        if((hopperId?: "") != ""){
+            addBodyItem("load_into_bot",hopperId!!)
+        }
         if(autoSync){
             addBodyItem("autosync","1")
         }

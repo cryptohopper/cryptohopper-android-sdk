@@ -58,7 +58,7 @@ class CryptohopperHopper {
         /// Gets one hopper by id
         ///
         /// - Parameter (required) Hopper's id
-        fun getHopper(hopperId: String, callback: (Hopper?, HopperAPIError?) -> Unit) {
+        fun getHopper(hopperId: Int, callback: (Hopper?, HopperAPIError?) -> Unit) {
             HopperAPIGetSingleHopperRequest(hopperId).request<HopperAPIGetSingleHopperResponse>({ hopper ->
                 callback(hopper.data?.hopper, null)
             }, { error ->
@@ -1832,6 +1832,7 @@ class CryptohopperHopper {
         }
 
         fun createCopyBot(
+            hopperId: String?,
             copyBotMarketplaceId : String,
             paperTrading: Boolean ,
             apiKey : String? ,
@@ -1844,6 +1845,7 @@ class CryptohopperHopper {
             callback: (String?, HopperAPIError?) -> Unit
         ) {
             HopperAPICopyBotCreateHopperRequest(
+                hopperId = hopperId,
                 copyBotMarketplaceId = copyBotMarketplaceId,
                 paperTrading = paperTrading,
                 apiKey = apiKey,
