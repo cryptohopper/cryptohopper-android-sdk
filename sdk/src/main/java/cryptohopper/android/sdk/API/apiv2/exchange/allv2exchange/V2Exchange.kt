@@ -32,7 +32,8 @@ data class V2Exchange(
     @SerializedName("quoteCurrencies") val quoteCurrencies: List<String>?,
     @SerializedName("images") val images: Map<String?, String?>?,
     @SerializedName("apiConfigFields") val apiConfigFields: List<String>?,
-    @SerializedName("optionalConfigFields") val optionalConfigFields: List<String>?
+    @SerializedName("optionalConfigFields") val optionalConfigFields: List<String>?,
+    @SerializedName("fastApiHook") val fastApiHook: String?
 )
 
 
