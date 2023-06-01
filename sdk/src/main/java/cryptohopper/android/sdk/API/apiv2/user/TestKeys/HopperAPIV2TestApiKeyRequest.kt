@@ -22,22 +22,22 @@ class HopperAPIV2TestApiKeyRequest: HopperAPIRequest<HopperAPIV2TestApiKeyRespon
             addBodyItem("exchange", (exchange?: ""))
         }
         if (apiKey != null) {
-            addBodyItem("apiKey", (apiKey?: ""))
+            addBodyItem("api_key", (apiKey?: ""))
         }
         if (apiSecret != null) {
-            addBodyItem("apiSecret", (apiSecret?: ""))
+            addBodyItem("api_secret", (apiSecret?: ""))
         }
         if (apiPassphrase != null) {
-            addBodyItem("apiPassphrase", (apiPassphrase?: ""))
+            addBodyItem("api_passphrase", (apiPassphrase?: ""))
         }
         if (extraApiKey != null) {
-            addBodyItem("extraApiKey", (extraApiKey?: ""))
+            addBodyItem("extra_api_key", (extraApiKey?: ""))
         }
         if (extraApiSecret != null) {
-            addBodyItem("extraApiSecret", (extraApiSecret?: ""))
+            addBodyItem("extra_api_secret", (extraApiSecret?: ""))
         }
         if (subAccount != null) {
-            addBodyItem("subAccount", (subAccount?: ""))
+            addBodyItem("sub_account", (subAccount?: ""))
         }
     }
 }
