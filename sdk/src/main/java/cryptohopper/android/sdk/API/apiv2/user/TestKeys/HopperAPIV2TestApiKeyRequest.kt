@@ -16,6 +16,7 @@ class HopperAPIV2TestApiKeyRequest: HopperAPIRequest<HopperAPIV2TestApiKeyRespon
         subAccount  : String?,
     ) {
         this.httpMethod = HopperAPIHttpMethod.POST
+        this.changeUrlPath(path = "/test-keys", isV2Endpoint = true)
         this.needsAuthentication = true
         if (exchange != null) {
             addBodyItem("exchange", (exchange?: ""))
