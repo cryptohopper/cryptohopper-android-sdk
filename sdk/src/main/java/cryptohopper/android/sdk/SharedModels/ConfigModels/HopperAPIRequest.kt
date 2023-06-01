@@ -21,6 +21,7 @@ import okhttp3.ConnectionSpec
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.util.concurrent.TimeUnit
 
 
 open class HopperAPIRequest<Object> {
@@ -42,6 +43,9 @@ open class HopperAPIRequest<Object> {
                 ConnectionSpec.COMPATIBLE_TLS
             )
         )
+        .connectTimeout(100, TimeUnit.SECONDS)
+        .writeTimeout(100, TimeUnit.SECONDS)
+        .readTimeout(100, TimeUnit.SECONDS)
         .build()
 
     var httpHeaders: MutableMap<String, String>? = null
