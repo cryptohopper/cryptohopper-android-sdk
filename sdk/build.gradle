@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-    implementation "com.toddway.shelf:shelf-jvm:2.0.6"
+    //implementation "com.toddway.shelf:shelf-jvm:2.0.6"
     implementation "com.google.code.gson:gson:2.8.7"
     implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.2"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
