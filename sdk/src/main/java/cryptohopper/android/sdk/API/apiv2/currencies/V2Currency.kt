@@ -7,7 +7,7 @@ data class V2Currency(
     @SerializedName("name") val name: String?,
     @SerializedName("ticker") val ticker: String?,
     @SerializedName("image") val image: String?,
-    @SerializedName("isStableCoin") val isStableCoin: String?
+    @SerializedName("isStableCoin") val isStableCoin: Boolean?
 )
 
 
