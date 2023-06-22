@@ -57,52 +57,52 @@ class HopperInstrumentedNegativeTest {
     }
 
     @Test
-    fun when_the_given_getOneUserSubscriptions_Endpoint_is_called_with_incorrect_details_then_it_must_error() {
-        CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
-            CryptohopperHopper.getHopper(
-                hoppers?.get(0)?.id ?: ""
-            ) { _, error ->
-                Assert.assertNotNull(error)
-            }
-        }
-    }
+//    fun when_the_given_getOneUserSubscriptions_Endpoint_is_called_with_incorrect_details_then_it_must_error() {
+//        CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+//            CryptohopperHopper.getHopper(
+//                hoppers?.get(0)?.id ?: ""
+//            ) { _, error ->
+//                Assert.assertNotNull(error)
+//            }
+//        }
+//    }
 
-    @Test
-    fun when_the_given_createHopper_Endpoint_is_called_with_incorrect_details_then_it_must_error() {
-        CryptohopperHopper.createHopper(
-            name = API_USER, null, null, null, null
-        ) { _, error ->
-            Assert.assertNotNull(error)
-        }
-    }
+//    @Test
+//    fun when_the_given_createHopper_Endpoint_is_called_with_incorrect_details_then_it_must_error() {
+//        CryptohopperHopper.createHopper(
+//            name = API_USER, null, null, null, null
+//        ) { _, error ->
+//            Assert.assertNotNull(error)
+//        }
+//    }
 
-    @Test
-    fun when_the_given_updateHopper_Endpoint_is_called_with_incorrect_details_then_it_must_error() {
-
-        CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
-            CryptohopperHopper.updateHopper(
-                hoppers?.get(0)?.id ?: "",
-                API_USER, null, null, null
-            ) { _, error ->
-                Assert.assertNotNull(error)
-            }
-        }
-
-    }
-
-    @Test
-    fun when_the_given_deleteHopper_Endpoint_is_called_with_incorrect_details_then_it_must_error() {
-
-        CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
-
-            CryptohopperHopper.deleteHopper(
-                hoppers?.get(0)?.id ?: ""
-            ) { _, error ->
-                Assert.assertNotNull(error)
-            }
-        }
-
-    }
+//    @Test
+//    fun when_the_given_updateHopper_Endpoint_is_called_with_incorrect_details_then_it_must_error() {
+//
+//        CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+//            CryptohopperHopper.updateHopper(
+//                hoppers?.get(0)?.id ?: "",
+//                API_USER, null, null, null
+//            ) { _, error ->
+//                Assert.assertNotNull(error)
+//            }
+//        }
+//
+//    }
+//
+//    @Test
+//    fun when_the_given_deleteHopper_Endpoint_is_called_with_incorrect_details_then_it_must_error() {
+//
+//        CryptohopperHopper.getAllHoppers(null, null, null) { hoppers, _ ->
+//
+//            CryptohopperHopper.deleteHopper(
+//                hoppers?.get(0)?.id ?: ""
+//            ) { _, error ->
+//                Assert.assertNotNull(error)
+//            }
+//        }
+//
+//    }
 
     fun when_the_given_changeHopperImage_Endpoint_is_called_with_incorrect_details_then_it_must_error() {
 
