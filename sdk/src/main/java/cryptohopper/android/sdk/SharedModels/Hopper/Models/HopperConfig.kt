@@ -181,8 +181,14 @@ data class HopperConfig(
     @SerializedName("min_sell_score") var minSellScore: String?,
     @SerializedName("sell_score_corrected") var sellScoreCorrected: String?,
     @SerializedName("buy_score_corrected") var buyScoreCorrected: String?,
+
+    //SellStrategy Added Configs
+    @SerializedName("strategy_sell_in_profit") var strategy_sell_in_profit: Int?,
+    @SerializedName("strategy_sell_in_profit_percentage") var strategy_sell_in_profit_percentage: Double?
 ) {
     constructor() : this(
+        null,
+        null,
         null,
         null,
         null,
