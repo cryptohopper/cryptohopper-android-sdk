@@ -9,12 +9,12 @@ import cryptohopper.android.sdk.API.User.General.RegisterUser.HopperAPIRegisterU
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIHttpMethod
 
 class HopperAPIRegisterUserRequest: HopperAPIRequest<HopperAPIRegisterUserResponse> {
-    
+
     constructor(
         name : String,
         email : String,
         username : String,
-        subscribe_newsletter : Boolean,
+        subscribe : Boolean,
         password : String,
         userAgent: String,
         appCheckToken: String?
@@ -25,7 +25,7 @@ class HopperAPIRegisterUserRequest: HopperAPIRequest<HopperAPIRegisterUserRespon
         addHeader("name", name)
         addHeader("email",  email)
         addHeader("username",  username)
-        addHeader("subscribe_newsletter",  subscribe_newsletter.toString())
+        addHeader("subscribe",  subscribe.toString())
         addHeader("password",  password)
         addHeader( "User-Agent",  userAgent)
 
@@ -33,5 +33,5 @@ class HopperAPIRegisterUserRequest: HopperAPIRequest<HopperAPIRegisterUserRespon
             addHeader("X-Firebase-AppCheck",(appCheckToken?: ""))
         }
     }
-    
+
 }
