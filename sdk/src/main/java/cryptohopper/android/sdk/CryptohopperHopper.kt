@@ -18,6 +18,8 @@ import cryptohopper.android.sdk.API.Hopper.Position.ReleaseShortPosition.HopperA
 import cryptohopper.android.sdk.API.Hopper.Position.SyncPosition.HopperAPISyncPositionRequest
 import cryptohopper.android.sdk.API.Hopper.Stats.GetStats.HopperAPIGetHopperStatsResponse
 import cryptohopper.android.sdk.API.Hopper.Stats.GetStats.HopperStats
+import cryptohopper.android.sdk.API.Hopper.Troubleshooter.HopperAPIGetTroubleshooterRequest
+import cryptohopper.android.sdk.API.Hopper.Troubleshooter.HopperAPITroubleshooterAPIResponse
 import cryptohopper.android.sdk.API.Hopper.activities.HopperAPIGetActivityData
 import cryptohopper.android.sdk.API.Hopper.activities.HopperAPIGetActivityRequest
 import cryptohopper.android.sdk.API.Hopper.activities.HopperAPIGetActivityResponse
@@ -26,6 +28,7 @@ import cryptohopper.android.sdk.API.Purchase.General.HopperAPIPurchaseResponse
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIError
 import cryptohopper.android.sdk.SharedModels.Hopper.Models.HopperOutput
 import cryptohopper.android.sdk.SharedModels.Hopper.Models.HopperTradeHistory
+import cryptohopper.android.sdk.SharedModels.Hopper.Models.TroubleshooterItem
 import java.util.*
 
 class CryptohopperHopper {
@@ -1857,6 +1860,20 @@ class CryptohopperHopper {
                 isSandbox = isSandbox
             ).request<HopperAPIPurchaseResponse>({ data ->
                 callback(data.message, null)
+            }, { error ->
+                callback(null, error)
+            })
+        }
+
+        /// Get Troubleshooter data
+        ///
+        /// - Parameter hopperId:  (required) Hopper Id
+        fun getTroubleshooter(
+            hopperId: String,
+            callback: (List<TroubleshooterItem>?, HopperAPIError?) -> Unit
+        ) {
+            HopperAPIGetTroubleshooterRequest(hopperId).request<HopperAPITroubleshooterAPIResponse>({ data ->
+                callback(data.data?.troubleshooter, null)
             }, { error ->
                 callback(null, error)
             })
