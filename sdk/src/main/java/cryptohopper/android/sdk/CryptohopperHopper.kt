@@ -1844,7 +1844,11 @@ class CryptohopperHopper {
             hopperId: String,
             callback: (List<TroubleshooterItem>?, HopperAPIError?) -> Unit
         ) {
-            HopperAPIGetTroubleshooterRequest(hopperId).request<HopperAPITroubleshooterAPIResponse>({ data ->
+            HopperAPIGetTroubleshooterRequest(
+                hopperId,
+                "app",
+                "en"
+            ).request<HopperAPITroubleshooterAPIResponse>({ data ->
                 callback(data.data?.troubleshooter, null)
             }, { error ->
                 callback(null, error)
