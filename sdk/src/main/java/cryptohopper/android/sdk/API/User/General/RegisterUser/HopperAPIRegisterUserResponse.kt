@@ -12,5 +12,6 @@ data class HopperAPIRegisterUserResponse (
 
 data class HopperRegisterData (
         @SerializedName("user_id") val userId: String?,
-        @SerializedName("message") val message: String?
+        @SerializedName("message") val message: String?,
+        @SerializedName("user_activation_needed") val userActivationNeeded: String?
 )
