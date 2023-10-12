@@ -34,5 +34,9 @@ data class HopperPosition(
     @SerializedName("sold") val sold: String?,
     @SerializedName("cost") val cost: String?,
     @SerializedName("tsl_enabled") val tslEnabled: String?,
-    @SerializedName("dca_enabled") val dcaEnabled: String?
+    @SerializedName("dca_enabled") val dcaEnabled: String?,
+    @SerializedName("trailing_stop_loss_enabled") val trailingStopLossEnabled: String?,
+    @SerializedName("trailing_stop_loss_only") val trailingStopLossOnly: String?,
+    @SerializedName("stop_loss_enabled") val stopLossEnabled: String?,
+    @SerializedName("auto_close_enabled") val autoCloseEnabled: String?
 )

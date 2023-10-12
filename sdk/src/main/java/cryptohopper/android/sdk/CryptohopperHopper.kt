@@ -763,27 +763,13 @@ class CryptohopperHopper {
         fun updatePosition(
             hopperId: String,
             positionId: Int,
-            takeProfit: Double,
-            stopLoss: Int,
-            stopLossPercentage: Double,
-            trailingStopLoss: Int,
-            trailingStopLossPercentage: Double,
-            trailingStopLossArm: Double,
-            autoClose: Int,
-            autoCloseTime: Long,
+            values: MutableMap<String,Any>,
             callback: (String?, HopperAPIError?) -> Unit
         ) {
             HopperAPIUpdatePositionRequest(
                 hopperId,
                 positionId,
-                takeProfit,
-                stopLoss,
-                stopLossPercentage,
-                trailingStopLoss,
-                trailingStopLossPercentage,
-                trailingStopLossArm,
-                autoClose,
-                autoCloseTime
+                values
             ).request<HopperCommonMessageResponse>({ data ->
                 callback(data.data, null)
             }, { error ->
@@ -806,27 +792,13 @@ class CryptohopperHopper {
         fun updateShortPosition(
             hopperId: String,
             shortId: Int,
-            takeProfit: Double,
-            stopLoss: Int,
-            stopLossPercentage: Double,
-            trailingStopLoss: Int,
-            trailingStopLossPercentage: Double,
-            trailingStopLossArm: Double,
-            autoCloseTime: Long,
-            autoRemoveTime: Long,
+            values: MutableMap<String,Any>,
             callback: (String?, HopperAPIError?) -> Unit
         ) {
             HopperAPIUpdateShortPositionRequest(
                 hopperId,
                 shortId,
-                takeProfit,
-                stopLoss,
-                stopLossPercentage,
-                trailingStopLoss,
-                trailingStopLossPercentage,
-                trailingStopLossArm,
-                autoCloseTime,
-                autoRemoveTime
+                values
             ).request<HopperCommonMessageResponse>({ data ->
                 callback(data.data, null)
             }, { error ->
