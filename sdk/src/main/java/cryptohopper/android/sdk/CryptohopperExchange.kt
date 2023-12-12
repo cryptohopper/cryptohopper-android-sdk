@@ -1,6 +1,10 @@
 import cryptohopper.android.sdk.API.Exchange.GetExchangeWhitelistIP.CHIPWhitelist
 import cryptohopper.android.sdk.API.Exchange.GetExchangeWhitelistIP.HopperAPIGetExchangeWhitelistIPRequest
 import cryptohopper.android.sdk.API.Exchange.GetExchangeWhitelistIP.HopperAPIGetExchangeWhitelistIPResponse
+import cryptohopper.android.sdk.API.Exchange.GetPortalExchangeKeyMaps.HopperAPIGetPortalExchangeKeyMapsRequest
+import cryptohopper.android.sdk.API.Exchange.GetPortalExchangeKeyMaps.HopperAPIGetPortalExchangeKeyMapsResponse
+import cryptohopper.android.sdk.API.Exchange.GetPortalExchangePairMaps.HopperAPIGetPortalExchangePairMapsRequest
+import cryptohopper.android.sdk.API.Exchange.GetPortalExchangePairMaps.HopperAPIGetPortalExchangePairMapsResponse
 import cryptohopper.android.sdk.SharedModels.ConfigModels.HopperAPIError
 import java.util.*
 
@@ -318,5 +322,33 @@ class CryptohopperExchange {
                 callback(null, error)
             })
         }
+    }
+
+    /// Get Portal Exchange Key Maps
+
+    fun getPortalExchangeKeyMaps(
+        callback: (Map<String, String>?, HopperAPIError?) -> Unit
+    ) {
+        HopperAPIGetPortalExchangeKeyMapsRequest("").request<HopperAPIGetPortalExchangeKeyMapsResponse>(
+            { data ->
+                callback(data.maps, null)
+            },
+            { error ->
+                callback(null, error)
+            })
+    }
+
+    /// Get Portal Exchange Key Maps
+    fun getAllTickersOfExchange(
+        exchangeKey: String,
+        callback: (Map<String, String>?, HopperAPIError?) -> Unit
+    ) {
+        HopperAPIGetPortalExchangePairMapsRequest(exchangeKey).request<HopperAPIGetPortalExchangePairMapsResponse>(
+            { data ->
+                callback(data.maps, null)
+            },
+            { error ->
+                callback(null, error)
+            })
     }
 }
