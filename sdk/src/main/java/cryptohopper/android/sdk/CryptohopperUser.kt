@@ -3,6 +3,7 @@ import cryptohopper.android.sdk.API.Platform.Countries.HopperAPIGetPlatformCount
 import cryptohopper.android.sdk.API.Platform.Countries.HopperAPIPlatformCountriesResponse
 import cryptohopper.android.sdk.API.User.Check2FAReset.HopperAPICheck2FAResetRequest
 import cryptohopper.android.sdk.API.User.CheckPasswordReset.HopperAPICheckPasswordResetRequest
+import cryptohopper.android.sdk.API.User.General.DeleteUser.HopperAPIDeleteUserRequest
 import cryptohopper.android.sdk.API.User.General.GetMobileNotifications.HopperAPIUpdateGetMobileNotificationRequest
 import cryptohopper.android.sdk.API.User.General.GetMobileNotifications.HopperAPIUpdateGetMobileNotificationResponse
 import cryptohopper.android.sdk.API.User.General.RegisterUser.HopperAPIRegisterUserResponse
@@ -408,6 +409,17 @@ class CryptohopperUser {
                 callback(null, error)
             })
         }
+        /// Delete User
+        ///
+        ///
+        fun deleteUser(callback: (String?, HopperAPIError?) -> Unit) {
+            HopperAPIDeleteUserRequest("").request<HopperCommonMessageResponse>({ data ->
+                callback(data.data, null)
+            }, { error ->
+                callback(null, error)
+            })
+        }
+
 
         /// Get One Subscription Plan
         ///
