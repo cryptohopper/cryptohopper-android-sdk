@@ -27,6 +27,7 @@ class HopperAPICreateOrderRequest: HopperAPIRequest<HopperCommonMessageResponse>
         addBodyItem( "stop_loss_percentage",  stopLossPercentage)
         addBodyItem( "trailing_stop_loss_percentage",  trailingStopLossPercentage)
         addBodyItem( "trailing_arm_percentage",  trailingArmPercentage)
+        addBodyItem("manual",1)
     }
     
 }
