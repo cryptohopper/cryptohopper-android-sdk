@@ -17,6 +17,7 @@ data class HopperConfig(
     @SerializedName("api_key") var api_key: String?,
     @SerializedName("api_secret") var api_secret: String?,
     @SerializedName("api_key_type") var api_key_type: String?,
+    @SerializedName("fast_api_connected") var fast_api_connected: String?,
     @SerializedName("stop_buying") var stop_buying: String?,
     @SerializedName("stop_selling") var stop_selling: String?,
     @SerializedName("paper_trading") var paper_trading: String?,
@@ -188,6 +189,7 @@ data class HopperConfig(
     @SerializedName("strategy_sell_in_profit_percentage") var strategy_sell_in_profit_percentage: Double?
 ) {
     constructor() : this(
+        null,
         null,
         null,
         null,
