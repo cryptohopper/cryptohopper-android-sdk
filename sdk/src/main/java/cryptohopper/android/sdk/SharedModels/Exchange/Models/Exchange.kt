@@ -26,5 +26,6 @@ data class Exchange (
     @SerializedName("premium_partner") val preiumPartner: String?,
     @SerializedName("maintenance") val maintence: Int?,
     @SerializedName("maintenance_message") val maintanceMessage: String?,
-    @SerializedName("optional_config_fields") val optionalConfigFields: List<String>?
+    @SerializedName("optional_config_fields") val optionalConfigFields: List<String>?,
+    @SerializedName("fast_api_hook") val fastApiHook: String?
 )
