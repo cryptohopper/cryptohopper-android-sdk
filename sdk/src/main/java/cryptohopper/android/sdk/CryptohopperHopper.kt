@@ -1,5 +1,6 @@
 import cryptohopper.android.sdk.API.Exchange.GetExchangeWhitelistIP.CHIPWhitelist
 import cryptohopper.android.sdk.API.Hopper.Balance.EditStartBalance.HopperAPIEditStartBalanceRequest
+import cryptohopper.android.sdk.API.Hopper.FastApi.HopperFastApiDisconnectRequest
 import cryptohopper.android.sdk.API.Hopper.General.CreateHopper.HopperAPICreateHopperModel
 import cryptohopper.android.sdk.API.Hopper.General.CreateHopper.HopperAPICreateHopperResponse
 import cryptohopper.android.sdk.API.Hopper.General.GetAssets.HopperAPIGetAssetsRequest
@@ -1850,6 +1851,17 @@ class CryptohopperHopper {
                 "en"
             ).request<HopperAPITroubleshooterAPIResponse>({ data ->
                 callback(data.data?.troubleshooter, null)
+            }, { error ->
+                callback(null, error)
+            })
+        }
+
+        /// Disconnect Fast Connect
+        ///
+        /// - Parameter hopperId:  (required) Hopper Id
+        fun disconnectFastAPI(hopperId: String, callback: (String?, HopperAPIError?) -> Unit) {
+            HopperFastApiDisconnectRequest(hopperId).request<HopperCommonMessageResponse>({ message ->
+                callback(message.data, null)
             }, { error ->
                 callback(null, error)
             })
