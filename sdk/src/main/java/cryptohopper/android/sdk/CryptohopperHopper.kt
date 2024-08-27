@@ -1161,11 +1161,13 @@ class CryptohopperHopper {
         fun splitOnePosition(
             hopperId: String,
             positionId: Int,
+            percentage: String? = "",
             callback: (String?, HopperAPIError?) -> Unit
         ) {
             HopperAPISplitOnePositionRequest(
                 hopperId,
-                positionId
+                positionId,
+                percentage
             ).request<HopperCommonMessageResponse>({ data ->
                 callback(data.data, null)
             }, { error ->
