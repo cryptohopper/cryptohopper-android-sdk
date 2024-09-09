@@ -137,6 +137,8 @@ data class HopperConfig(
     @SerializedName("advanced_ta_kama_necessary") var advanced_ta_kama_necessary: String?,
     @SerializedName("stop_loss") var stop_loss: String?,
     @SerializedName("stop_loss_percentage") var stop_loss_percentage: String?,
+    @SerializedName("stop_loss_timeout_count") var stop_loss_timeout_count: String?,
+    @SerializedName("stop_loss_timeout_val") var stop_loss_timeout_val : String?,
     @SerializedName("trailing_buy") var trailing_buy: String?,
     @SerializedName("stop_loss_trailing") var stop_loss_trailing: String?,
     @SerializedName("stop_loss_trailing_percentage") var stop_loss_trailing_percentage: String?,
@@ -189,6 +191,8 @@ data class HopperConfig(
     @SerializedName("strategy_sell_in_profit_percentage") var strategy_sell_in_profit_percentage: Double?
 ) {
     constructor() : this(
+        null,
+        null,
         null,
         null,
         null,
